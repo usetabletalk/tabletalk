@@ -2,8 +2,6 @@ import { useRouter } from "expo-router";
 import React from "react";
 import { FlatList, Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Feather } from "@expo/vector-icons";
-
 import { useColors } from "@/hooks/useColors";
 import { SCENARIOS } from "@/data/scenarios";
 
@@ -36,11 +34,6 @@ export default function PracticeScreen() {
         ]}
         onPress={() => router.push(`/scenario/${item.id}`)}
       >
-        <View style={styles.cardHeader}>
-          <View style={[styles.iconContainer, { backgroundColor: colors.background }]}>
-            <Feather name="message-circle" size={18} color={colors.foreground} />
-          </View>
-        </View>
         <Text style={[styles.cardTitle, { color: colors.foreground }]}>
           {item.title}
         </Text>
@@ -111,19 +104,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 8,
     elevation: 2,
-  },
-  iconContainer: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 12,
-  },
-  cardHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
   },
   cardTitle: {
     fontFamily: "Inter_600SemiBold",
