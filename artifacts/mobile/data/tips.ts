@@ -35,6 +35,13 @@ export const TIPS: Tip[] = [
     content: "Many licorice candies (like Twizzlers or Red Vines) list wheat flour as their second ingredient. Always check candy labels!",
   },
   {
+    id: "t15",
+    categoryId: "hidden-gluten",
+    title: "Kissing & Saliva",
+    content: "Saliva can carry gluten for several hours after someone eats it. If a partner, family member, or friend has eaten gluten and then kisses you on the lips, that contact can be enough to cause a reaction. The solution is simple and worth mentioning to the people close to you: brushing teeth or swishing thoroughly with water beforehand makes it safe. It's an awkward conversation the first time, but most people are genuinely happy to know — and relieved there's an easy fix.",
+    isImportant: true,
+  },
+  {
     id: "t13",
     categoryId: "hidden-gluten",
     title: "Barley & Malt",
