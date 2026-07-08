@@ -199,14 +199,54 @@ export const SCENARIOS: Scenario[] = [
           {
             id: "explain_soy",
             text: "Ah, unfortunately regular soy sauce has wheat in it, so I can't have it. But I really appreciate you making it!",
-            nextStepId: "end_sauce",
+            nextStepId: "bob_dismisses_soy",
           },
         ],
       },
-      end_sauce: {
-        id: "end_sauce",
+      bob_dismisses_soy: {
+        id: "bob_dismisses_soy",
+        speaker: "other",
+        text: "Uncle Bob: 'Oh come on, it's a teeny tiny amount of soy sauce. You can't tell me that's actually going to make a difference.'",
+        options: [
+          {
+            id: "explain_medical",
+            text: "It really does — celiac is an autoimmune disease. Even a tiny amount triggers my immune system to attack my own intestines. It's not about how it tastes or feels right now; it causes real damage.",
+            nextStepId: "bob_still_dismisses",
+          },
+          {
+            id: "deflect_kindly",
+            text: "I know it seems strange, but my doctor has been very clear. I don't want this to put a damper on the day — I'm just so happy to be here with everyone!",
+            nextStepId: "end_sauce_kind",
+          },
+        ],
+      },
+      bob_still_dismisses: {
+        id: "bob_still_dismisses",
+        speaker: "other",
+        text: "Uncle Bob: 'I just think people are too sensitive these days. You used to eat everything as a kid.'",
+        options: [
+          {
+            id: "hold_ground",
+            text: "Celiac can actually develop or worsen at any age. I know my body now, and I've learned the hard way what happens when I ignore it. I'm not trying to make things difficult — I just need to keep myself healthy.",
+            nextStepId: "end_sauce_firm",
+          },
+          {
+            id: "drop_it",
+            text: "I understand. Let's just enjoy the day — I'll grab something else from the table.",
+            nextStepId: "end_sauce_kind",
+          },
+        ],
+      },
+      end_sauce_firm: {
+        id: "end_sauce_firm",
         speaker: "app",
-        text: "Perfect. You were polite but firm. It's totally okay to decline food when you know an ingredient isn't safe.",
+        text: "Really well done. Standing your ground when someone dismisses a medical condition is hard, especially with family. You explained it clearly and without anger. That takes real strength.",
+        isEnd: true,
+      },
+      end_sauce_kind: {
+        id: "end_sauce_kind",
+        speaker: "app",
+        text: "You kept the peace and stayed safe — both valid goals. You don't owe anyone a medical lecture. Sometimes redirecting with warmth is exactly the right call.",
         isEnd: true,
       },
       bob_reply_2: {
@@ -225,7 +265,7 @@ export const SCENARIOS: Scenario[] = [
           {
             id: "firm_decline",
             text: "I know you did, and it smells amazing! But even a crumb makes me really sick for days. I'm just going to eat what I brought, but I'm so happy to be here with everyone.",
-            nextStepId: "end_brought_food",
+            nextStepId: "bob_dismisses_choice",
           },
           {
             id: "soft_decline",
@@ -242,10 +282,50 @@ export const SCENARIOS: Scenario[] = [
           { id: "try_again", text: "Let's try that again", nextStepId: "bob_reply_2_actual" },
         ],
       },
+      bob_dismisses_choice: {
+        id: "bob_dismisses_choice",
+        speaker: "other",
+        text: "Uncle Bob: 'You're being dramatic. My neighbor's kid has celiac and eats whatever he wants at parties. I really think you're making this harder than it needs to be.'",
+        options: [
+          {
+            id: "educate_bob",
+            text: "Everyone with celiac is different. Some people don't feel symptoms right away but are still damaging their gut silently. My doctor has been very clear that I need to be strict, and I trust that.",
+            nextStepId: "bob_keeps_pushing",
+          },
+          {
+            id: "set_boundary",
+            text: "I hear you, and I know it's hard to understand from the outside. But this is my health and my body, and I need to make this call for myself. I really do love you and I'm so glad to be here.",
+            nextStepId: "end_boundary_set",
+          },
+        ],
+      },
+      bob_keeps_pushing: {
+        id: "bob_keeps_pushing",
+        speaker: "other",
+        text: "Uncle Bob: 'Well, I still think it's all in your head, but fine. Do what you want.'",
+        options: [
+          {
+            id: "let_it_go",
+            text: "I know we see this differently, and that's okay. I'm not going to let it ruin our time together. Now — tell me about that potato salad, is that your mom's recipe?",
+            nextStepId: "end_brought_food",
+          },
+          {
+            id: "one_more_time",
+            text: "It's not in my head — it's a diagnosis, and it's real. But I don't want to argue. Let's just enjoy the day.",
+            nextStepId: "end_brought_food",
+          },
+        ],
+      },
+      end_boundary_set: {
+        id: "end_boundary_set",
+        speaker: "app",
+        text: "Perfectly handled. You named the dynamic, honored your own needs, and kept love in the room. You don't have to convince everyone — you just have to protect yourself.",
+        isEnd: true,
+      },
       end_brought_food: {
         id: "end_brought_food",
         speaker: "app",
-        text: "Beautifully handled. You validated his effort while holding your boundary firmly. This gets easier every time you do it!",
+        text: "That's the right move — redirect, stay warm, and don't get pulled into a debate you can't win right now. You held your ground through real pushback. That's hard, and you did it.",
         isEnd: true,
       },
     },
