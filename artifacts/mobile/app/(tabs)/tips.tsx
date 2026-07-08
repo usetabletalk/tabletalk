@@ -71,7 +71,7 @@ export default function TipsScreen() {
     return CATEGORIES.map((cat, index) => {
       const tintOptions = [colors.tints.rose, colors.tints.lemon, colors.tints.lavender, colors.tints.mint];
       const tint = tintOptions[index % tintOptions.length];
-      const allTips = TIPS.filter((t) => t.categoryId === cat.id);
+      const allTips = TIPS.filter((t) => t.categoryId === cat.id).slice().sort((a, b) => a.title.localeCompare(b.title));
       const isCollapsed = !!collapsed[cat.id];
       return {
         categoryId: cat.id,
@@ -268,12 +268,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 8,
     paddingVertical: 16,
-  },
-  importantDot: {
-    width: 7,
-    height: 7,
-    borderRadius: 4,
-    flexShrink: 0,
   },
   cardHeaderRight: {
     flexDirection: "row",

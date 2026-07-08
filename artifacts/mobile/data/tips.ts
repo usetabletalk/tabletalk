@@ -5,7 +5,6 @@ export type Tip = {
   categoryId: TipCategory;
   title: string;
   content: string;
-  isImportant?: boolean;
 };
 
 export const TIPS: Tip[] = [
@@ -14,7 +13,6 @@ export const TIPS: Tip[] = [
     categoryId: "hidden-gluten",
     title: "Soy Sauce",
     content: "Traditional soy sauce is brewed with wheat. Always look for 'Tamari' or specifically labeled Gluten-Free soy sauce. If a restaurant marinates their meat, always ask if they use soy sauce.",
-    isImportant: true,
   },
   {
     id: "t2",
@@ -39,28 +37,24 @@ export const TIPS: Tip[] = [
     categoryId: "hidden-gluten",
     title: "Kissing & Saliva",
     content: "Saliva can carry gluten for several hours after someone eats it. If a partner, family member, or friend has eaten gluten and then kisses you on the lips, that contact can be enough to cause a reaction. The solution is simple and worth mentioning to the people close to you: brushing teeth or swishing thoroughly with water beforehand makes it safe. It's an awkward conversation the first time, but most people are genuinely happy to know — and relieved there's an easy fix.",
-    isImportant: true,
   },
   {
     id: "t13",
     categoryId: "hidden-gluten",
     title: "Barley & Malt",
     content: "Barley contains gluten and hides in many surprising places. Malt flavoring, malt vinegar, and malt extract are all derived from barley — check cereals, flavored chips, malted milkshakes, and some chocolates. Beer is also made from barley (look for dedicated gluten-free beers instead). On labels, watch for: 'barley malt,' 'malt extract,' 'malt syrup,' or just 'malt flavoring.'",
-    isImportant: true,
   },
   {
     id: "t12",
     categoryId: "hidden-gluten",
     title: "Sauces, Gravies & Soups",
     content: "Wheat flour is one of the most common thickening agents used in commercial and restaurant cooking. Gravies, pan sauces, cream soups, stews, and roux-based dishes (like gumbo or macaroni cheese) are very likely to contain it. Even a clear-looking broth can be thickened with flour. Safe alternatives exist — cornstarch, arrowroot, and rice flour all thicken without gluten — but always ask specifically: 'Is this thickened with flour?'",
-    isImportant: true,
   },
   {
     id: "t5",
     categoryId: "kitchen-safety",
     title: "The Toaster Rule",
     content: "You need your own dedicated gluten-free toaster. Crumbs accumulate and burn, and putting GF bread in a shared toaster is a major cross-contamination risk. A cheap separate toaster is a lifesaver.",
-    isImportant: true,
   },
   {
     id: "t6",
@@ -79,28 +73,24 @@ export const TIPS: Tip[] = [
     categoryId: "kitchen-safety",
     title: "Wooden Spoons & Rolling Pins",
     content: "Wood is porous — gluten gets into the tiny grooves and scratches and won't fully wash out, even with soap and hot water. If a wooden spoon or rolling pin has ever been used with regular flour or pasta, it is not safe for GF cooking. Replace them with silicone or metal alternatives, or keep a dedicated set that has only ever touched gluten-free food.",
-    isImportant: true,
   },
   {
     id: "t11",
     categoryId: "kitchen-safety",
     title: "Air Fryers",
     content: "Air fryers are almost impossible to fully decontaminate in a shared kitchen. The mesh basket, heating element, and interior walls trap crumbs and grease that are very hard to reach. If your household uses the air fryer for breaded foods, gluten-containing crumbs are likely embedded in it. Ideally, have a dedicated GF air fryer — or skip it and use the oven with a lined baking tray you control.",
-    isImportant: true,
   },
   {
     id: "t8",
     categoryId: "eating-out",
     title: "The Fryer Problem",
     content: "Even if french fries are just potatoes, if they are cooked in the same oil as breaded chicken or onion rings, they are heavily contaminated. Always ask: 'Is there a dedicated gluten-free fryer?'",
-    isImportant: true,
   },
   {
     id: "t14",
     categoryId: "eating-out",
     title: "Gloves, Surfaces & Prep Areas",
     content: "A kitchen that handles gluten all day has flour and crumbs on every surface — including the hands of the staff. The three things that make the biggest difference are: fresh gloves (not just wiped hands), a clean prep surface that hasn't been used for gluten items, and ideally a dedicated area or section of the kitchen for allergen orders. When ordering, it's completely reasonable to ask: 'Can you change gloves and use a clean surface for my order?' A kitchen that takes celiac seriously will say yes without hesitation.",
-    isImportant: true,
   },
   {
     id: "t9",
