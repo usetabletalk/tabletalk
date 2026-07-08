@@ -416,13 +416,13 @@ export const SCENARIOS: Scenario[] = [
       end_sauce_firm: {
         id: "end_sauce_firm",
         speaker: "app",
-        text: "Really well done. Standing your ground when someone dismisses a medical condition is hard, especially with family. You explained it clearly and without anger. That takes real strength.",
+        text: "Really well done. A person who stays dismissive after a clear explanation isn't interested in your safety — that's not something you can fix in a single conversation. That's exactly why bringing backup food you prepared yourself is always the right move. You explained it clearly and without anger. That takes real strength.",
         isEnd: true,
       },
       end_sauce_kind: {
         id: "end_sauce_kind",
         speaker: "app",
-        text: "You kept the peace and stayed safe — both valid goals. You don't owe anyone a medical lecture. Sometimes redirecting with warmth is exactly the right call.",
+        text: "You kept the peace and stayed safe. A dismissive person isn't going to change in the middle of a cookout — and that's okay. You don't owe anyone a medical lecture. This is exactly why backup snacks exist: so you're never dependent on someone else's understanding to eat safely.",
         isEnd: true,
       },
       bob_reply_2: {
@@ -495,13 +495,13 @@ export const SCENARIOS: Scenario[] = [
       end_boundary_set: {
         id: "end_boundary_set",
         speaker: "app",
-        text: "Perfectly handled. You named the dynamic, honored your own needs, and kept love in the room. You don't have to convince everyone — you just have to protect yourself.",
+        text: "Perfectly handled. When someone insists it's all in your head, they've made clear they're not a reliable safety partner — and that's information worth having. You don't have to convince everyone. You just have to protect yourself. That's exactly why backup snacks exist.",
         isEnd: true,
       },
       end_brought_food: {
         id: "end_brought_food",
         speaker: "app",
-        text: "That's the right move — redirect, stay warm, and don't get pulled into a debate you can't win right now. You held your ground through real pushback. That's hard, and you did it.",
+        text: "That's exactly right. Someone who stays dismissive after you've explained yourself isn't going to keep you safe — and you can't make them. You redirect, stay warm, and rely on the food you brought yourself. Backup snacks aren't a workaround; they're the plan. You did it.",
         isEnd: true,
       },
       // ── Receptive Relative mode ──────────────────────────────────────────────
@@ -717,7 +717,7 @@ export const SCENARIOS: Scenario[] = [
       end_own_food: {
         id: "end_own_food",
         speaker: "app",
-        text: "A completely valid choice. Eating food you prepared yourself is always the safest option at any event. You handled the situation with grace — no apology needed.",
+        text: "A completely valid choice. A person who won't check isn't interested in your safety — that's not a reflection on you. Eating food you brought yourself is always the safest option at any event, and this is exactly why. No apology needed, and no regrets.",
         isEnd: true,
       },
       tip_flag_warning: {
