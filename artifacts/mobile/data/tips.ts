@@ -45,6 +45,12 @@ export const TIPS: Tip[] = [
     content: "Barley contains gluten and hides in many surprising places. Malt flavoring, malt vinegar, and malt extract are all derived from barley — check cereals, flavored chips, malted milkshakes, and some chocolates. Beer is also made from barley (look for dedicated gluten-free beers instead). On labels, watch for: 'barley malt,' 'malt extract,' 'malt syrup,' or just 'malt flavoring.'",
   },
   {
+    id: "t17",
+    categoryId: "hidden-gluten",
+    title: "Taco Seasoning",
+    content: "Many store-bought taco seasoning packets use wheat flour or modified food starch (which can be wheat-based) as a filler or anti-caking agent. This includes some of the most common brands. Always read the label — look for 'contains wheat' or 'wheat' in the ingredients list. Safe alternatives are easy to find: several brands make certified gluten-free packets, or you can make your own blend with chili powder, cumin, garlic powder, onion powder, smoked paprika, and salt.",
+  },
+  {
     id: "t12",
     categoryId: "hidden-gluten",
     title: "Sauces, Gravies & Soups",
