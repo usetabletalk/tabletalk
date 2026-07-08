@@ -11,7 +11,7 @@ import {
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Feather } from "@expo/vector-icons";
+import { Feather, Ionicons } from "@expo/vector-icons";
 
 import { useColors } from "@/hooks/useColors";
 import { useAppState } from "@/contexts/AppStateContext";
@@ -97,10 +97,10 @@ export default function TipsScreen() {
             onPress={() => toggleSavedTip(item.id)}
             hitSlop={8}
           >
-            <Feather
-              name="heart"
-              size={20}
-              color={isSaved ? colors.primary : colors.mutedForeground}
+            <Ionicons
+              name={isSaved ? "heart" : "heart-outline"}
+              size={22}
+              color={isSaved ? colors.destructive : colors.mutedForeground}
             />
           </Pressable>
         </View>
