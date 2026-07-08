@@ -105,6 +105,12 @@ export const TIPS: Tip[] = [
     content: "A kitchen that handles gluten all day has flour and crumbs on every surface — including the hands of the staff. The three things that make the biggest difference are: fresh gloves (not just wiped hands), a clean prep surface that hasn't been used for gluten items, and ideally a dedicated area or section of the kitchen for allergen orders. When ordering, it's completely reasonable to ask: 'Can you change gloves and use a clean surface for my order?' A kitchen that takes celiac seriously will say yes without hesitation.",
   },
   {
+    id: "t19",
+    categoryId: "travel",
+    title: "ADA & No-Food Policies",
+    content: "Celiac disease qualifies as a disability under the Americans with Disabilities Act (ADA). This means venues and events that have a 'no outside food or drink' policy are generally required to provide reasonable accommodations — including allowing you to bring your own safe food in.\n\nHow to handle it: contact the venue ahead of time, explain that you have a medical condition requiring a special diet, and ask for accommodation in writing if possible. Most venues will say yes without much pushback once they know it's a medical need.\n\nAt the door: if staff question your snacks, calmly say: 'I have celiac disease, which is a disability covered by the ADA. I'm not able to safely eat the food sold here and I need to bring my own.' You don't owe anyone a long explanation, and you don't need a doctor's note on hand — though having one on your phone as a PDF can make conversations easier.\n\nThis applies to concerts, sporting events, theme parks, theaters, and other public venues. Private clubs and some religious organizations have different rules, but most commercial venues are covered.",
+  },
+  {
     id: "t16",
     categoryId: "travel",
     title: "Snacks",
