@@ -23,7 +23,7 @@ const queryClient = new QueryClient();
 
 function RootLayoutNav() {
   return (
-    <Stack screenOptions={{ headerBackTitle: "Back", headerTintColor: "#D47761" }}>
+    <Stack screenOptions={{ headerBackTitle: "Back", headerTintColor: "#E0603C" }}>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="scenario/[id]" options={{ presentation: "card", headerTitle: "Practice" }} />
     </Stack>

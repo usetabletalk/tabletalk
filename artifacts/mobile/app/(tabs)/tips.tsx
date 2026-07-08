@@ -84,8 +84,6 @@ export default function TipsScreen() {
           styles.card,
           {
             backgroundColor: colors.card,
-            borderColor: item.isImportant ? colors.primary : "transparent",
-            borderWidth: item.isImportant ? 2 : 0,
             borderRadius: colors.radius,
           },
         ]}
@@ -150,7 +148,12 @@ export default function TipsScreen() {
   );
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: colors.background, paddingTop: insets.top },
+      ]}
+    >
       <SectionList
         sections={sections}
         keyExtractor={(item) => item.id}
@@ -162,7 +165,7 @@ export default function TipsScreen() {
         ]}
         stickySectionHeadersEnabled={false}
         ListHeaderComponent={
-          <View style={[styles.header, { paddingTop: insets.top + 24 }]}>
+          <View style={[styles.header, { paddingTop: 24 }]}>
             <Text style={[styles.title, { color: colors.foreground }]}>
               Tips & Tricks
             </Text>

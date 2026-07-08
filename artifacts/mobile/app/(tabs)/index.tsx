@@ -62,7 +62,12 @@ export default function PracticeScreen() {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: colors.background, paddingTop: insets.top },
+      ]}
+    >
       <FlatList
         data={SCENARIOS}
         keyExtractor={(item) => item.id}
@@ -72,7 +77,7 @@ export default function PracticeScreen() {
           { paddingBottom: insets.bottom + 100 },
         ]}
         ListHeaderComponent={
-          <View style={[styles.header, { backgroundColor: colors.secondary, paddingTop: insets.top + 24 }]}>
+          <View style={[styles.header, { backgroundColor: colors.secondary, paddingTop: 24 }]}>
             <Text style={[styles.title, { color: colors.secondaryForeground }]}>
               Practice Conversations
             </Text>

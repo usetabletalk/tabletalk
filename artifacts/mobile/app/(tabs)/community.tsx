@@ -35,14 +35,19 @@ export default function CommunityScreen() {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: colors.background, paddingTop: insets.top },
+      ]}
+    >
       <ScrollView
         contentContainerStyle={[
           styles.content,
           { paddingBottom: insets.bottom + 100 },
         ]}
       >
-        <View style={[styles.header, { paddingTop: insets.top + 24 }]}>
+        <View style={[styles.header, { paddingTop: 24 }]}>
           <Text style={[styles.title, { color: colors.foreground }]}>
             You Are Not Alone
           </Text>
