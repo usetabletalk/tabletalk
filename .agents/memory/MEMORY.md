@@ -1,0 +1,1 @@
+- [Mode-based scenario architecture](scenario-modes.md) — how NPC personality selection works before a conversation starts; key design constraints for adding future modes.

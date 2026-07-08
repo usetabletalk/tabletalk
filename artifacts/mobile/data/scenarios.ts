@@ -10,6 +10,14 @@ export type ScenarioStep = {
   isEnd?: boolean;
 };
 
+export type ScenarioMode = {
+  id: string;
+  label: string;
+  description: string;
+  emoji: string;
+  firstStepId: string;
+};
+
 export type Scenario = {
   id: string;
   title: string;
@@ -17,6 +25,7 @@ export type Scenario = {
   estimatedMinutes: number;
   steps: Record<string, ScenarioStep>;
   firstStepId: string;
+  modes?: ScenarioMode[];
 };
 
 export const SCENARIOS: Scenario[] = [
@@ -26,6 +35,10 @@ export const SCENARIOS: Scenario[] = [
     description: "Practice talking to a server about cross-contamination.",
     estimatedMinutes: 3,
     firstStepId: "start",
+    modes: [
+      { id: "informed", label: "Informed Server", description: "They know allergen protocol and take celiac seriously.", emoji: "🟢", firstStepId: "informed_start" },
+      { id: "uninformed", label: "Uninformed Server", description: "They mean well but have some common misconceptions.", emoji: "🟡", firstStepId: "uninformed_start" },
+    ],
     steps: {
       start: {
         id: "start",
@@ -227,6 +240,95 @@ export const SCENARIOS: Scenario[] = [
         text: "Great job speaking up! Asking for glove changes and clean prep areas is completely reasonable and the best way to stay safe with salads.",
         isEnd: true,
       },
+      // ── Informed Server mode ────────────────────────────────────────────────
+      informed_start: {
+        id: "informed_start",
+        speaker: "other",
+        text: "Hi there! Welcome. Are you ready to order, or do you have any dietary needs I can help with first?",
+        options: [
+          { id: "opt1", text: "I have celiac disease — can you tell me about your allergen protocol?", nextStepId: "informed_tip" },
+          { id: "opt2", text: "I'm ready to order. I have celiac, so I have a few questions first.", nextStepId: "informed_tip" },
+        ],
+      },
+      informed_tip: {
+        id: "informed_tip",
+        speaker: "app",
+        text: "Mentioning celiac clearly from the start is always the right move. Let's see how this server responds.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "informed_server_proactive" }],
+      },
+      informed_server_proactive: {
+        id: "informed_server_proactive",
+        speaker: "other",
+        text: "Server: 'Thank you for telling me! We have a full allergen protocol for celiac orders — I'll flag yours so the kitchen uses a dedicated pan, fresh gloves, and separate utensils. The GF bun is also stored separately. What would you like?'",
+        options: [
+          { id: "order", text: "That's such a relief — I'll have the burger with the GF bun, please!", nextStepId: "informed_success" },
+          { id: "ask_more", text: "That's wonderful. One more question — if I wanted pasta, is that cooked in a separate pot?", nextStepId: "informed_asks_more" },
+        ],
+      },
+      informed_asks_more: {
+        id: "informed_asks_more",
+        speaker: "other",
+        text: "Server: 'Yes — separate pot, separate tongs, never shared. For celiac orders the chef handles it personally. We've had a few regulars and we take it very seriously.'",
+        options: [
+          { id: "order_pasta", text: "You really know your stuff. I'll have the GF pasta — thank you so much!", nextStepId: "informed_success" },
+        ],
+      },
+      informed_success: {
+        id: "informed_success",
+        speaker: "app",
+        text: "Notice what good looks like: proactive detail, no vague 'we're careful,' and an actual protocol. You asked a follow-up question confidently and accepted the safe option warmly. That's the whole skill.",
+        isEnd: true,
+      },
+      // ── Uninformed Server mode ───────────────────────────────────────────────
+      uninformed_start: {
+        id: "uninformed_start",
+        speaker: "other",
+        text: "Hi there! Welcome. Are you ready to order, or do you need a few more minutes?",
+        options: [
+          { id: "opt1", text: "I'm ready, but I have celiac disease. Do you have a gluten-free menu?", nextStepId: "uninformed_server_tip" },
+          { id: "opt2", text: "Yes, I'll have the salad — is it gluten-free?", nextStepId: "uninformed_salad_ask" },
+        ],
+      },
+      uninformed_server_tip: {
+        id: "uninformed_server_tip",
+        speaker: "app",
+        text: "Good start mentioning celiac. This server means well — watch how they respond and see if you can spot the gaps.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "uninformed_server_responds" }],
+      },
+      uninformed_server_responds: {
+        id: "uninformed_server_responds",
+        speaker: "other",
+        text: "Server: 'Of course! We have a gluten-free bun for burgers, and our salads are safe without croutons. The kitchen is really careful.'",
+        options: [
+          { id: "ask_cc", text: "Thank you — I also need to ask specifically about cross-contamination. Are GF items cooked on a completely separate surface?", nextStepId: "server_cc_wrong" },
+          { id: "salad_route", text: "For the salad — is it prepared in a clean bowl that hasn't touched bread items?", nextStepId: "uninformed_salad_rinse" },
+        ],
+      },
+      uninformed_salad_ask: {
+        id: "uninformed_salad_ask",
+        speaker: "other",
+        text: "Server: 'Yes! Totally gluten-free — we just take off the croutons.'",
+        options: [
+          { id: "clarify", text: "I have celiac, so even crumbs are a problem. Is the salad made in a bowl that's never touched bread?", nextStepId: "uninformed_salad_rinse" },
+        ],
+      },
+      uninformed_salad_rinse: {
+        id: "uninformed_salad_rinse",
+        speaker: "other",
+        text: "Server: 'We rinse the bowl before we use it and we're really careful — that should definitely be fine!'",
+        options: [
+          { id: "explain_rinse", text: "I appreciate that! But for celiac, rinsing doesn't fully remove gluten — I need a bowl that hasn't touched any bread at all. Is that possible?", nextStepId: "uninformed_reconsiders" },
+          { id: "ask_manager_r", text: "I understand, but for celiac that level of contact still causes a reaction. Could I speak with the chef or manager?", nextStepId: "manager_to_rescue" },
+        ],
+      },
+      uninformed_reconsiders: {
+        id: "uninformed_reconsiders",
+        speaker: "other",
+        text: "Server: 'Oh — I genuinely didn't know rinsing wasn't enough. Let me go ask the kitchen to set up a totally fresh bowl for you right now.'",
+        options: [
+          { id: "thanks", text: "Thank you so much for being willing to check — that's exactly what I need.", nextStepId: "end_educated_server" },
+        ],
+      },
     },
   },
   {
@@ -235,6 +337,10 @@ export const SCENARIOS: Scenario[] = [
     description: "Talk to a relative who doesn't quite understand the rules.",
     estimatedMinutes: 4,
     firstStepId: "start",
+    modes: [
+      { id: "receptive", label: "Receptive Relative", description: "Doesn't fully understand yet, but listens and genuinely tries.", emoji: "🟢", firstStepId: "receptive_start" },
+      { id: "pushy", label: "Pushy Relative", description: "Dismisses your needs and pressures you to eat.", emoji: "🔴", firstStepId: "pushy_start" },
+    ],
     steps: {
       start: {
         id: "start",
@@ -398,6 +504,93 @@ export const SCENARIOS: Scenario[] = [
         text: "That's the right move — redirect, stay warm, and don't get pulled into a debate you can't win right now. You held your ground through real pushback. That's hard, and you did it.",
         isEnd: true,
       },
+      // ── Receptive Relative mode ──────────────────────────────────────────────
+      receptive_start: {
+        id: "receptive_start",
+        speaker: "other",
+        text: "Uncle Bob: 'Hey! So glad you made it. I made BBQ chicken — I think it should be fine for you, but honestly just tell me what you need and I'll do whatever I can.'",
+        options: [
+          { id: "ask_sauce", text: "You're so thoughtful! Let me just check — what's in the BBQ sauce? Soy sauce sometimes sneaks in and it has wheat.", nextStepId: "receptive_tip" },
+          { id: "brought_food", text: "That means a lot. I actually brought my own food just to be totally safe!", nextStepId: "receptive_brought_food" },
+        ],
+      },
+      receptive_tip: {
+        id: "receptive_tip",
+        speaker: "app",
+        text: "Great instinct asking about the sauce specifically. Let's see how Bob handles the news.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "receptive_bob_reveals_soy" }],
+      },
+      receptive_bob_reveals_soy: {
+        id: "receptive_bob_reveals_soy",
+        speaker: "other",
+        text: "Uncle Bob: 'Oh, just the usual — ketchup, brown sugar, a little soy sauce for umami, some spices.'",
+        options: [
+          { id: "explain", text: "Ah, unfortunately regular soy sauce has wheat in it, so I can't have it. But I really appreciate you making it!", nextStepId: "receptive_bob_accepts" },
+        ],
+      },
+      receptive_bob_accepts: {
+        id: "receptive_bob_accepts",
+        speaker: "other",
+        text: "Uncle Bob: 'Oh no — I had absolutely no idea! I feel terrible. I want to make sure you have something safe. I have plain chicken I haven't sauced yet — let me put some aside for you right now.'",
+        options: [
+          { id: "yes_please", text: "Oh you don't have to go out of your way! But yes — plain chicken without the sauce would be perfect. You're so sweet.", nextStepId: "receptive_end_great" },
+          { id: "already_good", text: "That's so kind of you, truly. I actually brought my own food just in case, so I'm all set — please don't feel bad!", nextStepId: "receptive_end_fine" },
+        ],
+      },
+      receptive_end_great: {
+        id: "receptive_end_great",
+        speaker: "app",
+        text: "Beautifully done. When someone genuinely tries to accommodate you, accepting graciously strengthens the relationship. You were warm, specific, and appreciative — that's exactly right.",
+        isEnd: true,
+      },
+      receptive_end_fine: {
+        id: "receptive_end_fine",
+        speaker: "app",
+        text: "Lovely response. You reassured him, kept the moment warm, and stayed safe. Having backup food was a great call — it took the pressure off both of you.",
+        isEnd: true,
+      },
+      receptive_brought_food: {
+        id: "receptive_brought_food",
+        speaker: "other",
+        text: "Uncle Bob: 'Oh smart! I'm so glad you did. Is there anything here you can safely have? I want you to be able to eat with everyone.'",
+        options: [
+          { id: "check_together", text: "I might be able to have the plain corn on the cob if it hasn't been near the sauce. Want to check together?", nextStepId: "receptive_checking" },
+          { id: "im_good", text: "I'm all set with what I brought! Truly. Being here with everyone is the whole point.", nextStepId: "receptive_end_fine" },
+        ],
+      },
+      receptive_checking: {
+        id: "receptive_checking",
+        speaker: "other",
+        text: "Uncle Bob: '[looks carefully] Okay — the corn was cooked separate and I only touched it with the tongs from the bag. I think that's genuinely safe for you.'",
+        options: [
+          { id: "great_team", text: "You're the best! Yes, corn it is. Thank you for going through it with me — that really means a lot.", nextStepId: "receptive_end_great" },
+        ],
+      },
+      // ── Pushy Relative mode ──────────────────────────────────────────────────
+      pushy_start: {
+        id: "pushy_start",
+        speaker: "other",
+        text: "Uncle Bob: 'Hey! Get over here — I made my famous BBQ chicken and you HAVE to try it. Come on, grab a plate!'",
+        options: [
+          { id: "mention_celiac", text: "It smells incredible! I have to be careful with my celiac though — can I ask what's in the sauce first?", nextStepId: "pushy_bob_tip" },
+          { id: "own_food", text: "It looks amazing! I actually brought my own food to be safe, but thank you so much.", nextStepId: "bob_reply_2_actual" },
+        ],
+      },
+      pushy_bob_tip: {
+        id: "pushy_bob_tip",
+        speaker: "app",
+        text: "Good instinct asking first. In this scenario, Bob isn't going to make this easy — get ready.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "pushy_bob_sauce_reveal" }],
+      },
+      pushy_bob_sauce_reveal: {
+        id: "pushy_bob_sauce_reveal",
+        speaker: "other",
+        text: "Uncle Bob: 'Soy sauce? Oh come on, it's a tiny little bit! You'll be totally fine. You're being way too careful about this.'",
+        options: [
+          { id: "explain_medical", text: "I hear you, but celiac is an autoimmune disease — even a tiny amount genuinely damages my intestines. It's not about being overly careful.", nextStepId: "bob_still_dismisses" },
+          { id: "redirect", text: "I know it seems like a lot! I'll just grab something I brought. Please don't let this be a thing — I'm so happy to be here.", nextStepId: "bob_reply_2_actual" },
+        ],
+      },
     },
   },
   {
@@ -406,6 +599,10 @@ export const SCENARIOS: Scenario[] = [
     description: "Navigate a buffet where you don't control the menu.",
     estimatedMinutes: 5,
     firstStepId: "start",
+    modes: [
+      { id: "helpful", label: "Helpful Coordinator", description: "Willing to check with the chef and find a solution.", emoji: "🟢", firstStepId: "start" },
+      { id: "dismissive", label: "Dismissive Coordinator", description: "Assumes the GF label is enough and resists checking.", emoji: "🔴", firstStepId: "dismissive_start" },
+    ],
     steps: {
       start: {
         id: "start",
@@ -568,6 +765,46 @@ export const SCENARIOS: Scenario[] = [
         speaker: "app",
         text: "Shared tongs are one of the most common causes of accidental gluten exposure at buffets — even a small amount of bread crumbs can cause a reaction. Better to ask before eating.",
         options: [{ id: "retry", text: "Go back and ask", nextStepId: "at_buffet" }],
+      },
+      // ── Dismissive Coordinator mode ──────────────────────────────────────────
+      dismissive_start: {
+        id: "dismissive_start",
+        speaker: "other",
+        text: "Coordinator: 'Welcome! We have a lovely spread, including a full gluten-free section — everything there is totally safe, all the ingredients are GF!'",
+        options: [
+          { id: "ask_prep", text: "Thank you! I have celiac, so I also need to ask — were those dishes cooked in separate pots and pans from the gluten items?", nextStepId: "dismissive_coord_confident" },
+        ],
+      },
+      dismissive_coord_confident: {
+        id: "dismissive_coord_confident",
+        speaker: "other",
+        text: "Coordinator: 'Oh, they're made with gluten-free ingredients, so they're completely safe. Everything in that section is fine — I promise!'",
+        options: [
+          { id: "explain_cc", text: "Thank you for making GF options! With celiac, it's not just the ingredients — shared pots or utensils can transfer gluten even when the recipe is GF. Could we check with the chef?", nextStepId: "dismissive_coord_resistant" },
+        ],
+      },
+      dismissive_coord_resistant: {
+        id: "dismissive_coord_resistant",
+        speaker: "other",
+        text: "Coordinator: 'I really don't want to bother the chef mid-service. I'm sure it'll be fine — lots of people with gluten sensitivity eat from that section.'",
+        options: [
+          { id: "clarify_severity", text: "I understand it's a busy time. Celiac is different from gluten sensitivity — it's an autoimmune disease where even traces cause real intestinal damage. I just need to know if separate pots were used.", nextStepId: "dismissive_coord_gives_in" },
+          { id: "safe_choice", text: "I understand. I'll just stick with sealed items or food I brought — I don't want to cause a disruption.", nextStepId: "end_own_food" },
+        ],
+      },
+      dismissive_coord_gives_in: {
+        id: "dismissive_coord_gives_in",
+        speaker: "other",
+        text: "Coordinator: '[sighs] Alright. [returns] Okay — the chef confirmed the same large pots were used for everything. I'm sorry, I should have checked before reassuring you.'",
+        options: [
+          { id: "thank_graciously", text: "Thank you for checking — I know that wasn't easy during service. I'll eat what I brought. No hard feelings at all.", nextStepId: "dismissive_end" },
+        ],
+      },
+      dismissive_end: {
+        id: "dismissive_end",
+        speaker: "app",
+        text: "You stayed calm and precise through real resistance, and you got the truth. When someone finally checks and the news is bad, the gracious response keeps the door open — and you modeled that perfectly.",
+        isEnd: true,
       },
     },
   },

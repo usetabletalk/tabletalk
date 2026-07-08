@@ -1,12 +1,12 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import { FlatList, Platform, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 
 import { useColors } from "@/hooks/useColors";
 import { useAppState } from "@/contexts/AppStateContext";
-import { SCENARIOS, ScenarioStep } from "@/data/scenarios";
+import { SCENARIOS, ScenarioMode, ScenarioStep } from "@/data/scenarios";
 
 type Message = {
   id: string;
@@ -23,29 +23,33 @@ export default function ScenarioScreen() {
   const { markScenarioCompleted } = useAppState();
 
   const scenario = SCENARIOS.find((s) => s.id === id);
+  const [selectedMode, setSelectedMode] = useState<ScenarioMode | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [currentStep, setCurrentStep] = useState<ScenarioStep | null>(null);
   const flatListRef = useRef<FlatList>(null);
 
+  const hasModes = Boolean(scenario?.modes?.length);
+  const conversationReady = !hasModes || selectedMode !== null;
+
   useEffect(() => {
-    if (scenario) {
-      const firstStep = scenario.steps[scenario.firstStepId];
-      setMessages([
-        {
-          id: Date.now().toString(),
-          stepId: firstStep.id,
-          speaker: firstStep.speaker,
-          text: firstStep.text,
-        },
-      ]);
-      setCurrentStep(firstStep);
-    }
-  }, [scenario]);
+    if (!scenario || !conversationReady) return;
+    const firstStepId = selectedMode ? selectedMode.firstStepId : scenario.firstStepId;
+    const firstStep = scenario.steps[firstStepId];
+    if (!firstStep) return;
+    setMessages([
+      {
+        id: Date.now().toString(),
+        stepId: firstStep.id,
+        speaker: firstStep.speaker,
+        text: firstStep.text,
+      },
+    ]);
+    setCurrentStep(firstStep);
+  }, [scenario, conversationReady, selectedMode]);
 
   const handleOptionSelect = (option: { id: string; text: string; nextStepId: string }) => {
     if (!scenario) return;
 
-    // Add user's choice
     const userMsg: Message = {
       id: Date.now().toString() + "1",
       stepId: "choice",
@@ -53,7 +57,6 @@ export default function ScenarioScreen() {
       text: option.text,
     };
 
-    // Add next step immediately
     const nextStep = scenario.steps[option.nextStepId];
     const nextMsg: Message = {
       id: Date.now().toString() + "2",
@@ -75,6 +78,58 @@ export default function ScenarioScreen() {
       <View style={[styles.container, { backgroundColor: colors.background, justifyContent: "center", alignItems: "center" }]}>
         <Text style={{ color: colors.foreground }}>Scenario not found.</Text>
       </View>
+    );
+  }
+
+  if (hasModes && !selectedMode) {
+    return (
+      <ScrollView
+        style={[styles.container, { backgroundColor: colors.background }]}
+        contentContainerStyle={[
+          styles.modePickerContent,
+          { paddingBottom: insets.bottom + 32, paddingTop: Platform.OS === "web" ? 24 : 16 },
+        ]}
+      >
+        <View style={styles.modeHeader}>
+          <Text style={[styles.modeTitle, { color: colors.foreground }]}>
+            {scenario.title}
+          </Text>
+          <Text style={[styles.modeSubtitle, { color: colors.mutedForeground }]}>
+            Choose who you'll be practicing with. Each option gives you different challenges to work through.
+          </Text>
+        </View>
+
+        <View style={styles.modeCards}>
+          {scenario.modes!.map((mode) => (
+            <Pressable
+              key={mode.id}
+              style={({ pressed }) => [
+                styles.modeCard,
+                {
+                  backgroundColor: colors.card,
+                  borderColor: colors.border,
+                  borderRadius: colors.radius,
+                  opacity: pressed ? 0.85 : 1,
+                },
+              ]}
+              onPress={() => setSelectedMode(mode)}
+              accessibilityRole="button"
+              accessibilityLabel={`${mode.label}: ${mode.description}`}
+            >
+              <Text style={styles.modeEmoji}>{mode.emoji}</Text>
+              <View style={styles.modeCardText}>
+                <Text style={[styles.modeLabel, { color: colors.foreground }]}>
+                  {mode.label}
+                </Text>
+                <Text style={[styles.modeDescription, { color: colors.mutedForeground }]}>
+                  {mode.description}
+                </Text>
+              </View>
+              <Feather name="chevron-right" size={20} color={colors.mutedForeground} />
+            </Pressable>
+          ))}
+        </View>
+      </ScrollView>
     );
   }
 
@@ -130,6 +185,25 @@ export default function ScenarioScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
+      {selectedMode && (
+        <View style={[styles.modeBadge, { backgroundColor: colors.tints.peach }]}>
+          <Text style={[styles.modeBadgeText, { color: colors.foreground }]}>
+            {selectedMode.emoji} {selectedMode.label}
+          </Text>
+          <Pressable
+            onPress={() => {
+              setSelectedMode(null);
+              setMessages([]);
+              setCurrentStep(null);
+            }}
+            hitSlop={12}
+            accessibilityLabel="Change practice partner"
+          >
+            <Text style={[styles.modeBadgeChange, { color: colors.primary }]}>Change</Text>
+          </Pressable>
+        </View>
+      )}
+
       <FlatList
         ref={flatListRef}
         data={messages}
@@ -193,6 +267,68 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  // ── Mode picker ────────────────────────────────────────────────────────────
+  modePickerContent: {
+    paddingHorizontal: 24,
+    gap: 32,
+  },
+  modeHeader: {
+    gap: 10,
+    paddingTop: 8,
+  },
+  modeTitle: {
+    fontFamily: "Inter_700Bold",
+    fontSize: 24,
+    lineHeight: 32,
+  },
+  modeSubtitle: {
+    fontFamily: "Inter_400Regular",
+    fontSize: 15,
+    lineHeight: 22,
+  },
+  modeCards: {
+    gap: 14,
+  },
+  modeCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 18,
+    borderWidth: 1,
+    gap: 14,
+  },
+  modeEmoji: {
+    fontSize: 28,
+  },
+  modeCardText: {
+    flex: 1,
+    gap: 4,
+  },
+  modeLabel: {
+    fontFamily: "Inter_600SemiBold",
+    fontSize: 16,
+  },
+  modeDescription: {
+    fontFamily: "Inter_400Regular",
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  // ── Mode badge (in-conversation) ───────────────────────────────────────────
+  modeBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+  },
+  modeBadgeText: {
+    fontFamily: "Inter_500Medium",
+    fontSize: 13,
+  },
+  modeBadgeChange: {
+    fontFamily: "Inter_600SemiBold",
+    fontSize: 13,
+  },
+  // ── Conversation ───────────────────────────────────────────────────────────
   listContent: {
     paddingHorizontal: 20,
     gap: 16,
