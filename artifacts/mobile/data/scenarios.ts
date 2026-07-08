@@ -942,4 +942,152 @@ export const SCENARIOS: Scenario[] = [
       },
     },
   },
+  {
+    id: "partner-conversation",
+    title: "Talking to a Partner",
+    description: "Telling someone you're close to about kissing safely with celiac — before the moment gets awkward.",
+    estimatedMinutes: 4,
+    firstStepId: "curious_start",
+    modes: [
+      { id: "curious", label: "Curious & Caring", description: "A little surprised, but genuinely wants to understand.", emoji: "🟢", firstStepId: "curious_start" },
+      { id: "defensive", label: "Caught Off Guard", description: "Their first reaction is defensiveness — you'll need patience.", emoji: "🟡", firstStepId: "defensive_start" },
+    ],
+    steps: {
+      // ── Curious & Caring mode ────────────────────────────────────────────
+      curious_start: {
+        id: "curious_start",
+        speaker: "other",
+        text: "Alex: 'Hey! Sorry I'm a bit late — I grabbed a slice of pizza on the way over. You hungry? I can order something.'",
+        options: [
+          { id: "now", text: "I'm good! But actually — this is a good moment. I've been meaning to mention something about my celiac.", nextStepId: "curious_tip_timing" },
+          { id: "later", text: "I'm okay for food! Come sit — how was your day?", nextStepId: "curious_later" },
+        ],
+      },
+      curious_tip_timing: {
+        id: "curious_tip_timing",
+        speaker: "app",
+        text: "Good instinct using the natural moment — they just mentioned food, so bringing it up doesn't feel out of nowhere. A casual opening like this is much easier than trying to schedule a serious talk.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "curious_alex_invites" }],
+      },
+      curious_later: {
+        id: "curious_later",
+        speaker: "other",
+        text: "Alex: 'Sure! [settling in] So what do you want to do tonight?'",
+        options: [
+          { id: "bring_up", text: "[A little later] Hey, actually — there's something I've been meaning to mention about my celiac.", nextStepId: "curious_tip_later" },
+        ],
+      },
+      curious_tip_later: {
+        id: "curious_tip_later",
+        speaker: "app",
+        text: "Creating your own moment works just as well. 'I've been meaning to mention' signals it matters without making it feel like a crisis.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "curious_alex_invites" }],
+      },
+      curious_alex_invites: {
+        id: "curious_alex_invites",
+        speaker: "other",
+        text: "Alex: 'Oh yeah, of course — what's up?'",
+        options: [
+          { id: "direct", text: "So with celiac, saliva can carry gluten for a few hours after you eat it. Which means kissing after pizza could actually cause a reaction for me.", nextStepId: "curious_tip_clear" },
+          { id: "soft", text: "It's a little awkward to bring up, but — kissing can be a way I accidentally get gluten. So if you've eaten something with gluten, I just need a heads up.", nextStepId: "curious_tip_clear" },
+        ],
+      },
+      curious_tip_clear: {
+        id: "curious_tip_clear",
+        speaker: "app",
+        text: "Clear and specific without being clinical. Saying 'a little awkward to bring up' is honest — it lowers the pressure on both of you and gives them permission to be a bit surprised.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "curious_alex_surprised" }],
+      },
+      curious_alex_surprised: {
+        id: "curious_alex_surprised",
+        speaker: "other",
+        text: "Alex: 'Oh wow — I genuinely had no idea that was a thing. So I should... brush my teeth first?'",
+        options: [
+          { id: "confirm", text: "Yes! Or even just swishing with water — that's enough. It sounds like a big deal but it's really just a quick habit.", nextStepId: "curious_alex_warm" },
+          { id: "reassure", text: "Exactly. Brushing teeth or a water swish does it. Most people are surprised when they first hear it — it's not something anyone thinks to tell you.", nextStepId: "curious_alex_warm" },
+        ],
+      },
+      curious_alex_warm: {
+        id: "curious_alex_warm",
+        speaker: "other",
+        text: "Alex: 'Okay — yeah. I'll just do that. I'm really glad you told me. I had no idea and I would've just... not known.'",
+        options: [
+          { id: "thank", text: "I appreciate you being so easy about it. It can be a weird thing to bring up.", nextStepId: "curious_end" },
+        ],
+      },
+      curious_end: {
+        id: "curious_end",
+        speaker: "app",
+        text: "That's what this conversation can look like at its best. You found a natural moment, explained it simply, and let them be kind. The fix is easy — and most people, when they understand, are genuinely glad to know.",
+        isEnd: true,
+      },
+      // ── Caught Off Guard mode ────────────────────────────────────────────
+      defensive_start: {
+        id: "defensive_start",
+        speaker: "other",
+        text: "Alex: 'Hey! Sorry I'm a bit late — I grabbed a slice of pizza on the way over. You hungry? I can order something.'",
+        options: [
+          { id: "bring_up", text: "I'm good! But actually — this is a good moment. I've been meaning to mention something about my celiac.", nextStepId: "defensive_tip_courage" },
+        ],
+      },
+      defensive_tip_courage: {
+        id: "defensive_tip_courage",
+        speaker: "app",
+        text: "Bringing this up takes real courage, especially earlier in a relationship. You're doing the right thing — and how someone responds to this tells you something important about them.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "defensive_alex_invites" }],
+      },
+      defensive_alex_invites: {
+        id: "defensive_alex_invites",
+        speaker: "other",
+        text: "Alex: 'Oh yeah — sure, what's up?'",
+        options: [
+          { id: "explain", text: "So with celiac, saliva can carry gluten for a few hours after you eat it. Which means kissing after pizza could actually cause a reaction for me.", nextStepId: "defensive_tip_before_reaction" },
+        ],
+      },
+      defensive_tip_before_reaction: {
+        id: "defensive_tip_before_reaction",
+        speaker: "app",
+        text: "You explained it clearly. Their first reaction might be surprise or pushback — give them a moment before jumping in to reassure.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "defensive_alex_startled" }],
+      },
+      defensive_alex_startled: {
+        id: "defensive_alex_startled",
+        speaker: "other",
+        text: "Alex: 'Wait — so you're saying I can't kiss you if I've eaten... regular food? Like, at all?'",
+        options: [
+          { id: "clarify", text: "Not regular food — just gluten specifically. Bread, pasta, things like that. Everything else is completely fine.", nextStepId: "defensive_tip_clarify" },
+          { id: "solution_first", text: "I know it sounds like a lot! It's really just a quick thing — brush teeth or swish water first, and it's totally fine.", nextStepId: "defensive_tip_clarify" },
+        ],
+      },
+      defensive_tip_clarify: {
+        id: "defensive_tip_clarify",
+        speaker: "app",
+        text: "Good response. Correcting 'regular food' to 'gluten specifically' matters — that's a very different thing. You stayed calm and specific instead of getting defensive back.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "defensive_alex_processes" }],
+      },
+      defensive_alex_processes: {
+        id: "defensive_alex_processes",
+        speaker: "other",
+        text: "Alex: 'I mean... okay. I'm not trying to be difficult. I just didn't realize it was that... involved.'",
+        options: [
+          { id: "bridge", text: "It's really not as involved as it sounds — it's a 30-second thing. It just matters because even a small amount of gluten causes real damage for me.", nextStepId: "defensive_alex_comes_around" },
+          { id: "validate", text: "I know — it's a lot to hear for the first time. Brushing teeth or swishing water is genuinely all it takes. I just needed you to know.", nextStepId: "defensive_alex_comes_around" },
+        ],
+      },
+      defensive_alex_comes_around: {
+        id: "defensive_alex_comes_around",
+        speaker: "other",
+        text: "Alex: 'No, I get it. I'm sorry for being weird about it — I just needed a second. I'll remember.'",
+        options: [
+          { id: "grace", text: "You don't need to apologize — this is a lot to take in out of nowhere. I really appreciate you hearing me out.", nextStepId: "defensive_end" },
+        ],
+      },
+      defensive_end: {
+        id: "defensive_end",
+        speaker: "app",
+        text: "Navigating someone's initial surprise while staying patient and warm is genuinely hard. You explained clearly, corrected the misunderstanding without frustration, and gave them room to process. They came around. That's grace under pressure.",
+        isEnd: true,
+      },
+    },
+  },
 ];
