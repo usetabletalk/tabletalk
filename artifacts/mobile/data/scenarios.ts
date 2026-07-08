@@ -14,7 +14,8 @@ export type ScenarioMode = {
   id: string;
   label: string;
   description: string;
-  emoji: string;
+  icon: string;
+  tint: "mint" | "lemon" | "rose";
   firstStepId: string;
 };
 
@@ -36,8 +37,8 @@ export const SCENARIOS: Scenario[] = [
     estimatedMinutes: 3,
     firstStepId: "start",
     modes: [
-      { id: "informed", label: "Informed Server", description: "They know allergen protocol and take celiac seriously.", emoji: "🟢", firstStepId: "informed_start" },
-      { id: "uninformed", label: "Uninformed Server", description: "They mean well but have some common misconceptions.", emoji: "🟡", firstStepId: "uninformed_start" },
+      { id: "informed", label: "Informed Server", description: "They know allergen protocol and take celiac seriously.", icon: "smile", tint: "mint", firstStepId: "informed_start" },
+      { id: "uninformed", label: "Uninformed Server", description: "They mean well but have some common misconceptions.", icon: "help-circle", tint: "lemon", firstStepId: "uninformed_start" },
     ],
     steps: {
       start: {
@@ -338,8 +339,8 @@ export const SCENARIOS: Scenario[] = [
     estimatedMinutes: 4,
     firstStepId: "start",
     modes: [
-      { id: "receptive", label: "Receptive Relative", description: "Doesn't fully understand yet, but listens and genuinely tries.", emoji: "🟢", firstStepId: "receptive_start" },
-      { id: "pushy", label: "Pushy Relative", description: "Dismisses your needs and pressures you to eat.", emoji: "🔴", firstStepId: "pushy_start" },
+      { id: "receptive", label: "Receptive Relative", description: "Doesn't fully understand yet, but listens and genuinely tries.", icon: "smile", tint: "mint", firstStepId: "receptive_start" },
+      { id: "pushy", label: "Pushy Relative", description: "Dismisses your needs and pressures you to eat.", icon: "alert-circle", tint: "rose", firstStepId: "pushy_start" },
     ],
     steps: {
       start: {
@@ -608,8 +609,8 @@ export const SCENARIOS: Scenario[] = [
     estimatedMinutes: 5,
     firstStepId: "start",
     modes: [
-      { id: "helpful", label: "Helpful Coordinator", description: "Willing to check with the chef and find a solution.", emoji: "🟢", firstStepId: "start" },
-      { id: "dismissive", label: "Dismissive Coordinator", description: "Assumes the GF label is enough and resists checking.", emoji: "🔴", firstStepId: "dismissive_start" },
+      { id: "helpful", label: "Helpful Coordinator", description: "Willing to check with the chef and find a solution.", icon: "smile", tint: "mint", firstStepId: "start" },
+      { id: "dismissive", label: "Dismissive Coordinator", description: "Assumes the GF label is enough and resists checking.", icon: "alert-circle", tint: "rose", firstStepId: "dismissive_start" },
     ],
     steps: {
       start: {
@@ -949,8 +950,8 @@ export const SCENARIOS: Scenario[] = [
     estimatedMinutes: 4,
     firstStepId: "curious_start",
     modes: [
-      { id: "curious", label: "Curious & Caring", description: "A little surprised, but genuinely wants to understand.", emoji: "🟢", firstStepId: "curious_start" },
-      { id: "defensive", label: "Caught Off Guard", description: "Their first reaction is defensiveness — you'll need patience.", emoji: "🟡", firstStepId: "defensive_start" },
+      { id: "curious", label: "Curious & Caring", description: "A little surprised, but genuinely wants to understand.", icon: "smile", tint: "mint", firstStepId: "curious_start" },
+      { id: "defensive", label: "Caught Off Guard", description: "Their first reaction is defensiveness — you'll need patience.", icon: "help-circle", tint: "lemon", firstStepId: "defensive_start" },
     ],
     steps: {
       // ── Curious & Caring mode ────────────────────────────────────────────

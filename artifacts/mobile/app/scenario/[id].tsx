@@ -116,7 +116,9 @@ export default function ScenarioScreen() {
               accessibilityRole="button"
               accessibilityLabel={`${mode.label}: ${mode.description}`}
             >
-              <Text style={styles.modeEmoji}>{mode.emoji}</Text>
+              <View style={[styles.modeIconCircle, { backgroundColor: colors.tints[mode.tint] }]}>
+                <Feather name={mode.icon as any} size={22} color={colors.foreground} />
+              </View>
               <View style={styles.modeCardText}>
                 <Text style={[styles.modeLabel, { color: colors.foreground }]}>
                   {mode.label}
@@ -187,9 +189,14 @@ export default function ScenarioScreen() {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       {selectedMode && (
         <View style={[styles.modeBadge, { backgroundColor: colors.tints.peach }]}>
-          <Text style={[styles.modeBadgeText, { color: colors.foreground }]}>
-            {selectedMode.emoji} {selectedMode.label}
-          </Text>
+          <View style={styles.modeBadgeLeft}>
+            <View style={[styles.modeBadgeIcon, { backgroundColor: colors.tints[selectedMode.tint] }]}>
+              <Feather name={selectedMode.icon as any} size={12} color={colors.foreground} />
+            </View>
+            <Text style={[styles.modeBadgeText, { color: colors.foreground }]}>
+              {selectedMode.label}
+            </Text>
+          </View>
           <Pressable
             onPress={() => {
               setSelectedMode(null);
@@ -296,8 +303,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     gap: 14,
   },
-  modeEmoji: {
-    fontSize: 28,
+  modeIconCircle: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
   },
   modeCardText: {
     flex: 1,
@@ -319,6 +331,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 16,
     paddingVertical: 8,
+  },
+  modeBadgeLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  modeBadgeIcon: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    alignItems: "center",
+    justifyContent: "center",
   },
   modeBadgeText: {
     fontFamily: "Inter_500Medium",
