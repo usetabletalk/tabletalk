@@ -8,6 +8,13 @@ import { useColors } from "@/hooks/useColors";
 import { useAppState } from "@/contexts/AppStateContext";
 import { SCENARIOS } from "@/data/scenarios";
 
+const sortKey = (title: string) =>
+  title.replace(/^(a|the)\s+/i, "").toLowerCase();
+
+const SORTED_SCENARIOS = [...SCENARIOS].sort((a, b) =>
+  sortKey(a.title).localeCompare(sortKey(b.title))
+);
+
 export default function PracticeScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
@@ -57,7 +64,7 @@ export default function PracticeScreen() {
   return (
     <View style={[styles.container, { backgroundColor: colors.background, paddingTop: topPad }]}>
       <FlatList
-        data={SCENARIOS}
+        data={SORTED_SCENARIOS}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         contentContainerStyle={[
