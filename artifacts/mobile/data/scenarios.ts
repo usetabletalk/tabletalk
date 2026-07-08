@@ -849,11 +849,11 @@ export const SCENARIOS: Scenario[] = [
       carol_reveals: {
         id: "carol_reveals",
         speaker: "other",
-        text: "Aunt Carol: 'Of course! I used my regular mixing bowls and baking pans — I washed them really well first. Oh, and I had regular flour out earlier in the day, but I wiped down the counter before I started.'",
+        text: "Aunt Carol: 'Of course! I used my regular baking pans and glass bowls — ran them through the dishwasher before I started. I mixed everything with my wooden mixing spoon and used the wooden rolling pin for the dough, same as always.'",
         options: [
           {
             id: "explain_cc",
-            text: "That's so thoughtful of you to try. The tricky thing is that flour particles can cling to bowls and pans even after washing — gluten actually bonds to surfaces. It's not about cleanliness at all, just chemistry.",
+            text: "The pans and bowls are actually perfect — dishwasher cleans non-porous surfaces completely. The wooden spoon and rolling pin are the tricky part: wood is porous, so gluten can hide in tiny grooves even after washing.",
             nextStepId: "tip_explain_cc",
           },
           {
@@ -866,7 +866,7 @@ export const SCENARIOS: Scenario[] = [
       tip_explain_cc: {
         id: "tip_explain_cc",
         speaker: "app",
-        text: "Leading with the science — 'it bonds to surfaces' — removes the implication that her cleaning wasn't good enough. That's a really important framing shift.",
+        text: "Good framing — you started with the good news ('the pans are fine') before explaining the problem. That's much easier to hear than leading with what's wrong. The science here: metal, glass, and ceramic are non-porous and fully safe after washing. Wood, plastic colanders, and scratched non-stick are porous and hold gluten.",
         options: [{ id: "cont", text: "Continue", nextStepId: "carol_reaction" }],
       },
       carol_reaction: {
@@ -893,7 +893,7 @@ export const SCENARIOS: Scenario[] = [
         options: [
           {
             id: "give_guide",
-            text: "You'd want pans and bowls that have never touched regular flour — even inexpensive new ones work great. And a clean surface with no flour in the air when mixing. I'd love to help you set it up sometime.",
+            text: "Your pans and bowls are totally fine — dishwasher gets them perfectly clean. You'd just need to swap the wooden spoon and rolling pin for ones that have only ever touched GF food, or use silicone instead. Everything else you already have works great!",
             nextStepId: "end_gratitude_and_guide",
           },
         ],
