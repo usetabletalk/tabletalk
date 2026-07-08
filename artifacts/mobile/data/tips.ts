@@ -35,6 +35,13 @@ export const TIPS: Tip[] = [
     content: "Many licorice candies (like Twizzlers or Red Vines) list wheat flour as their second ingredient. Always check candy labels!",
   },
   {
+    id: "t13",
+    categoryId: "hidden-gluten",
+    title: "Barley & Malt",
+    content: "Barley contains gluten and hides in many surprising places. Malt flavoring, malt vinegar, and malt extract are all derived from barley — check cereals, flavored chips, malted milkshakes, and some chocolates. Beer is also made from barley (look for dedicated gluten-free beers instead). On labels, watch for: 'barley malt,' 'malt extract,' 'malt syrup,' or just 'malt flavoring.'",
+    isImportant: true,
+  },
+  {
     id: "t12",
     categoryId: "hidden-gluten",
     title: "Sauces, Gravies & Soups",
