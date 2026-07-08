@@ -95,7 +95,7 @@ export const TIPS: Tip[] = [
   {
     id: "t9",
     categoryId: "travel",
-    title: "TSA & Snacks",
+    title: "TSA",
     content: "You can bring your own food through airport security! Solid foods are totally fine. If bringing something spreadable, keep it under 3.4oz. Always pack more safe snacks than you think you'll need.",
   },
 ];
