@@ -585,6 +585,14 @@ export const SCENARIOS: Scenario[] = [
       pushy_bob_sauce_reveal: {
         id: "pushy_bob_sauce_reveal",
         speaker: "other",
+        text: "Uncle Bob: 'Oh, you know — ketchup, brown sugar, a little soy sauce, some spices. My dad's recipe. Why?'",
+        options: [
+          { id: "explain_soy", text: "Ah — regular soy sauce has wheat in it, so unfortunately I can't have it. I'm really sorry, it smells incredible!", nextStepId: "pushy_bob_dismisses" },
+        ],
+      },
+      pushy_bob_dismisses: {
+        id: "pushy_bob_dismisses",
+        speaker: "other",
         text: "Uncle Bob: 'Soy sauce? Oh come on, it's a tiny little bit! You'll be totally fine. You're being way too careful about this.'",
         options: [
           { id: "explain_medical", text: "I hear you, but celiac is an autoimmune disease — even a tiny amount genuinely damages my intestines. It's not about being overly careful.", nextStepId: "bob_still_dismisses" },
