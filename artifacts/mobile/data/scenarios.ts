@@ -67,11 +67,81 @@ export const SCENARIOS: Scenario[] = [
             nextStepId: "server_reply_1a",
           },
           {
+            id: "ask_separate_surface",
+            text: "For celiac I need everything cooked on a completely separate surface with clean utensils — is that something the kitchen can do?",
+            nextStepId: "server_cc_wrong",
+          },
+          {
             id: "accept_salad",
             text: "Okay, I'll just have the salad without croutons.",
             nextStepId: "server_reply_1b",
           },
         ],
+      },
+      server_cc_wrong: {
+        id: "server_cc_wrong",
+        speaker: "other",
+        text: "Server: 'Oh, definitely! We wipe the grill down really well between orders, and it gets super hot anyway — that basically sterilizes it. You'll be totally fine!'",
+        options: [
+          {
+            id: "educate_gently",
+            text: "I appreciate that you're trying to help! But actually, heat doesn't destroy gluten, and wiping doesn't fully remove it for someone with celiac. Could we use a completely separate pan that's never touched bread or flour?",
+            nextStepId: "server_reconsiders",
+          },
+          {
+            id: "ask_manager_cc",
+            text: "I understand you're doing your best, but for celiac disease that level of contact can cause a real reaction. Could I speak with the manager or chef directly?",
+            nextStepId: "manager_to_rescue",
+          },
+        ],
+      },
+      server_reconsiders: {
+        id: "server_reconsiders",
+        speaker: "other",
+        text: "Server: 'Oh wow — I really didn't know that. I'm going to be honest, I'm not sure what we can guarantee. Let me go ask the chef.'",
+        options: [
+          {
+            id: "wait_for_answer",
+            text: "Thank you so much for being honest and going to check — that means a lot.",
+            nextStepId: "chef_finds_solution",
+          },
+        ],
+      },
+      chef_finds_solution: {
+        id: "chef_finds_solution",
+        speaker: "other",
+        text: "Server: '[returns] Good news — the chef says they have a dedicated pan that's only used for allergen-sensitive orders. They'll personally handle yours.'",
+        options: [
+          {
+            id: "gratefully_accept",
+            text: "That's perfect — please tell the chef I'm really grateful. I'll have the burger!",
+            nextStepId: "end_educated_server",
+          },
+        ],
+      },
+      end_educated_server: {
+        id: "end_educated_server",
+        speaker: "app",
+        text: "Really well done. You corrected a common misunderstanding without frustration, and still got a safe meal. Staff often repeat what they've been told — sometimes you're the first person to explain why it isn't enough.",
+        isEnd: true,
+      },
+      manager_to_rescue: {
+        id: "manager_to_rescue",
+        speaker: "other",
+        text: "Manager: 'I'm so sorry — our server was doing their best, but you're absolutely right that heat and wiping aren't enough for celiac. We have a dedicated allergen pan in the back. I'll personally oversee your order.'",
+        options: [
+          {
+            id: "thank_manager",
+            text: "Thank you so much — I really appreciate you knowing the details. The dedicated pan is exactly what I need.",
+            nextStepId: "end_manager_success",
+          },
+        ],
+      },
+      end_manager_success: {
+        id: "end_manager_success",
+        speaker: "app",
+        text: "Asking for a manager when a server doesn't know the answer is completely valid — not rude at all. You advocated for yourself calmly and clearly, and it worked.",
+        isEnd: true,
       },
       server_reply_1a: {
         id: "server_reply_1a",
@@ -371,9 +441,38 @@ export const SCENARIOS: Scenario[] = [
             nextStepId: "coord_utensil_reply",
           },
           {
+            id: "ask_cc_specifically",
+            text: "I need to check on cross-contamination specifically — were the GF dishes cooked in separate pots and pans from the gluten items?",
+            nextStepId: "coord_cc_confused",
+          },
+          {
             id: "accept_risk",
             text: "Okay, separate plates sounds fine. I'll give those a try.",
             nextStepId: "tip_utensil_risk",
+          },
+        ],
+      },
+      coord_cc_confused: {
+        id: "coord_cc_confused",
+        speaker: "other",
+        text: "Coordinator: 'Oh, they're made with completely gluten-free ingredients, so cross-contamination isn't really an issue. The ingredients are safe, so the food is safe — I promise!'",
+        options: [
+          {
+            id: "explain_cc_catered",
+            text: "Thank you for making GF options! I want to explain — with celiac, cross-contamination means gluten particles can transfer through shared pots, pans, or water, even when the recipe itself has no gluten. That's what I need to find out about.",
+            nextStepId: "coord_lightbulb",
+          },
+        ],
+      },
+      coord_lightbulb: {
+        id: "coord_lightbulb",
+        speaker: "other",
+        text: "Coordinator: 'Oh — I genuinely had no idea. So the same pot used for regular pasta and then rinsed for GF pasta would still be a problem?'",
+        options: [
+          {
+            id: "confirm_and_ask_chef",
+            text: "Exactly — even tiny traces left behind can cause a reaction for someone with celiac. Would it be possible to ask the chef how these were actually cooked?",
+            nextStepId: "coord_chef_check",
           },
         ],
       },
