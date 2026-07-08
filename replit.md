@@ -1,6 +1,6 @@
-# [Project name]
+# Gluten-Free Guide
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A mobile app that helps people with celiac disease navigate daily life — role-play practice for social situations, tips & tricks, and community resources — designed for people with social anxiety and neurodivergent users.
 
 ## Run & Operate
 
@@ -22,7 +22,11 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/mobile/` — the Expo app (frontend-only, no backend)
+  - `app/(tabs)/` — three tabs: Practice (`index.tsx`), Tips (`tips.tsx`), Community (`community.tsx`)
+  - `app/scenario/[id].tsx` — role-play conversation screen
+  - `constants/colors.ts` — design tokens (warm off-white, terracotta primary, sage accents)
+  - Persistence: AsyncStorage via an `AppStateProvider` context (completed scenarios, favorited tips)
 
 ## Architecture decisions
 
