@@ -54,6 +54,20 @@ export const TIPS: Tip[] = [
     content: "Pasta strainers have hundreds of tiny holes where gluten pasta sticks. It is very hard to wash them perfectly. You should have a dedicated GF colander.",
   },
   {
+    id: "t10",
+    categoryId: "kitchen-safety",
+    title: "Wooden Spoons & Rolling Pins",
+    content: "Wood is porous — gluten gets into the tiny grooves and scratches and won't fully wash out, even with soap and hot water. If a wooden spoon or rolling pin has ever been used with regular flour or pasta, it is not safe for GF cooking. Replace them with silicone or metal alternatives, or keep a dedicated set that has only ever touched gluten-free food.",
+    isImportant: true,
+  },
+  {
+    id: "t11",
+    categoryId: "kitchen-safety",
+    title: "Air Fryers",
+    content: "Air fryers are almost impossible to fully decontaminate in a shared kitchen. The mesh basket, heating element, and interior walls trap crumbs and grease that are very hard to reach. If your household uses the air fryer for breaded foods, gluten-containing crumbs are likely embedded in it. Ideally, have a dedicated GF air fryer — or skip it and use the oven with a lined baking tray you control.",
+    isImportant: true,
+  },
+  {
     id: "t8",
     categoryId: "eating-out",
     title: "The Fryer Problem",
