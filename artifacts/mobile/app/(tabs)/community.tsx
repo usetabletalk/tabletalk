@@ -32,6 +32,41 @@ const RESOURCES = [
   },
 ];
 
+const COMMUNITIES = [
+  {
+    id: "r-celiac",
+    name: "r/Celiac",
+    platform: "Reddit",
+    description: "The main celiac subreddit — diagnosis stories, questions, venting, and real talk from people who get it. Very active and welcoming to newly diagnosed people.",
+    url: "https://www.reddit.com/r/Celiac/",
+    icon: "message-circle" as const,
+  },
+  {
+    id: "r-glutenfree",
+    name: "r/glutenfree",
+    platform: "Reddit",
+    description: "Broader gluten-free community focused on food — product finds, restaurant tips, recipes, and the occasional triumphant 'I found GF pasta that doesn't fall apart' post.",
+    url: "https://www.reddit.com/r/glutenfree/",
+    icon: "message-circle" as const,
+  },
+  {
+    id: "tiktok-celiac",
+    name: "#CeliacDisease on TikTok",
+    platform: "TikTok",
+    description: "A surprisingly vibrant corner of TikTok — creators share diagnosis journeys, product reviews, kitchen tips, and the very specific humor of accidentally getting glutened. Search #celiac or #glutenfree.",
+    url: "https://www.tiktok.com/tag/celiacdisease",
+    icon: "play-circle" as const,
+  },
+  {
+    id: "instagram-gf",
+    name: "#GlutenFree on Instagram",
+    platform: "Instagram",
+    description: "A huge and active community of celiac creators sharing safe recipes, product recommendations, restaurant finds, and day-in-the-life content. Great for discovering new products and feeling less alone.",
+    url: "https://www.instagram.com/explore/tags/glutenfree/",
+    icon: "camera" as const,
+  },
+];
+
 export default function CommunityScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
@@ -74,7 +109,7 @@ export default function CommunityScreen() {
         <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
           Trusted Organizations
         </Text>
-        
+
         {RESOURCES.map((resource, index) => {
           const tintOptions = [colors.tints.sky, colors.tints.mint, colors.tints.lavender];
           const tint = tintOptions[index % tintOptions.length];
@@ -107,6 +142,49 @@ export default function CommunityScreen() {
             </Pressable>
           );
         })}
+
+        <Text style={[styles.sectionTitle, { color: colors.foreground, marginTop: 16 }]}>
+          Community & Social
+        </Text>
+        <Text style={[styles.sectionSubtitle, { color: colors.mutedForeground }]}>
+          Real people, real experiences — from practical advice to commiserating about accidentally eating croutons.
+        </Text>
+
+        {COMMUNITIES.map((community) => (
+          <Pressable
+            key={community.id}
+            style={({ pressed }) => [
+              styles.communityCard,
+              {
+                backgroundColor: colors.card,
+                borderColor: colors.border,
+                borderRadius: colors.radius,
+                opacity: pressed ? 0.85 : 1,
+              },
+            ]}
+            onPress={() => handleOpenLink(community.url)}
+            accessibilityRole="link"
+            accessibilityLabel={`${community.name} on ${community.platform}`}
+          >
+            <View style={styles.communityHeader}>
+              <View style={styles.communityMeta}>
+                <View style={[styles.communityIconWrapper, { backgroundColor: colors.tints.lavender }]}>
+                  <Feather name={community.icon} size={16} color={colors.foreground} />
+                </View>
+                <Text style={[styles.platformLabel, { color: colors.mutedForeground }]}>
+                  {community.platform}
+                </Text>
+              </View>
+              <Feather name="external-link" size={16} color={colors.mutedForeground} />
+            </View>
+            <Text style={[styles.communityName, { color: colors.foreground }]}>
+              {community.name}
+            </Text>
+            <Text style={[styles.communityDescription, { color: colors.mutedForeground }]}>
+              {community.description}
+            </Text>
+          </Pressable>
+        ))}
 
       </ScrollView>
     </View>
@@ -156,8 +234,15 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontFamily: "Inter_600SemiBold",
     fontSize: 20,
+    marginBottom: 8,
+  },
+  sectionSubtitle: {
+    fontFamily: "Inter_400Regular",
+    fontSize: 14,
+    lineHeight: 20,
     marginBottom: 16,
   },
+  // Trusted organizations cards
   resourceCard: {
     padding: 20,
     marginBottom: 16,
@@ -184,5 +269,45 @@ const styles = StyleSheet.create({
     fontFamily: "Inter_400Regular",
     fontSize: 15,
     lineHeight: 22,
+  },
+  // Community & social cards
+  communityCard: {
+    padding: 18,
+    marginBottom: 14,
+    borderWidth: 1,
+  },
+  communityHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  communityMeta: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  communityIconWrapper: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  platformLabel: {
+    fontFamily: "Inter_500Medium",
+    fontSize: 12,
+    textTransform: "uppercase",
+    letterSpacing: 0.5,
+  },
+  communityName: {
+    fontFamily: "Inter_600SemiBold",
+    fontSize: 17,
+    marginBottom: 6,
+  },
+  communityDescription: {
+    fontFamily: "Inter_400Regular",
+    fontSize: 14,
+    lineHeight: 21,
   },
 });
