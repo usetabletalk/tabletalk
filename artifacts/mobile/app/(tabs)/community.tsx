@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Linking, Platform, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
@@ -67,9 +67,47 @@ const COMMUNITIES = [
   },
 ];
 
+function SectionHeader({
+  title,
+  subtitle,
+  expanded,
+  onToggle,
+}: {
+  title: string;
+  subtitle?: string;
+  expanded: boolean;
+  onToggle: () => void;
+}) {
+  const colors = useColors();
+  return (
+    <Pressable
+      onPress={onToggle}
+      style={({ pressed }) => [styles.sectionHeader, { opacity: pressed ? 0.7 : 1 }]}
+      accessibilityRole="button"
+      accessibilityLabel={`${title}, ${expanded ? "collapse" : "expand"}`}
+    >
+      <View style={styles.sectionHeaderText}>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>{title}</Text>
+        {subtitle && !expanded && (
+          <Text style={[styles.sectionSubtitle, { color: colors.mutedForeground }]} numberOfLines={1}>
+            {subtitle}
+          </Text>
+        )}
+      </View>
+      <Feather
+        name={expanded ? "chevron-up" : "chevron-down"}
+        size={20}
+        color={colors.mutedForeground}
+      />
+    </Pressable>
+  );
+}
+
 export default function CommunityScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
+  const [orgsExpanded, setOrgsExpanded] = useState(true);
+  const [socialExpanded, setSocialExpanded] = useState(true);
 
   const handleOpenLink = (url: string) => {
     Linking.openURL(url);
@@ -106,85 +144,100 @@ export default function CommunityScreen() {
           </Text>
         </View>
 
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-          Trusted Organizations
-        </Text>
+        {/* ── Trusted Organizations ─────────────────────────────────────────── */}
+        <SectionHeader
+          title="Trusted Organizations"
+          expanded={orgsExpanded}
+          onToggle={() => setOrgsExpanded((v) => !v)}
+        />
 
-        {RESOURCES.map((resource, index) => {
-          const tintOptions = [colors.tints.sky, colors.tints.mint, colors.tints.lavender];
-          const tint = tintOptions[index % tintOptions.length];
-          return (
-            <Pressable
-              key={resource.id}
-              style={({ pressed }) => [
-                styles.resourceCard,
-                {
-                  backgroundColor: tint,
-                  borderColor: "transparent",
-                  borderRadius: colors.radius,
-                  opacity: pressed ? 0.9 : 1,
-                },
-              ]}
-              onPress={() => handleOpenLink(resource.url)}
-            >
-              <View style={styles.resourceHeader}>
-                <View style={[styles.resourceIconWrapper, { backgroundColor: colors.background }]}>
-                  <Feather name="bookmark" size={18} color={colors.foreground} />
+        {orgsExpanded && (
+          <View style={styles.sectionContent}>
+            {RESOURCES.map((resource, index) => {
+              const tintOptions = [colors.tints.sky, colors.tints.mint, colors.tints.lavender];
+              const tint = tintOptions[index % tintOptions.length];
+              return (
+                <Pressable
+                  key={resource.id}
+                  style={({ pressed }) => [
+                    styles.resourceCard,
+                    {
+                      backgroundColor: tint,
+                      borderRadius: colors.radius,
+                      opacity: pressed ? 0.9 : 1,
+                    },
+                  ]}
+                  onPress={() => handleOpenLink(resource.url)}
+                  accessibilityRole="link"
+                >
+                  <View style={styles.resourceHeader}>
+                    <View style={[styles.resourceIconWrapper, { backgroundColor: colors.background }]}>
+                      <Feather name="bookmark" size={18} color={colors.foreground} />
+                    </View>
+                    <Feather name="external-link" size={18} color={colors.foreground} style={{ opacity: 0.5 }} />
+                  </View>
+                  <Text style={[styles.resourceName, { color: colors.foreground }]}>
+                    {resource.name}
+                  </Text>
+                  <Text style={[styles.resourceDescription, { color: colors.foreground, opacity: 0.8 }]}>
+                    {resource.description}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </View>
+        )}
+
+        {/* ── Community & Social ────────────────────────────────────────────── */}
+        <SectionHeader
+          title="Community & Social"
+          subtitle="From practical advice to commiserating about croutons."
+          expanded={socialExpanded}
+          onToggle={() => setSocialExpanded((v) => !v)}
+        />
+
+        {socialExpanded && (
+          <View style={styles.sectionContent}>
+            <Text style={[styles.sectionIntro, { color: colors.mutedForeground }]}>
+              Real people, real experiences — from practical advice to commiserating about accidentally eating croutons.
+            </Text>
+            {COMMUNITIES.map((community) => (
+              <Pressable
+                key={community.id}
+                style={({ pressed }) => [
+                  styles.communityCard,
+                  {
+                    backgroundColor: colors.card,
+                    borderColor: colors.border,
+                    borderRadius: colors.radius,
+                    opacity: pressed ? 0.85 : 1,
+                  },
+                ]}
+                onPress={() => handleOpenLink(community.url)}
+                accessibilityRole="link"
+                accessibilityLabel={`${community.name} on ${community.platform}`}
+              >
+                <View style={styles.communityHeader}>
+                  <View style={styles.communityMeta}>
+                    <View style={[styles.communityIconWrapper, { backgroundColor: colors.tints.lavender }]}>
+                      <Feather name={community.icon} size={16} color={colors.foreground} />
+                    </View>
+                    <Text style={[styles.platformLabel, { color: colors.mutedForeground }]}>
+                      {community.platform}
+                    </Text>
+                  </View>
+                  <Feather name="external-link" size={16} color={colors.mutedForeground} />
                 </View>
-                <Feather name="external-link" size={18} color={colors.foreground} style={{ opacity: 0.5 }} />
-              </View>
-              <Text style={[styles.resourceName, { color: colors.foreground }]}>
-                {resource.name}
-              </Text>
-              <Text style={[styles.resourceDescription, { color: colors.foreground, opacity: 0.8 }]}>
-                {resource.description}
-              </Text>
-            </Pressable>
-          );
-        })}
-
-        <Text style={[styles.sectionTitle, { color: colors.foreground, marginTop: 16 }]}>
-          Community & Social
-        </Text>
-        <Text style={[styles.sectionSubtitle, { color: colors.mutedForeground }]}>
-          Real people, real experiences — from practical advice to commiserating about accidentally eating croutons.
-        </Text>
-
-        {COMMUNITIES.map((community) => (
-          <Pressable
-            key={community.id}
-            style={({ pressed }) => [
-              styles.communityCard,
-              {
-                backgroundColor: colors.card,
-                borderColor: colors.border,
-                borderRadius: colors.radius,
-                opacity: pressed ? 0.85 : 1,
-              },
-            ]}
-            onPress={() => handleOpenLink(community.url)}
-            accessibilityRole="link"
-            accessibilityLabel={`${community.name} on ${community.platform}`}
-          >
-            <View style={styles.communityHeader}>
-              <View style={styles.communityMeta}>
-                <View style={[styles.communityIconWrapper, { backgroundColor: colors.tints.lavender }]}>
-                  <Feather name={community.icon} size={16} color={colors.foreground} />
-                </View>
-                <Text style={[styles.platformLabel, { color: colors.mutedForeground }]}>
-                  {community.platform}
+                <Text style={[styles.communityName, { color: colors.foreground }]}>
+                  {community.name}
                 </Text>
-              </View>
-              <Feather name="external-link" size={16} color={colors.mutedForeground} />
-            </View>
-            <Text style={[styles.communityName, { color: colors.foreground }]}>
-              {community.name}
-            </Text>
-            <Text style={[styles.communityDescription, { color: colors.mutedForeground }]}>
-              {community.description}
-            </Text>
-          </Pressable>
-        ))}
+                <Text style={[styles.communityDescription, { color: colors.mutedForeground }]}>
+                  {community.description}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+        )}
 
       </ScrollView>
     </View>
@@ -231,18 +284,37 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     textAlign: "center",
   },
+  // Section headers
+  sectionHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 14,
+    marginTop: 8,
+  },
+  sectionHeaderText: {
+    flex: 1,
+    marginRight: 12,
+  },
   sectionTitle: {
     fontFamily: "Inter_600SemiBold",
     fontSize: 20,
-    marginBottom: 8,
   },
   sectionSubtitle: {
     fontFamily: "Inter_400Regular",
+    fontSize: 13,
+    marginTop: 2,
+  },
+  sectionContent: {
+    marginBottom: 8,
+  },
+  sectionIntro: {
+    fontFamily: "Inter_400Regular",
     fontSize: 14,
     lineHeight: 20,
-    marginBottom: 16,
+    marginBottom: 14,
   },
-  // Trusted organizations cards
+  // Trusted organization cards
   resourceCard: {
     padding: 20,
     marginBottom: 16,
