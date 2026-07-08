@@ -89,6 +89,13 @@ export const TIPS: Tip[] = [
     isImportant: true,
   },
   {
+    id: "t14",
+    categoryId: "eating-out",
+    title: "Gloves, Surfaces & Prep Areas",
+    content: "A kitchen that handles gluten all day has flour and crumbs on every surface — including the hands of the staff. The three things that make the biggest difference are: fresh gloves (not just wiped hands), a clean prep surface that hasn't been used for gluten items, and ideally a dedicated area or section of the kitchen for allergen orders. When ordering, it's completely reasonable to ask: 'Can you change gloves and use a clean surface for my order?' A kitchen that takes celiac seriously will say yes without hesitation.",
+    isImportant: true,
+  },
+  {
     id: "t9",
     categoryId: "travel",
     title: "TSA & Snacks",
