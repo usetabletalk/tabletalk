@@ -199,9 +199,6 @@ export default function CommunityScreen() {
 
         {socialExpanded && (
           <View style={styles.sectionContent}>
-            <Text style={[styles.sectionIntro, { color: colors.mutedForeground }]}>
-              Real people, real experiences — from practical advice to commiserating about accidentally eating croutons.
-            </Text>
             {COMMUNITIES.map((community) => (
               <Pressable
                 key={community.id}
