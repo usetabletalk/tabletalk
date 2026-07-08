@@ -130,20 +130,6 @@ export default function CommunityScreen() {
           </Text>
         </View>
 
-        <View
-          style={[
-            styles.encouragementCard,
-            { backgroundColor: colors.tints.peach, borderRadius: colors.radius },
-          ]}
-        >
-          <View style={[styles.encouragementIconWrapper, { backgroundColor: colors.background }]}>
-            <Feather name="heart" size={24} color={colors.primary} />
-          </View>
-          <Text style={[styles.encouragementText, { color: colors.foreground }]}>
-            It's okay to feel overwhelmed right now. The learning curve is steep, but it becomes second nature over time. Give yourself grace.
-          </Text>
-        </View>
-
         {/* ── Trusted Organizations ─────────────────────────────────────────── */}
         <SectionHeader
           title="Trusted Organizations"
