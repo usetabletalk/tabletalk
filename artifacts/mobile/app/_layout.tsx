@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import React, { useEffect } from "react";
+import { Platform } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -25,7 +26,14 @@ function RootLayoutNav() {
   return (
     <Stack screenOptions={{ headerBackTitle: "Back", headerTintColor: "#E0603C" }}>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="scenario/[id]" options={{ presentation: "card", headerTitle: "Practice" }} />
+      <Stack.Screen
+        name="scenario/[id]"
+        options={{
+          presentation: "card",
+          headerTitle: "Practice",
+          ...(Platform.OS === "web" && { headerStatusBarHeight: 50 }),
+        } as object}
+      />
     </Stack>
   );
 }
