@@ -10,7 +10,7 @@ import {
   UIManager,
   View,
 } from "react-native";
-import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather, Ionicons } from "@expo/vector-icons";
 
 import { useColors } from "@/hooks/useColors";
@@ -147,11 +147,10 @@ export default function TipsScreen() {
     </Pressable>
   );
 
+  const topPad = Platform.OS === "web" ? 50 : insets.top;
+
   return (
-    <SafeAreaView
-      edges={["top"]}
-      style={[styles.container, { backgroundColor: colors.background }]}
-    >
+    <View style={[styles.container, { backgroundColor: colors.background, paddingTop: topPad }]}>
       <SectionList
         sections={sections}
         keyExtractor={(item) => item.id}
@@ -173,7 +172,7 @@ export default function TipsScreen() {
           </View>
         }
       />
-    </SafeAreaView>
+    </View>
   );
 }
 

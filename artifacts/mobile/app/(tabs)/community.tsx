@@ -1,6 +1,6 @@
 import React from "react";
-import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+import { Linking, Platform, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 
 import { useColors } from "@/hooks/useColors";
@@ -35,10 +35,7 @@ export default function CommunityScreen() {
   };
 
   return (
-    <SafeAreaView
-      edges={["top"]}
-      style={[styles.container, { backgroundColor: colors.background }]}
-    >
+    <View style={[styles.container, { backgroundColor: colors.background, paddingTop: Platform.OS === "web" ? 50 : insets.top }]}>
       <ScrollView
         contentContainerStyle={[
           styles.content,
@@ -106,7 +103,7 @@ export default function CommunityScreen() {
         })}
 
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
