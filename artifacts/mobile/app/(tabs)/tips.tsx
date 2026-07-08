@@ -106,9 +106,6 @@ export default function TipsScreen() {
           accessibilityState={{ expanded: isExpanded }}
           accessibilityLabel={`${item.title}, ${isExpanded ? "collapse" : "expand"}`}
         >
-          {item.isImportant && !isExpanded && (
-            <View style={[styles.importantDot, { backgroundColor: colors.primary }]} />
-          )}
           <Text style={[styles.cardTitle, { color: colors.cardForeground }]}>
             {item.title}
           </Text>
