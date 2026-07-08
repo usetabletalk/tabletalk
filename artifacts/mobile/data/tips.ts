@@ -11,7 +11,7 @@ export const TIPS: Tip[] = [
   {
     id: "t1",
     categoryId: "hidden-gluten",
-    title: "Soy Sauce",
+    title: "Soy Sauce and Teriyaki",
     content: "Traditional soy sauce is brewed with wheat. Always look for 'Tamari' or specifically labeled Gluten-Free soy sauce. If a restaurant marinates their meat, always ask if they use soy sauce.",
   },
   {
