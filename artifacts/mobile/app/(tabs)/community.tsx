@@ -42,7 +42,7 @@ export default function CommunityScreen() {
           { paddingBottom: insets.bottom + 100 },
         ]}
       >
-        <View style={styles.header}>
+        <View style={[styles.header, { paddingTop: insets.top + 24 }]}>
           <Text style={[styles.title, { color: colors.foreground }]}>
             You Are Not Alone
           </Text>
@@ -54,11 +54,13 @@ export default function CommunityScreen() {
         <View
           style={[
             styles.encouragementCard,
-            { backgroundColor: colors.secondary, borderRadius: colors.radius },
+            { backgroundColor: colors.tints.peach, borderRadius: colors.radius },
           ]}
         >
-          <Feather name="heart" size={24} color={colors.primary} style={styles.encouragementIcon} />
-          <Text style={[styles.encouragementText, { color: colors.secondaryForeground }]}>
+          <View style={[styles.encouragementIconWrapper, { backgroundColor: colors.background }]}>
+            <Feather name="heart" size={24} color={colors.primary} />
+          </View>
+          <Text style={[styles.encouragementText, { color: colors.foreground }]}>
             It's okay to feel overwhelmed right now. The learning curve is steep, but it becomes second nature over time. Give yourself grace.
           </Text>
         </View>
@@ -67,31 +69,38 @@ export default function CommunityScreen() {
           Trusted Organizations
         </Text>
         
-        {RESOURCES.map((resource) => (
-          <Pressable
-            key={resource.id}
-            style={({ pressed }) => [
-              styles.resourceCard,
-              {
-                backgroundColor: colors.card,
-                borderColor: colors.border,
-                borderRadius: colors.radius,
-                opacity: pressed ? 0.9 : 1,
-              },
-            ]}
-            onPress={() => handleOpenLink(resource.url)}
-          >
-            <View style={styles.resourceHeader}>
-              <Text style={[styles.resourceName, { color: colors.cardForeground }]}>
+        {RESOURCES.map((resource, index) => {
+          const tintOptions = [colors.tints.sky, colors.tints.mint, colors.tints.lavender];
+          const tint = tintOptions[index % tintOptions.length];
+          return (
+            <Pressable
+              key={resource.id}
+              style={({ pressed }) => [
+                styles.resourceCard,
+                {
+                  backgroundColor: tint,
+                  borderColor: "transparent",
+                  borderRadius: colors.radius,
+                  opacity: pressed ? 0.9 : 1,
+                },
+              ]}
+              onPress={() => handleOpenLink(resource.url)}
+            >
+              <View style={styles.resourceHeader}>
+                <View style={[styles.resourceIconWrapper, { backgroundColor: colors.background }]}>
+                  <Feather name="bookmark" size={18} color={colors.foreground} />
+                </View>
+                <Feather name="external-link" size={18} color={colors.foreground} style={{ opacity: 0.5 }} />
+              </View>
+              <Text style={[styles.resourceName, { color: colors.foreground }]}>
                 {resource.name}
               </Text>
-              <Feather name="external-link" size={16} color={colors.mutedForeground} />
-            </View>
-            <Text style={[styles.resourceDescription, { color: colors.mutedForeground }]}>
-              {resource.description}
-            </Text>
-          </Pressable>
-        ))}
+              <Text style={[styles.resourceDescription, { color: colors.foreground, opacity: 0.8 }]}>
+                {resource.description}
+              </Text>
+            </Pressable>
+          );
+        })}
 
       </ScrollView>
     </View>
@@ -104,6 +113,7 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 24,
+    paddingTop: 0,
   },
   header: {
     marginBottom: 32,
@@ -123,8 +133,13 @@ const styles = StyleSheet.create({
     marginBottom: 32,
     alignItems: "center",
   },
-  encouragementIcon: {
-    marginBottom: 12,
+  encouragementIconWrapper: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 16,
   },
   encouragementText: {
     fontFamily: "Inter_500Medium",
@@ -140,18 +155,24 @@ const styles = StyleSheet.create({
   resourceCard: {
     padding: 20,
     marginBottom: 16,
-    borderWidth: 1,
   },
   resourceHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "flex-start",
+    marginBottom: 12,
+  },
+  resourceIconWrapper: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
     alignItems: "center",
-    marginBottom: 8,
+    justifyContent: "center",
   },
   resourceName: {
     fontFamily: "Inter_600SemiBold",
-    fontSize: 16,
-    flex: 1,
+    fontSize: 18,
+    marginBottom: 8,
   },
   resourceDescription: {
     fontFamily: "Inter_400Regular",

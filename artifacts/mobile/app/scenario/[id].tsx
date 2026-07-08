@@ -91,16 +91,19 @@ export default function ScenarioScreen() {
       textColor = colors.primaryForeground;
       align = "flex-end";
     } else if (isApp) {
+      bgColor = colors.tints.mint;
+      textColor = colors.foreground;
+      align = "center";
+    } else {
       bgColor = colors.secondary;
       textColor = colors.secondaryForeground;
-      align = "center";
     }
 
     return (
       <View style={[styles.messageWrapper, { alignSelf: align as any }]}>
         {isApp && (
           <View style={styles.appIconWrapper}>
-            <Feather name="info" size={16} color={colors.secondaryForeground} />
+            <Feather name="info" size={16} color={colors.foreground} style={{ opacity: 0.6 }} />
           </View>
         )}
         <View
@@ -109,8 +112,6 @@ export default function ScenarioScreen() {
             {
               backgroundColor: bgColor,
               borderRadius: colors.radius,
-              borderWidth: isApp ? 0 : 1,
-              borderColor: isApp ? "transparent" : colors.border,
             },
           ]}
         >
@@ -208,10 +209,13 @@ const styles = StyleSheet.create({
   messageBubble: {
     paddingHorizontal: 16,
     paddingVertical: 12,
+    flexShrink: 1,
   },
   messageText: {
     fontSize: 16,
     lineHeight: 24,
+    flexShrink: 1,
+    flexWrap: "wrap",
   },
   optionsContainer: {
     paddingHorizontal: 20,

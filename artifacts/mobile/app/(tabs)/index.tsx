@@ -14,16 +14,20 @@ export default function PracticeScreen() {
   const { state } = useAppState();
   const router = useRouter();
 
-  const renderItem = ({ item }: { item: typeof SCENARIOS[0] }) => {
+  const renderItem = ({ item, index }: { item: typeof SCENARIOS[0]; index: number }) => {
     const isCompleted = state.completedScenarios.includes(item.id);
+    
+    // Assign a soft tint based on index
+    const tintOptions = [colors.tints.lavender, colors.tints.sky, colors.tints.peach, colors.tints.mint];
+    const cardTint = tintOptions[index % tintOptions.length];
 
     return (
       <Pressable
         style={({ pressed }) => [
           styles.card,
           {
-            backgroundColor: colors.card,
-            borderColor: colors.border,
+            backgroundColor: cardTint,
+            borderColor: "transparent",
             borderRadius: colors.radius,
             opacity: pressed ? 0.9 : 1,
             transform: [{ scale: pressed ? 0.98 : 1 }],
@@ -32,19 +36,22 @@ export default function PracticeScreen() {
         onPress={() => router.push(`/scenario/${item.id}`)}
       >
         <View style={styles.cardHeader}>
-          <Text style={[styles.cardTitle, { color: colors.cardForeground }]}>
-            {item.title}
-          </Text>
+          <View style={[styles.iconContainer, { backgroundColor: colors.background }]}>
+            <Feather name="message-circle" size={18} color={colors.foreground} />
+          </View>
           {isCompleted && (
             <View style={[styles.completedBadge, { backgroundColor: colors.accent }]}>
               <Feather name="check" size={12} color={colors.accentForeground} />
             </View>
           )}
         </View>
-        <Text style={[styles.cardDescription, { color: colors.mutedForeground }]}>
+        <Text style={[styles.cardTitle, { color: colors.foreground }]}>
+          {item.title}
+        </Text>
+        <Text style={[styles.cardDescription, { color: colors.foreground, opacity: 0.8 }]}>
           {item.description}
         </Text>
-        <View style={styles.cardFooter}>
+        <View style={[styles.cardFooter, { backgroundColor: colors.background, borderRadius: colors.radius }]}>
           <Feather name="clock" size={14} color={colors.mutedForeground} />
           <Text style={[styles.cardTime, { color: colors.mutedForeground }]}>
             {item.estimatedMinutes} mins
@@ -65,11 +72,11 @@ export default function PracticeScreen() {
           { paddingBottom: insets.bottom + 100 },
         ]}
         ListHeaderComponent={
-          <View style={styles.header}>
-            <Text style={[styles.title, { color: colors.foreground }]}>
+          <View style={[styles.header, { backgroundColor: colors.secondary, paddingTop: insets.top + 24 }]}>
+            <Text style={[styles.title, { color: colors.secondaryForeground }]}>
               Practice Conversations
             </Text>
-            <Text style={[styles.subtitle, { color: colors.mutedForeground }]}>
+            <Text style={[styles.subtitle, { color: colors.secondaryForeground, opacity: 0.85 }]}>
               Rehearse difficult situations in a safe space before they happen.
             </Text>
           </View>
@@ -85,9 +92,14 @@ const styles = StyleSheet.create({
   },
   listContent: {
     padding: 24,
+    paddingTop: 0,
   },
   header: {
+    padding: 24,
     marginBottom: 24,
+    marginHorizontal: -24,
+    borderBottomLeftRadius: 32,
+    borderBottomRightRadius: 32,
   },
   title: {
     fontFamily: "Inter_700Bold",
@@ -102,23 +114,29 @@ const styles = StyleSheet.create({
   card: {
     padding: 20,
     marginBottom: 16,
-    borderWidth: 1,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
     shadowRadius: 8,
     elevation: 2,
   },
+  iconContainer: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 12,
+  },
   cardHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 8,
+    alignItems: "flex-start",
   },
   cardTitle: {
     fontFamily: "Inter_600SemiBold",
-    fontSize: 18,
-    flex: 1,
+    fontSize: 20,
+    marginBottom: 8,
   },
   cardDescription: {
     fontFamily: "Inter_400Regular",
@@ -129,6 +147,9 @@ const styles = StyleSheet.create({
   cardFooter: {
     flexDirection: "row",
     alignItems: "center",
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    alignSelf: "flex-start",
     gap: 6,
   },
   cardTime: {

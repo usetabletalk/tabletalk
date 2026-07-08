@@ -1,72 +1,92 @@
 /**
  * Semantic design tokens for the mobile app.
- * A gentle, warm, and reassuring palette for the Gluten-Free Guide.
+ * A warm, colorful, and reassuring palette for Table Talk.
  */
 
 const colors = {
   light: {
-    text: "#2D2622",
-    tint: "#E07A5F",
+    text: "#362B24",
+    tint: "#E0603C",
 
     // Core surfaces
-    background: "#FBF7F4", // Soft, warm off-white
-    foreground: "#2D2622", // Deep warm gray/brown for text
+    background: "#FDF4EA", // Warm cream
+    foreground: "#362B24", // Deep warm brown for text
 
     // Cards / elevated surfaces
     card: "#FFFFFF",
-    cardForeground: "#2D2622",
+    cardForeground: "#362B24",
 
     // Primary action color (buttons, links, active states)
-    primary: "#D47761", // Gentle terracotta
+    primary: "#E0603C", // Vibrant coral-terracotta
     primaryForeground: "#FFFFFF",
 
     // Secondary / less-emphasis interactive surfaces
-    secondary: "#EAE0D8",
-    secondaryForeground: "#4A3F39",
+    secondary: "#FCE8CF", // Soft apricot
+    secondaryForeground: "#7A5324",
 
     // Muted / subdued elements (dividers, timestamps, placeholders)
-    muted: "#F0E8E3",
-    mutedForeground: "#8C7C75",
+    muted: "#F5E8DB",
+    mutedForeground: "#967E6E",
 
     // Accent highlights (badges, selected items, focus rings)
-    accent: "#8CA192", // Soft sage green for positive reinforcement
+    accent: "#2E9B87", // Lively teal-green for positive reinforcement
     accentForeground: "#FFFFFF",
 
     // Destructive actions (delete, error states)
-    destructive: "#DE6B6B",
+    destructive: "#DE5B5B",
     destructiveForeground: "#FFFFFF",
 
     // Borders and input outlines
-    border: "#EAE0D8",
-    input: "#EAE0D8",
+    border: "#F0DDC9",
+    input: "#F0DDC9",
+
+    // Soft categorical tints (low sensory)
+    tints: {
+      lavender: "#E8E2F2",
+      mint: "#E2F0EA",
+      peach: "#FDEBD9",
+      sky: "#E2EDF4",
+      rose: "#F7E1E6",
+      lemon: "#FBF3D4",
+    },
   },
   dark: {
-    text: "#FBF7F4",
-    tint: "#E07A5F",
+    text: "#FBF3EA",
+    tint: "#F07B54",
 
-    background: "#2D2622",
-    foreground: "#FBF7F4",
+    background: "#2A211B",
+    foreground: "#FBF3EA",
 
-    card: "#3B332D",
-    cardForeground: "#FBF7F4",
+    card: "#382C24",
+    cardForeground: "#FBF3EA",
 
-    primary: "#E07A5F",
+    primary: "#F07B54",
     primaryForeground: "#FFFFFF",
 
-    secondary: "#4A3F39",
-    secondaryForeground: "#FBF7F4",
+    secondary: "#4A3A2A",
+    secondaryForeground: "#F7DFC0",
 
-    muted: "#4A3F39",
-    mutedForeground: "#A99C95",
+    muted: "#463930",
+    mutedForeground: "#B29C8D",
 
-    accent: "#8CA192",
+    accent: "#43B49E",
     accentForeground: "#FFFFFF",
 
-    destructive: "#DE6B6B",
+    destructive: "#E36D6D",
     destructiveForeground: "#FFFFFF",
 
-    border: "#4A3F39",
-    input: "#4A3F39",
+    border: "#4A3B31",
+    input: "#4A3B31",
+
+    // Soft categorical tints for dark mode (subdued, low contrast)
+    tints: {
+      lavender: "#3B3347",
+      mint: "#30423A",
+      peach: "#4D3B2E",
+      sky: "#304047",
+      rose: "#4A3137",
+      lemon: "#4A462B",
+    },
   },
 
   radius: 16,

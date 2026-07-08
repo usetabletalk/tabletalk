@@ -13,12 +13,17 @@ export default function TipsScreen() {
   const { state, toggleSavedTip } = useAppState();
 
   const sections = useMemo(() => {
-    return CATEGORIES.map((cat) => ({
-      title: cat.label,
-      icon: cat.icon,
-      data: TIPS.filter((t) => t.categoryId === cat.id),
-    })).filter((s) => s.data.length > 0);
-  }, []);
+    return CATEGORIES.map((cat, index) => {
+      const tintOptions = [colors.tints.rose, colors.tints.lemon, colors.tints.lavender, colors.tints.mint];
+      const tint = tintOptions[index % tintOptions.length];
+      return {
+        title: cat.label,
+        icon: cat.icon,
+        tint,
+        data: TIPS.filter((t) => t.categoryId === cat.id),
+      };
+    }).filter((s) => s.data.length > 0);
+  }, [colors.tints]);
 
   const renderItem = ({ item }: { item: Tip }) => {
     const isSaved = state.savedTips.includes(item.id);
@@ -29,8 +34,8 @@ export default function TipsScreen() {
           styles.card,
           {
             backgroundColor: colors.card,
-            borderColor: item.isImportant ? colors.primary : colors.border,
-            borderWidth: item.isImportant ? 2 : 1,
+            borderColor: item.isImportant ? colors.primary : "transparent",
+            borderWidth: item.isImportant ? 2 : 0,
             borderRadius: colors.radius,
           },
         ]}
@@ -48,7 +53,6 @@ export default function TipsScreen() {
               name="heart"
               size={20}
               color={isSaved ? colors.primary : colors.mutedForeground}
-              style={isSaved ? styles.savedIcon : undefined}
             />
           </Pressable>
         </View>
@@ -59,9 +63,11 @@ export default function TipsScreen() {
     );
   };
 
-  const renderSectionHeader = ({ section: { title, icon } }: any) => (
-    <View style={[styles.sectionHeader, { backgroundColor: colors.background }]}>
-      <Feather name={icon} size={20} color={colors.foreground} />
+  const renderSectionHeader = ({ section: { title, icon, tint } }: any) => (
+    <View style={[styles.sectionHeader, { backgroundColor: tint, borderRadius: colors.radius }]}>
+      <View style={[styles.sectionIconContainer, { backgroundColor: colors.background }]}>
+        <Feather name={icon} size={18} color={colors.foreground} />
+      </View>
       <Text style={[styles.sectionTitle, { color: colors.foreground }]}>{title}</Text>
     </View>
   );
@@ -79,7 +85,7 @@ export default function TipsScreen() {
         ]}
         stickySectionHeadersEnabled={false}
         ListHeaderComponent={
-          <View style={styles.header}>
+          <View style={[styles.header, { paddingTop: insets.top + 24 }]}>
             <Text style={[styles.title, { color: colors.foreground }]}>
               Tips & Tricks
             </Text>
@@ -99,6 +105,7 @@ const styles = StyleSheet.create({
   },
   listContent: {
     padding: 24,
+    paddingTop: 0,
   },
   header: {
     marginBottom: 24,
@@ -116,13 +123,21 @@ const styles = StyleSheet.create({
   sectionHeader: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
-    marginTop: 16,
+    gap: 12,
+    marginTop: 24,
     marginBottom: 16,
+    padding: 12,
+  },
+  sectionIconContainer: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    alignItems: "center",
+    justifyContent: "center",
   },
   sectionTitle: {
     fontFamily: "Inter_600SemiBold",
-    fontSize: 20,
+    fontSize: 18,
   },
   card: {
     padding: 20,
@@ -152,8 +167,5 @@ const styles = StyleSheet.create({
   },
   saveButton: {
     padding: 4,
-  },
-  savedIcon: {
-    fill: "currentColor",
   },
 });
