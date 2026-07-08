@@ -29,7 +29,7 @@ export const TIPS: Tip[] = [
   {
     id: "t4",
     categoryId: "hidden-gluten",
-    title: "Licorice & Candy",
+    title: "Licorice",
     content: "Many licorice candies (like Twizzlers or Red Vines) list wheat flour as their second ingredient. Always check candy labels!",
   },
   {
