@@ -35,6 +35,13 @@ export const TIPS: Tip[] = [
     content: "Many licorice candies (like Twizzlers or Red Vines) list wheat flour as their second ingredient. Always check candy labels!",
   },
   {
+    id: "t12",
+    categoryId: "hidden-gluten",
+    title: "Sauces, Gravies & Soups",
+    content: "Wheat flour is one of the most common thickening agents used in commercial and restaurant cooking. Gravies, pan sauces, cream soups, stews, and roux-based dishes (like gumbo or macaroni cheese) are very likely to contain it. Even a clear-looking broth can be thickened with flour. Safe alternatives exist — cornstarch, arrowroot, and rice flour all thicken without gluten — but always ask specifically: 'Is this thickened with flour?'",
+    isImportant: true,
+  },
+  {
     id: "t5",
     categoryId: "kitchen-safety",
     title: "The Toaster Rule",
