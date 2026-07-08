@@ -24,6 +24,12 @@ const RESOURCES = [
     description: "Support groups and the GFCO certification program.",
     url: "https://gluten.org",
   },
+  {
+    id: "findmegf",
+    name: "Find Me Gluten Free",
+    description: "Crowdsourced reviews of gluten-free friendly restaurants, rated by the celiac community.",
+    url: "https://www.findmeglutenfree.com",
+  },
 ];
 
 export default function CommunityScreen() {
