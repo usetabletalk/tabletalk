@@ -249,25 +249,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
   },
-  encouragementCard: {
-    padding: 24,
-    marginBottom: 32,
-    alignItems: "center",
-  },
-  encouragementIconWrapper: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 16,
-  },
-  encouragementText: {
-    fontFamily: "Inter_500Medium",
-    fontSize: 16,
-    lineHeight: 24,
-    textAlign: "center",
-  },
   // Section headers
   sectionHeader: {
     flexDirection: "row",
@@ -291,12 +272,6 @@ const styles = StyleSheet.create({
   },
   sectionContent: {
     marginBottom: 8,
-  },
-  sectionIntro: {
-    fontFamily: "Inter_400Regular",
-    fontSize: 14,
-    lineHeight: 20,
-    marginBottom: 14,
   },
   // Trusted organization cards
   resourceCard: {

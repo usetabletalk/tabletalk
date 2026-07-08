@@ -16,8 +16,6 @@ export default function PracticeScreen() {
 
   const renderItem = ({ item, index }: { item: typeof SCENARIOS[0]; index: number }) => {
     const isCompleted = state.completedScenarios.includes(item.id);
-    
-    // Assign a soft tint based on index
     const tintOptions = [colors.tints.lavender, colors.tints.sky, colors.tints.peach, colors.tints.mint];
     const cardTint = tintOptions[index % tintOptions.length];
 
@@ -27,7 +25,6 @@ export default function PracticeScreen() {
           styles.card,
           {
             backgroundColor: cardTint,
-            borderColor: "transparent",
             borderRadius: colors.radius,
             opacity: pressed ? 0.9 : 1,
             transform: [{ scale: pressed ? 0.98 : 1 }],
