@@ -83,7 +83,7 @@ export const TIPS: Tip[] = [
   {
     id: "t8",
     categoryId: "eating-out",
-    title: "The Fryer Problem",
+    title: "Fryers",
     content: "Even if french fries are just potatoes, if they are cooked in the same oil as breaded chicken or onion rings, they are heavily contaminated. Always ask: 'Is there a dedicated gluten-free fryer?'",
   },
   {
