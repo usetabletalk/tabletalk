@@ -945,7 +945,7 @@ export const SCENARIOS: Scenario[] = [
   {
     id: "partner-conversation",
     title: "Talking to a Partner",
-    description: "Telling someone you're close to about kissing safely with celiac — before the moment gets awkward.",
+    description: "Tell someone you're close to about kissing safely with celiac — before the moment gets awkward.",
     estimatedMinutes: 4,
     firstStepId: "curious_start",
     modes: [
