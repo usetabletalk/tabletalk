@@ -29,6 +29,7 @@ export default function TipsScreen() {
   const insets = useSafeAreaInsets();
   const { state, toggleSavedTip } = useAppState();
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
+  const [expandedTips, setExpandedTips] = useState<Record<string, boolean>>({});
   const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
@@ -47,6 +48,15 @@ export default function TipsScreen() {
       sub.remove();
     };
   }, []);
+
+  const toggleTip = (tipId: string) => {
+    if (Platform.OS !== "web" && !reduceMotion) {
+      LayoutAnimation.configureNext(
+        LayoutAnimation.create(180, "easeInEaseOut", "opacity")
+      );
+    }
+    setExpandedTips((prev) => ({ ...prev, [tipId]: !prev[tipId] }));
+  };
 
   const toggleSection = (categoryId: string) => {
     if (Platform.OS !== "web" && !reduceMotion) {
@@ -77,6 +87,7 @@ export default function TipsScreen() {
 
   const renderItem = ({ item }: { item: Tip }) => {
     const isSaved = state.savedTips.includes(item.id);
+    const isExpanded = !!expandedTips[item.id];
 
     return (
       <View
@@ -88,25 +99,44 @@ export default function TipsScreen() {
           },
         ]}
       >
-        <View style={styles.cardHeader}>
+        <Pressable
+          style={({ pressed }) => [styles.cardHeader, { opacity: pressed ? 0.75 : 1 }]}
+          onPress={() => toggleTip(item.id)}
+          accessibilityRole="button"
+          accessibilityState={{ expanded: isExpanded }}
+          accessibilityLabel={`${item.title}, ${isExpanded ? "collapse" : "expand"}`}
+        >
+          {item.isImportant && !isExpanded && (
+            <View style={[styles.importantDot, { backgroundColor: colors.primary }]} />
+          )}
           <Text style={[styles.cardTitle, { color: colors.cardForeground }]}>
             {item.title}
           </Text>
-          <Pressable
-            style={styles.saveButton}
-            onPress={() => toggleSavedTip(item.id)}
-            hitSlop={8}
-          >
-            <Ionicons
-              name={isSaved ? "heart" : "heart-outline"}
-              size={22}
-              color={isSaved ? colors.destructive : colors.mutedForeground}
+          <View style={styles.cardHeaderRight}>
+            <Pressable
+              onPress={() => toggleSavedTip(item.id)}
+              hitSlop={8}
+              style={styles.saveButton}
+            >
+              <Ionicons
+                name={isSaved ? "heart" : "heart-outline"}
+                size={20}
+                color={isSaved ? colors.destructive : colors.mutedForeground}
+              />
+            </Pressable>
+            <Feather
+              name={isExpanded ? "chevron-up" : "chevron-down"}
+              size={18}
+              color={colors.mutedForeground}
             />
-          </Pressable>
-        </View>
-        <Text style={[styles.cardContent, { color: colors.mutedForeground }]}>
-          {item.content}
-        </Text>
+          </View>
+        </Pressable>
+
+        {isExpanded && (
+          <Text style={[styles.cardContent, { color: colors.mutedForeground }]}>
+            {item.content}
+          </Text>
+        )}
       </View>
     );
   };
@@ -227,8 +257,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   card: {
-    padding: 20,
-    marginBottom: 16,
+    paddingHorizontal: 20,
+    paddingVertical: 4,
+    marginBottom: 10,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
@@ -237,20 +268,32 @@ const styles = StyleSheet.create({
   },
   cardHeader: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    marginBottom: 12,
+    alignItems: "center",
+    gap: 8,
+    paddingVertical: 16,
+  },
+  importantDot: {
+    width: 7,
+    height: 7,
+    borderRadius: 4,
+    flexShrink: 0,
+  },
+  cardHeaderRight: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    marginLeft: "auto",
   },
   cardTitle: {
     fontFamily: "Inter_600SemiBold",
-    fontSize: 18,
+    fontSize: 16,
     flex: 1,
-    paddingRight: 16,
   },
   cardContent: {
     fontFamily: "Inter_400Regular",
     fontSize: 15,
     lineHeight: 24,
+    paddingBottom: 16,
   },
   saveButton: {
     padding: 4,
