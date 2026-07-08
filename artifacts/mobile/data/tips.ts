@@ -105,6 +105,12 @@ export const TIPS: Tip[] = [
     content: "A kitchen that handles gluten all day has flour and crumbs on every surface — including the hands of the staff. The three things that make the biggest difference are: fresh gloves (not just wiped hands), a clean prep surface that hasn't been used for gluten items, and ideally a dedicated area or section of the kitchen for allergen orders. When ordering, it's completely reasonable to ask: 'Can you change gloves and use a clean surface for my order?' A kitchen that takes celiac seriously will say yes without hesitation.",
   },
   {
+    id: "t20",
+    categoryId: "travel",
+    title: "Communion & Religious Ceremonies",
+    content: "Traditional communion wafers are made from wheat and are not safe for celiacs — even a small fragment is enough to cause a reaction. Wine shared from a common cup can also become contaminated if wafer crumbs fall in.\n\nMost denominations have options if you ask ahead:\n\nCatholic: The Vatican has approved low-gluten hosts (not gluten-free, but very low) made specifically for celiacs. Some parishes keep them on hand; others need advance notice. You can also receive communion under wine only (from a separate, uncontaminated cup). Contact your parish office before your first visit.\n\nProtestant / non-denominational: Many churches offer gluten-free crackers or wafers alongside standard ones — just ask your pastor or church office. Individual sealed communion cups (common in many evangelical churches) reduce cross-contact risk significantly.\n\nOther traditions: Jewish Passover matzah is made from wheat and is not safe. Some communities offer oat matzah (which can be certified GF) for those who need it — ask your rabbi well in advance. For other ceremonies involving shared food or bread, the same principle applies: reach out to the officiant or organizer beforehand.\n\nThe key in all cases: contact someone ahead of time. Religious communities are almost always willing to accommodate when they know — they don't want anyone to feel excluded.",
+  },
+  {
     id: "t19",
     categoryId: "travel",
     title: "ADA & No-Food Policies",
