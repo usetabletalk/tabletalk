@@ -88,8 +88,8 @@ function SectionHeader({
     >
       <View style={styles.sectionHeaderText}>
         <Text style={[styles.sectionTitle, { color: colors.foreground }]}>{title}</Text>
-        {subtitle && !expanded && (
-          <Text style={[styles.sectionSubtitle, { color: colors.mutedForeground }]} numberOfLines={1}>
+        {subtitle && (
+          <Text style={[styles.sectionSubtitle, { color: colors.mutedForeground }]}>
             {subtitle}
           </Text>
         )}
