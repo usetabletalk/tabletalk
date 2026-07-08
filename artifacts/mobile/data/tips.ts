@@ -39,6 +39,12 @@ export const TIPS: Tip[] = [
     content: "Saliva can carry gluten for several hours after someone eats it. If a partner, family member, or friend has eaten gluten and then kisses you on the lips, that contact can be enough to cause a reaction. The solution is simple and worth mentioning to the people close to you: brushing teeth or swishing thoroughly with water beforehand makes it safe. It's an awkward conversation the first time, but most people are genuinely happy to know — and relieved there's an easy fix.",
   },
   {
+    id: "t18",
+    categoryId: "hidden-gluten",
+    title: "Alcohol",
+    content: "The key distinction is distillation vs. fermentation.\n\nFermented drinks (beer, ale, stout, lager, malt beverages) are NOT safe — the gluten proteins stay in the liquid. Always avoid standard beer. Gluten-removed beers (like Omission) are still risky for celiacs — they test below 20ppm but the proteins are still present in fragments.\n\nDistilled spirits ARE generally considered safe, even when made from gluten grains like wheat or barley. The distillation process vaporizes and recondenses the alcohol, leaving gluten proteins behind. This includes most whiskey, bourbon, Scotch, vodka, and gin. That said, a small number of celiacs report reactions to grain-based spirits — if you're sensitive, stick to spirits distilled from non-gluten sources: tequila and mezcal (agave), rum (sugarcane), brandy and cognac (grapes), and potato vodka.\n\nAlways safe: wine, dry cider, and spirits labeled gluten-free.\n\nWatch out for: flavored spirits and pre-mixed cocktails — flavorings added after distillation can reintroduce gluten. Smirnoff Ice, Mike's Hard Lemonade, and similar malt-based beverages are NOT safe despite looking like cocktails.\n\nSafe beer options: Omission (use with caution), Glutenberg, Ground Breaker, and New Planet are certified gluten-free. Athletic Brewing makes non-alcoholic gluten-free options.",
+  },
+  {
     id: "t13",
     categoryId: "hidden-gluten",
     title: "Barley & Malt",
