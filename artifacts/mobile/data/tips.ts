@@ -93,6 +93,12 @@ export const TIPS: Tip[] = [
     content: "A kitchen that handles gluten all day has flour and crumbs on every surface — including the hands of the staff. The three things that make the biggest difference are: fresh gloves (not just wiped hands), a clean prep surface that hasn't been used for gluten items, and ideally a dedicated area or section of the kitchen for allergen orders. When ordering, it's completely reasonable to ask: 'Can you change gloves and use a clean surface for my order?' A kitchen that takes celiac seriously will say yes without hesitation.",
   },
   {
+    id: "t16",
+    categoryId: "travel",
+    title: "Snacks",
+    content: "The best travel snacks are ones that won't melt in a hot car or a warm pocket and don't need refrigeration. Reach for high-protein options over high-sugar ones — protein keeps energy steady for hours, while sugar gives a quick spike and then a crash. Good options: individual packets of nut butter (almond, peanut, sunflower), beef or turkey jerky (check labels — some use soy sauce or malt vinegar), roasted chickpeas, nuts and seeds, hard cheeses in sealed packaging, and rice cakes. Avoid chocolate bars or yogurt-covered anything in warm weather — they make a mess and the sugar hit fades fast.",
+  },
+  {
     id: "t9",
     categoryId: "travel",
     title: "TSA",
