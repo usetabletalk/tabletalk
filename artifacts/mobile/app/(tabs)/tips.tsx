@@ -28,7 +28,9 @@ export default function TipsScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
   const { state, toggleSavedTip } = useAppState();
-  const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
+  const [collapsed, setCollapsed] = useState<Record<string, boolean>>(
+    () => Object.fromEntries(CATEGORIES.map((c) => [c.id, true]))
+  );
   const [expandedTips, setExpandedTips] = useState<Record<string, boolean>>({});
   const [reduceMotion, setReduceMotion] = useState(false);
 
