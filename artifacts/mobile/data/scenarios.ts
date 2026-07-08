@@ -250,4 +250,146 @@ export const SCENARIOS: Scenario[] = [
       },
     },
   },
+  {
+    id: "catered-event",
+    title: "Catered Event (Meeting or Wedding)",
+    description: "Navigate a buffet where you don't control the menu.",
+    estimatedMinutes: 5,
+    firstStepId: "start",
+    steps: {
+      start: {
+        id: "start",
+        speaker: "other",
+        text: "Event coordinator: 'Welcome! We have a full buffet set up. A few dishes are marked with a green flag for gluten-free guests.'",
+        options: [
+          {
+            id: "opt_ask_prep",
+            text: "Thank you! I have celiac disease — can you tell me more about how those dishes were prepared?",
+            nextStepId: "tip_good_start",
+          },
+          {
+            id: "opt_just_find",
+            text: "Oh great, I'll just find those ones!",
+            nextStepId: "tip_flag_warning",
+          },
+        ],
+      },
+      tip_good_start: {
+        id: "tip_good_start",
+        speaker: "app",
+        text: "Excellent instinct. A 'gluten-free' label only tells you the ingredients — not whether it was prepared safely. Asking about preparation is the right next step.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "coord_reply_prep" }],
+      },
+      coord_reply_prep: {
+        id: "coord_reply_prep",
+        speaker: "other",
+        text: "Coordinator: 'They were made in the same kitchen as everything else, but the chef put them on separate plates before service.'",
+        options: [
+          {
+            id: "ask_utensils",
+            text: "I appreciate that. With celiac, I also need to ask — are the serving utensils shared between the regular and gluten-free dishes?",
+            nextStepId: "coord_utensil_reply",
+          },
+          {
+            id: "accept_risk",
+            text: "Okay, separate plates sounds fine. I'll give those a try.",
+            nextStepId: "tip_utensil_risk",
+          },
+        ],
+      },
+      tip_utensil_risk: {
+        id: "tip_utensil_risk",
+        speaker: "app",
+        text: "Separate plates are a good sign, but shared serving spoons are a very common source of cross-contact at buffets. Worth asking before eating.",
+        options: [{ id: "retry", text: "Try asking about utensils", nextStepId: "coord_reply_prep" }],
+      },
+      coord_utensil_reply: {
+        id: "coord_utensil_reply",
+        speaker: "other",
+        text: "Coordinator: 'Hmm, I think the servers were using the same spoons for everything. I'm not sure.'",
+        options: [
+          {
+            id: "ask_chef",
+            text: "Would it be possible to ask the chef to plate a fresh portion from the kitchen using clean utensils? I don't want to be difficult, but it really does affect my health.",
+            nextStepId: "coord_chef_check",
+          },
+          {
+            id: "eat_own_food",
+            text: "In that case, I'll play it safe and eat the food I brought. Thank you so much for checking!",
+            nextStepId: "end_own_food",
+          },
+        ],
+      },
+      coord_chef_check: {
+        id: "coord_chef_check",
+        speaker: "other",
+        text: "Coordinator: 'Of course — let me check. [returns] The chef says absolutely, and they'll bring it out to you directly on a clean plate.'",
+        options: [
+          {
+            id: "thank_you",
+            text: "That means so much, thank you for going out of your way. Please pass along my thanks to the chef!",
+            nextStepId: "end_chef_success",
+          },
+        ],
+      },
+      end_chef_success: {
+        id: "end_chef_success",
+        speaker: "app",
+        text: "Wonderful! You were polite, specific, and persistent — and it paid off. Asking event staff to involve the chef directly is often the safest path at catered events.",
+        isEnd: true,
+      },
+      end_own_food: {
+        id: "end_own_food",
+        speaker: "app",
+        text: "A completely valid choice. Eating food you prepared yourself is always the safest option at any event. You handled the situation with grace — no apology needed.",
+        isEnd: true,
+      },
+      tip_flag_warning: {
+        id: "tip_flag_warning",
+        speaker: "app",
+        text: "Green flags are helpful, but they usually only mean the recipe is gluten-free — not that it was prepared safely. Shared utensils and cross-contact at buffets are very common.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "at_buffet" }],
+      },
+      at_buffet: {
+        id: "at_buffet",
+        speaker: "other",
+        text: "You walk over to the buffet. The flagged dishes look good, but you notice a server using the same tongs for multiple dishes.",
+        options: [
+          {
+            id: "ask_server",
+            text: "Excuse me — I have celiac disease. Are those tongs being used for the gluten-free dishes too?",
+            nextStepId: "server_confirms_shared",
+          },
+          {
+            id: "ignore_tongs",
+            text: "It's probably fine. I'll just grab some of the flagged items.",
+            nextStepId: "tip_tongs_risk",
+          },
+        ],
+      },
+      server_confirms_shared: {
+        id: "server_confirms_shared",
+        speaker: "other",
+        text: "Server: 'Oh — yeah, we've been using these for everything. Sorry, I didn't realize.'",
+        options: [
+          {
+            id: "ask_coord_again",
+            text: "No worries at all — thank you for being honest. Could you point me to whoever's in charge so I can ask about a safely prepared plate?",
+            nextStepId: "coord_chef_check",
+          },
+          {
+            id: "safe_choice",
+            text: "I appreciate you telling me. I'll stick with the sealed items or food I brought.",
+            nextStepId: "end_own_food",
+          },
+        ],
+      },
+      tip_tongs_risk: {
+        id: "tip_tongs_risk",
+        speaker: "app",
+        text: "Shared tongs are one of the most common causes of accidental gluten exposure at buffets — even a small amount of bread crumbs can cause a reaction. Better to ask before eating.",
+        options: [{ id: "retry", text: "Go back and ask", nextStepId: "at_buffet" }],
+      },
+    },
+  },
 ];
