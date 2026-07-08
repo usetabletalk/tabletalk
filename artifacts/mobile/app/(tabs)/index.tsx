@@ -5,7 +5,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 
 import { useColors } from "@/hooks/useColors";
-import { useAppState } from "@/contexts/AppStateContext";
 import { SCENARIOS } from "@/data/scenarios";
 
 const sortKey = (title: string) =>
@@ -18,11 +17,9 @@ const SORTED_SCENARIOS = [...SCENARIOS].sort((a, b) =>
 export default function PracticeScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
-  const { state } = useAppState();
   const router = useRouter();
 
   const renderItem = ({ item, index }: { item: typeof SCENARIOS[0]; index: number }) => {
-    const isCompleted = state.completedScenarios.includes(item.id);
     const tintOptions = [colors.tints.lavender, colors.tints.sky, colors.tints.peach, colors.tints.mint];
     const cardTint = tintOptions[index % tintOptions.length];
 
@@ -43,11 +40,6 @@ export default function PracticeScreen() {
           <View style={[styles.iconContainer, { backgroundColor: colors.background }]}>
             <Feather name="message-circle" size={18} color={colors.foreground} />
           </View>
-          {isCompleted && (
-            <View style={[styles.completedBadge, { backgroundColor: colors.accent }]}>
-              <Feather name="check" size={12} color={colors.accentForeground} />
-            </View>
-          )}
         </View>
         <Text style={[styles.cardTitle, { color: colors.foreground }]}>
           {item.title}
@@ -143,13 +135,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 22,
     marginBottom: 16,
-  },
-  completedBadge: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    alignItems: "center",
-    justifyContent: "center",
-    marginLeft: 8,
   },
 });
