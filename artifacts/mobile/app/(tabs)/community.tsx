@@ -147,6 +147,7 @@ export default function CommunityScreen() {
         {/* ── Trusted Organizations ─────────────────────────────────────────── */}
         <SectionHeader
           title="Trusted Organizations"
+          subtitle="Research, advocacy, and support from established celiac groups."
           expanded={orgsExpanded}
           onToggle={() => setOrgsExpanded((v) => !v)}
         />
