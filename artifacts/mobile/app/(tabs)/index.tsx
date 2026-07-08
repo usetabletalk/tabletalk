@@ -48,12 +48,6 @@ export default function PracticeScreen() {
         <Text style={[styles.cardDescription, { color: colors.foreground, opacity: 0.8 }]}>
           {item.description}
         </Text>
-        <View style={[styles.cardFooter, { backgroundColor: colors.background, borderRadius: colors.radius }]}>
-          <Feather name="clock" size={14} color={colors.mutedForeground} />
-          <Text style={[styles.cardTime, { color: colors.mutedForeground }]}>
-            {item.estimatedMinutes} mins
-          </Text>
-        </View>
       </Pressable>
     );
   };
@@ -142,18 +136,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 22,
     marginBottom: 16,
-  },
-  cardFooter: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    alignSelf: "flex-start",
-    gap: 6,
-  },
-  cardTime: {
-    fontFamily: "Inter_500Medium",
-    fontSize: 13,
   },
   completedBadge: {
     width: 24,
