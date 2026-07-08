@@ -816,4 +816,130 @@ export const SCENARIOS: Scenario[] = [
       },
     },
   },
+  {
+    id: "homemade-gift",
+    title: "The Homemade Gift",
+    description: "A loved one baked something gluten-free just for you — but you're not sure their kitchen was safe.",
+    estimatedMinutes: 4,
+    firstStepId: "start",
+    steps: {
+      start: {
+        id: "start",
+        speaker: "other",
+        text: "Aunt Carol: 'I baked these cookies just for you! I used the gluten-free flour mix from the health food store. I know how hard it must be — I wanted to make something special.'",
+        options: [
+          {
+            id: "ask_setup",
+            text: "Aunt Carol, this is the sweetest thing. Can I ask a little about your kitchen setup? It really helps me know what's safe for me.",
+            nextStepId: "tip_ask_well",
+          },
+          {
+            id: "take_home",
+            text: "Oh my goodness — thank you so much! I'll take these home with me.",
+            nextStepId: "tip_white_lie",
+          },
+        ],
+      },
+      tip_ask_well: {
+        id: "tip_ask_well",
+        speaker: "app",
+        text: "Asking before you eat is always the right move — even when someone's intentions are wonderful. Framing it as 'it helps me know what's safe' rather than 'I don't trust you' keeps the conversation warm.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "carol_reveals" }],
+      },
+      carol_reveals: {
+        id: "carol_reveals",
+        speaker: "other",
+        text: "Aunt Carol: 'Of course! I used my regular mixing bowls and baking pans — I washed them really well first. Oh, and I had regular flour out earlier in the day, but I wiped down the counter before I started.'",
+        options: [
+          {
+            id: "explain_cc",
+            text: "That's so thoughtful of you to try. The tricky thing is that flour particles can cling to bowls and pans even after washing — gluten actually bonds to surfaces. It's not about cleanliness at all, just chemistry.",
+            nextStepId: "tip_explain_cc",
+          },
+          {
+            id: "accept_graciously",
+            text: "You're so sweet. I might just take them home for later — I sometimes feel more confident when I know exactly how something was made. But truly, thank you.",
+            nextStepId: "tip_white_lie_late",
+          },
+        ],
+      },
+      tip_explain_cc: {
+        id: "tip_explain_cc",
+        speaker: "app",
+        text: "Leading with the science — 'it bonds to surfaces' — removes the implication that her cleaning wasn't good enough. That's a really important framing shift.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "carol_reaction" }],
+      },
+      carol_reaction: {
+        id: "carol_reaction",
+        speaker: "other",
+        text: "Aunt Carol: '...Oh. I had absolutely no idea. I thought using the GF flour was the main thing. I'm so sorry — I spent all morning on these.'",
+        options: [
+          {
+            id: "reassure_and_guide",
+            text: "Please don't feel bad — what you did was an act of love and I felt every bit of it. Now I can tell you exactly what works, and we could even bake together sometime with the right setup. That would mean so much to me.",
+            nextStepId: "carol_wants_to_try",
+          },
+          {
+            id: "just_reassure",
+            text: "Please don't apologize. The fact that you thought of me and tried — that's the real gift. Honestly.",
+            nextStepId: "end_just_love",
+          },
+        ],
+      },
+      carol_wants_to_try: {
+        id: "carol_wants_to_try",
+        speaker: "other",
+        text: "Aunt Carol: 'I really want to get it right for you. What would I need to do differently?'",
+        options: [
+          {
+            id: "give_guide",
+            text: "You'd want pans and bowls that have never touched regular flour — even inexpensive new ones work great. And a clean surface with no flour in the air when mixing. I'd love to help you set it up sometime.",
+            nextStepId: "end_gratitude_and_guide",
+          },
+        ],
+      },
+      tip_white_lie: {
+        id: "tip_white_lie",
+        speaker: "app",
+        text: "Taking it home is a completely valid strategy. You preserve the gesture, stay safe, and make a private decision later. You don't always owe someone a full explanation in the moment — especially when their heart is clearly in the right place.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "carol_happy" }],
+      },
+      tip_white_lie_late: {
+        id: "tip_white_lie_late",
+        speaker: "app",
+        text: "Taking it home is a completely valid move. You stay safe, you honor her effort, and you handle the decision privately rather than in the middle of an emotional moment.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "carol_happy" }],
+      },
+      carol_happy: {
+        id: "carol_happy",
+        speaker: "other",
+        text: "Aunt Carol: 'Oh good! I really hoped you'd like them. I just wanted to do something nice for you.'",
+        options: [
+          {
+            id: "warm_thanks",
+            text: "I love you so much for thinking of me. The fact that you tried means everything — really.",
+            nextStepId: "end_white_lie",
+          },
+        ],
+      },
+      end_gratitude_and_guide: {
+        id: "end_gratitude_and_guide",
+        speaker: "app",
+        text: "Beautifully done. You explained the science without blame, made sure she felt loved, and turned a hard moment into a plan for next time. That's one of the most generous things you can do — give someone a real roadmap instead of just leaving them confused.",
+        isEnd: true,
+      },
+      end_just_love: {
+        id: "end_just_love",
+        speaker: "app",
+        text: "Sometimes the truest thing you can say is 'the gesture is the gift.' You kept yourself safe, kept the relationship warm, and left her feeling appreciated rather than scolded. That's a real skill.",
+        isEnd: true,
+      },
+      end_white_lie: {
+        id: "end_white_lie",
+        speaker: "app",
+        text: "Taking it home was exactly right. You preserved a loving moment without having to give a medical explanation on the spot — and you don't always have to. That's a valid choice, especially with family. The food decision is yours to make privately, on your own terms.",
+        isEnd: true,
+      },
+    },
+  },
 ];
