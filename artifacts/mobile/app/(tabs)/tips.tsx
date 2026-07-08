@@ -10,7 +10,7 @@ import {
   UIManager,
   View,
 } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather, Ionicons } from "@expo/vector-icons";
 
 import { useColors } from "@/hooks/useColors";
@@ -148,11 +148,9 @@ export default function TipsScreen() {
   );
 
   return (
-    <View
-      style={[
-        styles.container,
-        { backgroundColor: colors.background, paddingTop: insets.top },
-      ]}
+    <SafeAreaView
+      edges={["top"]}
+      style={[styles.container, { backgroundColor: colors.background }]}
     >
       <SectionList
         sections={sections}
@@ -175,7 +173,7 @@ export default function TipsScreen() {
           </View>
         }
       />
-    </View>
+    </SafeAreaView>
   );
 }
 

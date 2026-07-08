@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 import React from "react";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 
 import { useColors } from "@/hooks/useColors";
@@ -62,11 +62,9 @@ export default function PracticeScreen() {
   };
 
   return (
-    <View
-      style={[
-        styles.container,
-        { backgroundColor: colors.background, paddingTop: insets.top },
-      ]}
+    <SafeAreaView
+      edges={["top"]}
+      style={[styles.container, { backgroundColor: colors.background }]}
     >
       <FlatList
         data={SCENARIOS}
@@ -87,7 +85,7 @@ export default function PracticeScreen() {
           </View>
         }
       />
-    </View>
+    </SafeAreaView>
   );
 }
 
