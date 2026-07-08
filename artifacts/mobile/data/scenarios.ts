@@ -252,7 +252,7 @@ export const SCENARIOS: Scenario[] = [
   },
   {
     id: "catered-event",
-    title: "Catered Event (Meeting or Wedding)",
+    title: "At a Catered Event",
     description: "Navigate a buffet where you don't control the menu.",
     estimatedMinutes: 5,
     firstStepId: "start",
