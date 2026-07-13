@@ -1931,7 +1931,7 @@ export const SCENARIOS: Scenario[] = [
       cp_warm_end: {
         id: "cp_warm_end",
         speaker: "app",
-        text: "You said what you needed to say without spiraling into apologies. Notice you didn't promise to 'make it up to them' or apologize three times, that pattern puts the other person in the awkward position of reassuring you while you're the sick one. One honest cancellation message is enough.",
+        text: "You said what you needed to say without spiraling into apologies. Notice you didn't promise to 'make it up to them' or apologize three times. That pattern puts the other person in the awkward position of reassuring you while you're the sick one. One honest cancellation message is enough.",
         isEnd: true,
       },
 
