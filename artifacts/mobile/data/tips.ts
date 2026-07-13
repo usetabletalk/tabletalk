@@ -36,7 +36,7 @@ export const TIPS: Tip[] = [
     id: "t15",
     categoryId: "hidden-gluten",
     title: "Kissing & Saliva",
-    content: "Saliva can carry gluten for several hours after someone eats it. If a partner, family member, or friend has eaten gluten and then kisses you on the lips, that contact can be enough to cause a reaction. The solution is simple and worth mentioning to the people close to you: brushing teeth or swishing thoroughly with water beforehand makes it safe. It's an awkward conversation the first time, but most people are genuinely happy to know, and relieved there's an easy fix.",
+    content: "Saliva can carry gluten for several hours after eating, and a kiss on the lips can be enough to cause a reaction. The fix is simple: brushing teeth or swishing with water beforehand makes it safe. Awkward to bring up, but most people are relieved there's an easy answer.",
   },
   {
     id: "t18",
