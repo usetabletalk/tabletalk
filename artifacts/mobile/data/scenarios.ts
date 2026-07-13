@@ -1804,4 +1804,152 @@ export const SCENARIOS: Scenario[] = [
       },
     },
   },
+  {
+    id: "canceling-plans",
+    title: "When You're Too Sick to Show Up",
+    description: "Cancel plans after getting glutened — without over-apologizing or over-explaining.",
+    estimatedMinutes: 4,
+    firstStepId: "cp_warm_start",
+    modes: [
+      { id: "supportive", label: "Supportive Friend", description: "They get it and want to help — practice saying it clearly without guilt.", icon: "smile", tint: "mint", firstStepId: "cp_warm_start" },
+      { id: "skeptical", label: "Skeptical Friend", description: "They're questioning how sick you really are and whether you can push through.", icon: "help-circle", tint: "lemon", firstStepId: "cp_skeptic_start" },
+      { id: "frustrated", label: "It Keeps Happening", description: "You've had to cancel before and they're starting to take it personally.", icon: "alert-circle", tint: "rose", firstStepId: "cp_repeat_start" },
+    ],
+    steps: {
+      // ── Supportive Friend ────────────────────────────────────────────────
+
+      cp_warm_start: {
+        id: "cp_warm_start",
+        speaker: "app",
+        text: "You got glutened last night and woke up in a full flare — fatigue, cramping, brain fog. You have plans with a friend in two hours. What do you want to say?",
+        options: [
+          { id: "direct", text: "Hey — I have to cancel today. I got glutened last night and I'm in a full flare. I'm so sorry for the last-minute notice.", nextStepId: "cp_warm_friend_responds" },
+          { id: "brief", text: "I'm really sorry — I have to bail today. Celiac flare. I'll explain more when I'm not horizontal.", nextStepId: "cp_warm_friend_responds" },
+          { id: "softer", text: "I hate doing this, but I got glutened last night and I'm really sick. I can't make it today — can we reschedule?", nextStepId: "cp_warm_friend_responds" },
+        ],
+      },
+      cp_warm_friend_responds: {
+        id: "cp_warm_friend_responds",
+        speaker: "other",
+        text: "Friend: 'Oh no — don't even worry about it. Please rest. Is there anything I can do? We can figure out a new time whenever you're better.'",
+        options: [
+          { id: "gracious", text: "Thank you for being so understanding. I really appreciate it — I'll reach out when I'm back on my feet.", nextStepId: "cp_warm_end" },
+          { id: "reassure", text: "You're so kind. I'm okay — just need a day or two. I'm already looking forward to rescheduling.", nextStepId: "cp_warm_end" },
+        ],
+      },
+      cp_warm_end: {
+        id: "cp_warm_end",
+        speaker: "app",
+        text: "You said what you needed to say without over-explaining or apologizing five times. A simple, honest message is the right call — a good friend doesn't need a medical report, just the truth. Notice you didn't say 'I'm so so sorry' three times or promise to make it up to them. That keeps it clean.",
+        isEnd: true,
+      },
+
+      // ── Skeptical Friend ─────────────────────────────────────────────────
+
+      cp_skeptic_start: {
+        id: "cp_skeptic_start",
+        speaker: "app",
+        text: "You cancel, and your friend's response isn't exactly warm.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "cp_skeptic_cancel" }],
+      },
+      cp_skeptic_cancel: {
+        id: "cp_skeptic_cancel",
+        speaker: "other",
+        text: "You: 'Hey — I have to cancel today. I got glutened last night and I'm in a full flare. Really sorry.'",
+        options: [
+          { id: "see_response", text: "[Send]", nextStepId: "cp_skeptic_friend_questions" },
+        ],
+      },
+      cp_skeptic_friend_questions: {
+        id: "cp_skeptic_friend_questions",
+        speaker: "other",
+        text: "Friend: 'Wait — you were totally fine at dinner Friday. How are you suddenly this sick two days later?'",
+        options: [
+          { id: "explain_lag", text: "Celiac reactions can take hours to fully hit, and sometimes the worst of it comes the next morning. I started feeling it last night — today is rough.", nextStepId: "cp_skeptic_tip" },
+          { id: "keep_brief", text: "It works that way sometimes — the reaction builds. I really don't feel well today.", nextStepId: "cp_skeptic_tip" },
+        ],
+      },
+      cp_skeptic_tip: {
+        id: "cp_skeptic_tip",
+        speaker: "app",
+        text: "The delayed reaction is a real thing and worth naming once — it answers the 'but you seemed fine' question. You don't owe more detail than that. Notice you're not apologizing for how your body works.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "cp_skeptic_pushes" }],
+      },
+      cp_skeptic_pushes: {
+        id: "cp_skeptic_pushes",
+        speaker: "other",
+        text: "Friend: 'Can't you just take something for it and come anyway? Even for a bit? I feel like you're always canceling.'",
+        options: [
+          { id: "no_med_explain", text: "There's nothing to take for a celiac reaction — it's not like an upset stomach. I'm dealing with real fatigue and pain right now. I want to be there and I genuinely can't be.", nextStepId: "cp_skeptic_end_firm" },
+          { id: "soft_hold", text: "I wish I could. There's no medication for this — my body just needs to process it. I know it's frustrating. I really am sorry.", nextStepId: "cp_skeptic_end_soft" },
+          { id: "set_boundary", text: "I'm not going to be able to come. I know that's disappointing — I can talk more when I'm better.", nextStepId: "cp_skeptic_end_brief" },
+        ],
+      },
+      cp_skeptic_end_firm: {
+        id: "cp_skeptic_end_firm",
+        speaker: "app",
+        text: "Clarifying that there's no medication is important — it closes the 'just take something' door without being dismissive. You stayed warm while being completely clear. That's the right combination when someone is pushing.",
+        isEnd: true,
+      },
+      cp_skeptic_end_soft: {
+        id: "cp_skeptic_end_soft",
+        speaker: "app",
+        text: "Acknowledging their frustration ('I know it's frustrating') without caving to it is a skill. You validated their feeling without agreeing to do something your body can't do. That's a real balance.",
+        isEnd: true,
+      },
+      cp_skeptic_end_brief: {
+        id: "cp_skeptic_end_brief",
+        speaker: "app",
+        text: "Brief and final. When someone keeps pushing after you've explained once, you don't owe another explanation. 'I'm not able to come' is a complete sentence. Offering to talk more later leaves the door open without prolonging a hard moment.",
+        isEnd: true,
+      },
+
+      // ── It Keeps Happening ───────────────────────────────────────────────
+
+      cp_repeat_start: {
+        id: "cp_repeat_start",
+        speaker: "app",
+        text: "This is the third time in two months you've had to cancel on this friend. You're in a flare again. They respond to your cancellation message.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "cp_repeat_friend_hurt" }],
+      },
+      cp_repeat_friend_hurt: {
+        id: "cp_repeat_friend_hurt",
+        speaker: "other",
+        text: "Friend: 'I get that you're sick. But this keeps happening. I'm starting to wonder if you actually want to hang out.'",
+        options: [
+          { id: "acknowledge_impact", text: "I completely understand why it feels that way, and I hate that I keep putting you in this position. Flares are unpredictable — I never know when they're coming. It's not about wanting to see you. I really do.", nextStepId: "cp_repeat_tip" },
+          { id: "honest_and_warm", text: "That's fair. And it hurts to hear, because I do want to see you — I'm just genuinely sick when I cancel. I know 'I'm sick' starts to sound like an excuse after a while. It isn't.", nextStepId: "cp_repeat_tip" },
+          { id: "direct_clarify", text: "I want to be clear: I'm canceling because I'm sick, not because I don't want to see you. I know those feel the same from the outside. They're not.", nextStepId: "cp_repeat_tip" },
+        ],
+      },
+      cp_repeat_tip: {
+        id: "cp_repeat_tip",
+        speaker: "app",
+        text: "Acknowledging the impact on them first — before defending yourself — changes the whole tone. They feel heard, which makes them more able to actually hear you. You're not agreeing that you did something wrong; you're recognizing how it lands.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "cp_repeat_friend_softer" }],
+      },
+      cp_repeat_friend_softer: {
+        id: "cp_repeat_friend_softer",
+        speaker: "other",
+        text: "Friend: 'I just don't know how to plan around it. It feels like every time we make plans something happens.'",
+        options: [
+          { id: "offer_structure", text: "What if we tried lower-stakes plans — something easy to reschedule? Or I give you a same-day check-in before we commit. I want to actually see you, and I want to find a way that works.", nextStepId: "cp_repeat_end_practical" },
+          { id: "invite_flexibility", text: "That's a real problem and I want to fix it. Maybe we stop making plans far in advance and just do same-week stuff when I know how I'm feeling. Less pressure for both of us.", nextStepId: "cp_repeat_end_practical" },
+          { id: "honest_limit", text: "I hear you. I can't promise it won't happen again — this is chronic. But I can promise that when I cancel it's real, and that I'll always reschedule. That's what I can offer.", nextStepId: "cp_repeat_end_honest" },
+        ],
+      },
+      cp_repeat_end_practical: {
+        id: "cp_repeat_end_practical",
+        speaker: "app",
+        text: "Offering a concrete alternative — same-day check-ins, lower-stakes plans — shows you're invested in solving the problem, not just apologizing for it. That turns a frustrating conversation into a plan. Most people respond well to that shift.",
+        isEnd: true,
+      },
+      cp_repeat_end_honest: {
+        id: "cp_repeat_end_honest",
+        speaker: "app",
+        text: "Sometimes the most honest thing you can say is 'I can't promise it won't happen, but here's what I can offer.' That's not a failure — it's an accurate picture of life with a chronic condition. A friendship that can't hold that reality isn't one you can maintain on false promises. You were real with them. That matters.",
+        isEnd: true,
+      },
+    },
+  },
 ];
