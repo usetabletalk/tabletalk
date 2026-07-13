@@ -57,6 +57,12 @@ export const TIPS: Tip[] = [
     content: "Many store-bought taco seasoning packets use wheat flour or modified food starch (which can be wheat-based) as a filler or anti-caking agent. This includes some of the most common brands. Always read the label — look for 'contains wheat' or 'wheat' in the ingredients list. Safe alternatives are easy to find: several brands make certified gluten-free packets, or you can make your own blend with chili powder, cumin, garlic powder, onion powder, smoked paprika, and salt.",
   },
   {
+    id: "t21",
+    categoryId: "hidden-gluten",
+    title: "Rye",
+    content: "Rye is a gluten-containing grain — it is not safe for celiacs. It hides in places people don't always expect: rye bread and rye crackers are obvious, but rye also appears in some whiskeys and dark beers, certain cereals and granolas, and some European-style breads that don't always advertise rye clearly on the front of the package. On labels, look for 'rye flour,' 'rye malt,' or just 'rye' in the ingredients list. It falls under the same allergen umbrella as wheat and barley, so any product labeled 'contains gluten' may include rye.",
+  },
+  {
     id: "t12",
     categoryId: "hidden-gluten",
     title: "Sauces, Gravies & Soups",
