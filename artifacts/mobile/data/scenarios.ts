@@ -1091,4 +1091,431 @@ export const SCENARIOS: Scenario[] = [
       },
     },
   },
+  {
+    id: "partners-family",
+    title: "Meeting a Partner's Family",
+    description: "Navigate food safety and family dynamics — at the same table.",
+    estimatedMinutes: 5,
+    firstStepId: "first_start",
+    modes: [
+      { id: "first-meeting", label: "First Meeting", description: "Meeting the family for the first time and navigating celiac together.", icon: "smile", tint: "mint", firstStepId: "first_start" },
+      { id: "ongoing", label: "Ongoing Relationship", description: "You've met them before — but something keeps going wrong.", icon: "help-circle", tint: "lemon", firstStepId: "ongoing_start" },
+      { id: "highstakes", label: "High-Stakes Event", description: "A holiday, engagement dinner, or wedding where the stakes are higher.", icon: "alert-circle", tint: "rose", firstStepId: "highstakes_start" },
+    ],
+    steps: {
+      // ── First Meeting mode ────────────────────────────────────────────────
+
+      first_start: {
+        id: "first_start",
+        speaker: "app",
+        text: "First meetings are already a lot to navigate. Adding celiac means managing food safety and a new relationship at the same time. A key decision upfront: do you want your partner to give the family a heads-up beforehand, or handle it yourself when you arrive?",
+        options: [
+          { id: "partner_prepares", text: "I'd like my partner to mention it first", nextStepId: "pf_partner_prep" },
+          { id: "handle_live", text: "I'll handle it myself when I get there", nextStepId: "pf_first_arrival" },
+        ],
+      },
+      pf_partner_prep: {
+        id: "pf_partner_prep",
+        speaker: "other",
+        text: "Your partner: 'Yeah, I'll text my mom before we leave — just let her know about the celiac so she's not caught off guard.'",
+        options: [
+          { id: "ask_detail", text: "Can you also mention that cross-contamination matters, not just the ingredients? Shared pans or utensils can cause a reaction too.", nextStepId: "pf_partner_prep_tip" },
+          { id: "just_heads_up", text: "Thank you — even a quick heads-up makes a real difference.", nextStepId: "pf_partner_prep_light" },
+        ],
+      },
+      pf_partner_prep_tip: {
+        id: "pf_partner_prep_tip",
+        speaker: "app",
+        text: "Smart ask. Most people understand 'no gluten ingredients' but don't think about cross-contamination. If your partner can set that expectation now, you won't have to explain it cold at the table when everyone's already sitting down.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "pf_first_meal" }],
+      },
+      pf_partner_prep_light: {
+        id: "pf_partner_prep_light",
+        speaker: "app",
+        text: "A heads-up is a great start — you're not arriving cold. You can fill in the details about cross-contamination in person if the meal calls for it. Either way, you've already made it easier on yourself.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "pf_first_meal" }],
+      },
+      pf_first_arrival: {
+        id: "pf_first_arrival",
+        speaker: "other",
+        text: "Mom: 'Oh, it's so lovely to finally meet you! Come in, come in — I've been cooking all day. I hope you're hungry!'",
+        options: [
+          { id: "mention_now", text: "I'm so happy to meet you! I do want to mention — I have celiac disease, so I'll need to be careful with gluten. Happy to explain what that looks like if it helps.", nextStepId: "pf_mom_open" },
+          { id: "wait_til_meal", text: "[Wait until you're sitting at the table]", nextStepId: "pf_first_meal" },
+        ],
+      },
+      pf_mom_open: {
+        id: "pf_mom_open",
+        speaker: "other",
+        text: "Mom: 'Of course — tell me what you need! I want to make sure there's something safe for you.'",
+        options: [
+          { id: "explain_both", text: "Basically no wheat, barley, or rye — and how it's cooked matters as much as the ingredients. Shared pans or utensils can cause a reaction even if the food itself is fine.", nextStepId: "pf_arrival_warm_end" },
+        ],
+      },
+      pf_arrival_warm_end: {
+        id: "pf_arrival_warm_end",
+        speaker: "app",
+        text: "Well done. Covering ingredients AND preparation in one clear sentence gives her exactly what she needs without overwhelming her. You arrived as a guest, not a problem — and that framing will shape the whole visit.",
+        isEnd: true,
+      },
+      pf_first_meal: {
+        id: "pf_first_meal",
+        speaker: "other",
+        text: "Mom: '[Setting food on the table] I made a roast, roasted vegetables, and a nice gravy. Help yourselves!'",
+        options: [
+          { id: "she_seems_confident", text: "She seems confident she made something safe — but you're not sure if she understood cross-contamination.", nextStepId: "pf_meal_check" },
+          { id: "totally_unsure", text: "You have no idea what's safe here and need to figure it out without making a scene.", nextStepId: "pf_meal_ask" },
+        ],
+      },
+      pf_meal_check: {
+        id: "pf_meal_check",
+        speaker: "other",
+        text: "Mom: 'I made sure to use the gluten-free flour for the gravy — I looked it up especially for you!'",
+        options: [
+          { id: "confirm_gently", text: "That is so thoughtful — really. Can I ask one more thing? Were the pans used just for these dishes, or did anything else get cooked in them earlier?", nextStepId: "pf_pan_question" },
+          { id: "trust_it", text: "That means so much to me. I'll give it a try — thank you for going out of your way.", nextStepId: "pf_trust_end" },
+        ],
+      },
+      pf_pan_question: {
+        id: "pf_pan_question",
+        speaker: "other",
+        text: "Mom: 'The veg pan was used for breaded chicken last night — I did rinse it though. Is that okay?'",
+        options: [
+          { id: "decline_kindly", text: "You're so thoughtful for checking. Rinsing doesn't fully clear gluten from a pan, so I'll skip the veg to be safe — but the roast sounds perfect. Please don't feel bad at all!", nextStepId: "pf_decline_end" },
+        ],
+      },
+      pf_decline_end: {
+        id: "pf_decline_end",
+        speaker: "app",
+        text: "Handled with real grace. You confirmed what you needed to know, declined the risky dish specifically, and made sure she felt appreciated rather than corrected. Protecting yourself and keeping the relationship warm at the same time — that's the goal.",
+        isEnd: true,
+      },
+      pf_trust_end: {
+        id: "pf_trust_end",
+        speaker: "app",
+        text: "Sometimes you make a judgment call. If she went out of her way to research, that's genuine effort and worth acknowledging. You can ask more detailed questions at a future visit now that the relationship has started warm.",
+        isEnd: true,
+      },
+      pf_meal_ask: {
+        id: "pf_meal_ask",
+        speaker: "app",
+        text: "Asking before plates are full and expectations are set is always easier. A light, curious tone works well — you're gathering information, not auditing her kitchen.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "pf_meal_ask_live" }],
+      },
+      pf_meal_ask_live: {
+        id: "pf_meal_ask_live",
+        speaker: "other",
+        text: "You: [to Mom] 'Everything looks beautiful. Can I ask — what's in the gravy? I just need to check a couple of things with my celiac.'",
+        options: [
+          { id: "she_helps", text: "She checks and confirms the roast and plain vegetables are safe.", nextStepId: "pf_meal_safe_end" },
+          { id: "she_flustered", text: "She isn't sure and seems flustered.", nextStepId: "pf_meal_unsure" },
+        ],
+      },
+      pf_meal_unsure: {
+        id: "pf_meal_unsure",
+        speaker: "other",
+        text: "Mom: 'Oh gosh — I'm not sure now. I didn't know I needed to check all of that. I feel terrible.'",
+        options: [
+          { id: "reassure_redirect", text: "Please don't feel bad at all — you had no way to know. The roast is almost certainly fine. I'll start there and I'm completely happy with that. This doesn't have to be a big thing.", nextStepId: "pf_reassure_end" },
+        ],
+      },
+      pf_reassure_end: {
+        id: "pf_reassure_end",
+        speaker: "app",
+        text: "Reassuring her before redirecting to what is safe keeps the moment light and warm. You stay fed, she doesn't feel like she failed, and the meal moves on. That's the ideal outcome at a first meeting.",
+        isEnd: true,
+      },
+      pf_meal_safe_end: {
+        id: "pf_meal_safe_end",
+        speaker: "app",
+        text: "Asking before serving yourself is always the right move. You found what was safe, kept it simple, and the meal moved on. That's exactly how it should go.",
+        isEnd: true,
+      },
+
+      // ── Ongoing Relationship mode ─────────────────────────────────────────
+
+      ongoing_start: {
+        id: "ongoing_start",
+        speaker: "app",
+        text: "Ongoing family relationships have their own texture. Pick what you're dealing with right now.",
+        options: [
+          { id: "skeptic", text: "A family member is skeptical or dismissive", nextStepId: "pf_skeptic_what" },
+          { id: "no_backup", text: "My partner didn't back me up at the last visit", nextStepId: "pf_no_backup_start" },
+          { id: "forgetting", text: "The family keeps 'forgetting' every visit", nextStepId: "pf_forgetting_how_long" },
+        ],
+      },
+
+      // Skeptical family member ─────────────────────────────────────────────
+
+      pf_skeptic_what: {
+        id: "pf_skeptic_what",
+        speaker: "app",
+        text: "What are they saying?",
+        options: [
+          { id: "dramatic", text: "'You're being dramatic — it's such a tiny amount.'", nextStepId: "pf_skeptic_dramatic" },
+          { id: "picky", text: "'Are you sure you're not just picky? My sister did this trend too.'", nextStepId: "pf_skeptic_picky" },
+          { id: "old_times", text: "'We never had these problems growing up. People just ate what was served.'", nextStepId: "pf_skeptic_old_times" },
+        ],
+      },
+      pf_skeptic_dramatic: {
+        id: "pf_skeptic_dramatic",
+        speaker: "other",
+        text: "Aunt: 'Oh come on, it's a teeny bit of soy sauce. You can't honestly tell me that makes a real difference.'",
+        options: [
+          { id: "medical_fact", text: "It does, actually. Celiac is an autoimmune disease — my immune system attacks my own intestines when I eat even trace amounts. It's not about how it feels in the moment; it causes real damage.", nextStepId: "pf_skeptic_dramatic_firm_end" },
+          { id: "soft_redirect", text: "I know it seems like a lot. My doctor has been very clear with me about it — I'm not trying to be difficult, I just need to keep myself healthy.", nextStepId: "pf_skeptic_dramatic_soft_end" },
+          { id: "loop_partner", text: "[Look to your partner] Can you help explain? You've seen how sick I get.", nextStepId: "pf_skeptic_partner_step_in" },
+        ],
+      },
+      pf_skeptic_partner_step_in: {
+        id: "pf_skeptic_partner_step_in",
+        speaker: "other",
+        text: "Your partner: 'Yeah — it's a real thing. I've seen what happens. It's not something they're choosing to be sensitive about.'",
+        options: [
+          { id: "thank_partner", text: "Thank you. [to Aunt] I just need to make the call that keeps me safe — that's all.", nextStepId: "pf_skeptic_dramatic_firm_end" },
+        ],
+      },
+      pf_skeptic_dramatic_firm_end: {
+        id: "pf_skeptic_dramatic_firm_end",
+        speaker: "app",
+        text: "You gave the medical reality clearly and without apologizing for it. Someone who stays skeptical after a direct explanation has decided not to understand — that's not something you can fix at the dinner table. You did everything right.",
+        isEnd: true,
+      },
+      pf_skeptic_dramatic_soft_end: {
+        id: "pf_skeptic_dramatic_soft_end",
+        speaker: "app",
+        text: "Naming your doctor as the authority takes the argument off the table — it's not you being precious, it's a medical directive. You kept it warm and closed the door without slamming it. That's a skill.",
+        isEnd: true,
+      },
+      pf_skeptic_picky: {
+        id: "pf_skeptic_picky",
+        speaker: "other",
+        text: "Uncle: 'I've heard about people going gluten-free as a lifestyle thing. Is yours actually medical, or more of a preference?'",
+        options: [
+          { id: "clear_medical", text: "It's a medical diagnosis. Celiac is an autoimmune condition — if I eat gluten, my immune system damages my small intestine. No preference involved and no cheat days.", nextStepId: "pf_skeptic_picky_clear_end" },
+          { id: "gentle_distinction", text: "There's a real difference between choosing gluten-free and having celiac. Mine is a diagnosis — my body genuinely can't process it without causing damage. I wish it were just a preference!", nextStepId: "pf_skeptic_picky_gentle_end" },
+        ],
+      },
+      pf_skeptic_picky_clear_end: {
+        id: "pf_skeptic_picky_clear_end",
+        speaker: "app",
+        text: "Straightforward and correct. Drawing the line between lifestyle choice and medical condition means the conversation doesn't have to spiral. Well done.",
+        isEnd: true,
+      },
+      pf_skeptic_picky_gentle_end: {
+        id: "pf_skeptic_picky_gentle_end",
+        speaker: "app",
+        text: "Adding a little humor ('I wish it were just a preference!') keeps it light and disarms defensiveness. You made your point, kept the warmth, and closed the loop.",
+        isEnd: true,
+      },
+      pf_skeptic_old_times: {
+        id: "pf_skeptic_old_times",
+        speaker: "other",
+        text: "Grandma: 'We just ate what was put in front of us. Nobody had all these problems growing up. I think people are just too sensitive now.'",
+        options: [
+          { id: "historical_context", text: "Celiac was around back then too — it just wasn't diagnosed. A lot of people were sick and didn't know why. I'm actually lucky to have a name for it.", nextStepId: "pf_skeptic_old_times_context_end" },
+          { id: "let_it_go", text: "I understand. I just have to take care of myself the way I know how. I'm really glad to be here with everyone.", nextStepId: "pf_skeptic_old_times_peace_end" },
+        ],
+      },
+      pf_skeptic_old_times_context_end: {
+        id: "pf_skeptic_old_times_context_end",
+        speaker: "app",
+        text: "That reframe is genuinely useful — and true. Celiac wasn't invented recently; it was just unnamed. Giving her that context offers a way to update her view without having to admit she was wrong. That's a generous move.",
+        isEnd: true,
+      },
+      pf_skeptic_old_times_peace_end: {
+        id: "pf_skeptic_old_times_peace_end",
+        speaker: "app",
+        text: "Some conversations aren't worth finishing at the table. You made a gracious exit, stayed safe, and kept the day pleasant. Not every skeptic needs to be converted — you just need to eat safely and get through the visit.",
+        isEnd: true,
+      },
+
+      // Partner didn't back you up ──────────────────────────────────────────
+
+      pf_no_backup_start: {
+        id: "pf_no_backup_start",
+        speaker: "app",
+        text: "This conversation is with your partner afterward — not the family. The goal isn't to win an argument; it's to feel supported at the next visit. How you open it sets the tone.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "pf_no_backup_convo" }],
+      },
+      pf_no_backup_convo: {
+        id: "pf_no_backup_convo",
+        speaker: "other",
+        text: "Your partner: '[Later] That seemed fine, right? My family means well.'",
+        options: [
+          { id: "name_it_directly", text: "I know they mean well. But when your mom insisted the food was fine and you didn't say anything, I was left holding it alone. I need you to be able to back me up in those moments.", nextStepId: "pf_partner_response" },
+          { id: "softer_ask", text: "I know. I just — it would mean a lot to me if you could back me up next time when I say I can't eat something. Even once changes the whole dynamic.", nextStepId: "pf_partner_response" },
+        ],
+      },
+      pf_partner_response: {
+        id: "pf_partner_response",
+        speaker: "other",
+        text: "Your partner: 'You're right. I didn't realize it put you in that position. I'll do better.'",
+        options: [
+          { id: "warm_close", text: "Thank you. I'm not asking you to fight anyone — just a 'they know their body' goes a long way.", nextStepId: "pf_no_backup_end_warm" },
+          { id: "clear_close", text: "I appreciate that. Even backing me up once makes a huge difference — I don't feel so alone in it.", nextStepId: "pf_no_backup_end_clear" },
+        ],
+      },
+      pf_no_backup_end_warm: {
+        id: "pf_no_backup_end_warm",
+        speaker: "app",
+        text: "You named the behavior, not the person. 'I need you to back me up in those moments' is specific and actionable — and giving them the script ('they know their body') makes it easy to follow through. That's a mature, effective way to handle it.",
+        isEnd: true,
+      },
+      pf_no_backup_end_clear: {
+        id: "pf_no_backup_end_clear",
+        speaker: "app",
+        text: "Framing it around how it feels to you ('I don't feel so alone') keeps the conversation from becoming a blame loop. You were honest, clear, and warm — and you preserved the relationship while asking for what you need.",
+        isEnd: true,
+      },
+
+      // Family keeps forgetting ─────────────────────────────────────────────
+
+      pf_forgetting_how_long: {
+        id: "pf_forgetting_how_long",
+        speaker: "app",
+        text: "How long has this been going on?",
+        options: [
+          { id: "once_or_twice", text: "Just once or twice — could be a genuine slip", nextStepId: "pf_forgetting_oneoff" },
+          { id: "repeated", text: "Every visit. It's become a pattern.", nextStepId: "pf_forgetting_pattern" },
+        ],
+      },
+      pf_forgetting_oneoff: {
+        id: "pf_forgetting_oneoff",
+        speaker: "other",
+        text: "Mom: '[setting bread rolls next to your plate] Oh, have a roll — I made them fresh!'",
+        options: [
+          { id: "gentle_reminder", text: "They look wonderful! I just can't have the rolls — I have celiac, so anything with wheat causes a reaction. But I'm so happy with everything else.", nextStepId: "pf_forgetting_oneoff_end" },
+          { id: "quick_pass", text: "I'll pass on the rolls — celiac. But thank you!", nextStepId: "pf_forgetting_brief_end" },
+        ],
+      },
+      pf_forgetting_oneoff_end: {
+        id: "pf_forgetting_oneoff_end",
+        speaker: "app",
+        text: "A gentle reminder with warmth keeps it from feeling like a correction. Once or twice is usually a genuine slip — not everyone retains medical details between visits, especially early on. You handled it exactly right.",
+        isEnd: true,
+      },
+      pf_forgetting_brief_end: {
+        id: "pf_forgetting_brief_end",
+        speaker: "app",
+        text: "Quick and easy. Not every reminder needs to be a teaching moment. You declined, moved on, and kept the meal moving.",
+        isEnd: true,
+      },
+      pf_forgetting_pattern: {
+        id: "pf_forgetting_pattern",
+        speaker: "app",
+        text: "A repeated pattern is different from a slip. At some point, addressing it directly — or asking your partner to — is more effective than re-explaining at every visit. What feels right?",
+        options: [
+          { id: "address_directly", text: "I want to say something directly to the family", nextStepId: "pf_forgetting_direct" },
+          { id: "partner_messenger", text: "I'd rather ask my partner to handle it", nextStepId: "pf_forgetting_partner_messenger" },
+        ],
+      },
+      pf_forgetting_direct: {
+        id: "pf_forgetting_direct",
+        speaker: "other",
+        text: "You: [to Mom, before the meal] 'Can I mention something? I know celiac is a lot to remember, but I've been getting sick after visits — I think it's cross-contamination more than the main ingredients. I'd love to figure out together what works.'",
+        options: [
+          { id: "she_listens", text: "She listens and says she wants to get it right.", nextStepId: "pf_forgetting_direct_end" },
+          { id: "she_defensive", text: "She seems a little defensive.", nextStepId: "pf_forgetting_defensive" },
+        ],
+      },
+      pf_forgetting_defensive: {
+        id: "pf_forgetting_defensive",
+        speaker: "other",
+        text: "Mom: 'I do try! I just can't remember every little thing. It's a lot to keep track of.'",
+        options: [
+          { id: "validate_redirect", text: "I know it's a lot, and I don't need you to be an expert. Even just asking me 'is this okay for you?' before the meal would help so much. That's really all I need.", nextStepId: "pf_forgetting_direct_end" },
+        ],
+      },
+      pf_forgetting_direct_end: {
+        id: "pf_forgetting_direct_end",
+        speaker: "app",
+        text: "Raising it before the meal — not during — was the right call. Less pressure, more room to actually solve it. Framing it as 'let's figure this out together' rather than 'you keep getting it wrong' keeps her on your side. That took courage.",
+        isEnd: true,
+      },
+      pf_forgetting_partner_messenger: {
+        id: "pf_forgetting_partner_messenger",
+        speaker: "other",
+        text: "Your partner: 'You want me to talk to them? What should I say?'",
+        options: [
+          { id: "give_script", text: "Just let them know it's been causing real problems after visits. I don't need a big conversation — just for them to ask me 'is this okay?' before I eat something. That would change everything.", nextStepId: "pf_forgetting_partner_end" },
+          { id: "trust_them", text: "Just that it's become a pattern and it matters. You know them better than I do — I trust you to find the right words.", nextStepId: "pf_forgetting_partner_end" },
+        ],
+      },
+      pf_forgetting_partner_end: {
+        id: "pf_forgetting_partner_end",
+        speaker: "app",
+        text: "Asking your partner to be the messenger is a completely valid strategy — especially when the relationship with the family is still forming. They have history and context you don't yet have. Using that isn't avoidance; it's using the best tool for the situation.",
+        isEnd: true,
+      },
+
+      // ── High-Stakes Event mode ────────────────────────────────────────────
+
+      highstakes_start: {
+        id: "highstakes_start",
+        speaker: "app",
+        text: "High-stakes events — holidays, engagement dinners, weddings — add real pressure. There's often no control over the menu and a lot of eyes on the table. Two strategies both work here: advocating for yourself in the moment, or eating beforehand and getting through the event quietly. Neither is the wrong choice.",
+        options: [
+          { id: "advocate", text: "I want to advocate for myself in the moment", nextStepId: "pf_hs_advocate" },
+          { id: "eat_before", text: "I'd rather eat beforehand and get through it quietly", nextStepId: "pf_hs_before" },
+        ],
+      },
+      pf_hs_advocate: {
+        id: "pf_hs_advocate",
+        speaker: "other",
+        text: "The host: '[at the table] We have a full spread — please help yourselves!'",
+        options: [
+          { id: "ask_quietly", text: "[Quietly, to the person next to you] Could you point me toward anything that might be safe for celiac? I don't want to make a fuss — just want to figure out what works.", nextStepId: "pf_hs_advocate_tip" },
+          { id: "ask_host", text: "[To the host] Everything looks incredible. I have celiac — could I ask about a couple of the dishes before I serve myself?", nextStepId: "pf_hs_advocate_tip" },
+        ],
+      },
+      pf_hs_advocate_tip: {
+        id: "pf_hs_advocate_tip",
+        speaker: "app",
+        text: "Asking quietly sidesteps the 'making a scene' worry. Most hosts would rather know than watch you not eat. At high-stakes events, a quick private question is almost always welcomed — hosts want everyone to feel taken care of.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "pf_hs_advocate_response" }],
+      },
+      pf_hs_advocate_response: {
+        id: "pf_hs_advocate_response",
+        speaker: "other",
+        text: "Host: 'Of course! The roasted salmon and the salad — without the croutons — should be fine. I'm not totally sure about the sauces though.'",
+        options: [
+          { id: "accept_graciously", text: "That's perfect — salmon and salad is a wonderful meal. Thank you so much for checking. I really appreciate it.", nextStepId: "pf_hs_advocate_end" },
+        ],
+      },
+      pf_hs_advocate_end: {
+        id: "pf_hs_advocate_end",
+        speaker: "app",
+        text: "You advocated, got a clear answer, and landed on a genuinely good plate. Gracious acceptance after someone helps is just as important as asking well — it makes the host feel appreciated rather than put upon. Nicely done.",
+        isEnd: true,
+      },
+      pf_hs_before: {
+        id: "pf_hs_before",
+        speaker: "app",
+        text: "Eating beforehand is a completely legitimate strategy — especially at events where you have no control over the menu and the social stakes are high. You still get to be fully present, enjoy the conversation, and not spend the event anxious about cross-contamination.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "pf_hs_before_moment" }],
+      },
+      pf_hs_before_moment: {
+        id: "pf_hs_before_moment",
+        speaker: "other",
+        text: "Family member: '[noticing your plate is empty] Are you not eating? Is everything okay?'",
+        options: [
+          { id: "light_answer", text: "I'm great! I have a medical thing with gluten so I ate beforehand. I'm completely happy to be here — please don't worry about me.", nextStepId: "pf_hs_before_light_end" },
+          { id: "brief_answer", text: "I have celiac, so I planned ahead. All good!", nextStepId: "pf_hs_before_brief_end" },
+        ],
+      },
+      pf_hs_before_light_end: {
+        id: "pf_hs_before_light_end",
+        speaker: "app",
+        text: "Being proactive with reassurance ('please don't worry about me') means they don't have to sit with the guilt of feeling like they failed to feed you. You took care of yourself and made it easy on everyone else. That's the move.",
+        isEnd: true,
+      },
+      pf_hs_before_brief_end: {
+        id: "pf_hs_before_brief_end",
+        speaker: "app",
+        text: "Brief and settled. You answered the question, closed the loop, and moved on. Not everything needs a full explanation. You prepared, you showed up, you're present — that's what matters at an event like this.",
+        isEnd: true,
+      },
+    },
+  },
 ];

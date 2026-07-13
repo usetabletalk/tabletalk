@@ -1,0 +1,57 @@
+Prompt
+
+Add a new scenario to the app called "Meeting/Navigating a Partner's Family." Follow the exact same data structure, file conventions, and node format used by the existing scenarios — look at how the current scenario files are structured (question nodes with tag/prompt/options, end nodes with tone/label/scripts/why) and match that pattern exactly. Don't introduce new fields, components, or styling; this should slot in as a new content file the same way the others do.
+
+This scenario is more layered than the others: most branches involve managing both the partner's family AND the partner relationship itself, not just the immediate food situation. Build it with the following structure:
+
+Root question: "Is this the first time meeting them, or an ongoing relationship?"
+
+
+→ First meeting
+→ Ongoing relationship
+
+
+Branch: First meeting, before food
+
+
+Question: "Do you want to explain things yourself, or have your partner give them a heads-up first?"
+Two end nodes: one for proactively introducing the topic ahead of time, one for handling it live and in-person on arrival.
+
+
+Branch: At the meal, family serves a homemade/traditional spread
+
+
+Question: "Does the cook seem confident they made something safe, or are you unsure if they understand cross-contamination?"
+End nodes: one script for gently confirming safety without insulting the effort; one for declining a dish you're unsure about while still praising the gesture.
+
+
+Branch: A family member is skeptical or dismissive
+
+
+Question: "What are they saying?" with options: "implying you're being dramatic" / "asking if you're just picky" / "comparing it to how things used to be."
+Each option leads to its own end node with a script, and the why field should note whether this is a moment to loop the partner in or handle solo.
+
+
+Branch: Partner doesn't back you up in the moment
+
+
+This branch is about what to say to your partner afterward, privately — not what to say to the family. The why field should frame the script around preserving the relationship rather than winning the moment.
+
+
+Branch: Recurring visits — family keeps "forgetting"
+
+
+Question: "How long has this been happening?" with options distinguishing a one-off slip vs. a repeated pattern.
+End nodes: one script for addressing the pattern directly with the family, one for asking your partner to be the messenger instead.
+
+
+Branch: High-stakes event (holiday, engagement dinner, wedding)
+
+
+Question: "Do you want to advocate for yourself in the moment, or would you rather eat beforehand and get through the event quietly?"
+Write end nodes for both options without implying either is the "better" choice — both are valid strategies.
+
+
+For every end node, write all three tone variants already used elsewhere in the app (direct/brief/firm) plus a why explanation, matching the voice and length of the existing scenario content.
+
+Add this scenario to the scenario-select list using the same listing format as the others, with a one-line description.
