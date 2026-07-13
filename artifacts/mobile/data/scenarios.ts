@@ -1237,8 +1237,46 @@ export const SCENARIOS: Scenario[] = [
         speaker: "other",
         text: "You: [to Mom] 'Everything looks wonderful. Could I ask — what's in the gravy? I just want to make sure there's nothing I need to avoid.'",
         options: [
-          { id: "she_helps", text: "She checks and confirms the roast and plain vegetables are safe.", nextStepId: "pf_meal_safe_end" },
-          { id: "she_flustered", text: "She isn't sure and seems flustered.", nextStepId: "pf_meal_unsure" },
+          { id: "cont", text: "Continue", nextStepId: "pf_meal_quiet_gravy_answer" },
+        ],
+      },
+      pf_meal_quiet_gravy_answer: {
+        id: "pf_meal_quiet_gravy_answer",
+        speaker: "other",
+        text: "Mom: 'Oh sure! It's the roast drippings, a little flour to thicken it, chicken stock, and some herbs. Is there something you're avoiding?'",
+        options: [
+          { id: "skip_quietly", text: "You heard 'flour' — skip the gravy and stick to the roast without saying more", nextStepId: "pf_meal_quiet_end_skip" },
+          { id: "reveal_now", text: "Actually, yes — I have celiac, so wheat flour is something I need to avoid. But the roast itself should be fine?", nextStepId: "pf_meal_quiet_reveal_mom" },
+          { id: "probe_flour", text: "Is that regular wheat flour, or a different kind?", nextStepId: "pf_meal_quiet_probe_end" },
+        ],
+      },
+      pf_meal_quiet_end_skip: {
+        id: "pf_meal_quiet_end_skip",
+        speaker: "app",
+        text: "You got what you needed without disclosing anything — you heard 'flour,' you know to skip the gravy, and the meal moves on quietly. The tradeoff: you don't know whether the roast came into contact with the gravy (it often does as it rests), and you can't ask without explaining why. Skipping one dish based on one ingredient is a valid call — just be aware of what you're still uncertain about.",
+        isEnd: true,
+      },
+      pf_meal_quiet_reveal_mom: {
+        id: "pf_meal_quiet_reveal_mom",
+        speaker: "other",
+        text: "Mom: 'Oh! I had no idea — I'm so sorry. Let me think... the roast is just seasoned with salt and pepper, and the vegetables are just oil and herbs. Those should be safe?'",
+        options: [
+          { id: "confirm", text: "Yes, that sounds perfect. I really appreciate you checking — please don't feel bad at all.", nextStepId: "pf_meal_quiet_reveal_end" },
+        ],
+      },
+      pf_meal_quiet_reveal_end: {
+        id: "pf_meal_quiet_reveal_end",
+        speaker: "app",
+        text: "Coming clean when you heard the problem ingredient gave you the full picture — now you know the roast and vegetables are actually safe, not just probably safe. The tradeoff: you revealed your celiac at the table in a group setting, which is a more public moment than you may have wanted. That's fine. Most people respond exactly the way she did. And you're leaving with confirmed safe food rather than guesswork.",
+        isEnd: true,
+      },
+      pf_meal_quiet_probe_end: {
+        id: "pf_meal_quiet_probe_end",
+        speaker: "other",
+        text: "Mom: 'Just regular all-purpose flour — why, is that a problem?'",
+        options: [
+          { id: "reveal_after_probe", text: "Actually, yes — I have celiac, so I need to avoid wheat. The roast and vegetables look wonderful though — I'll have those.", nextStepId: "pf_meal_quiet_reveal_end" },
+          { id: "skip_after_probe", text: "Oh, no worries — I'll just skip the gravy. Everything else looks amazing.", nextStepId: "pf_meal_quiet_end_skip" },
         ],
       },
       pf_meal_unsure: {
