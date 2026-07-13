@@ -136,7 +136,7 @@ export const SCENARIOS: Scenario[] = [
       end_educated_server: {
         id: "end_educated_server",
         speaker: "app",
-        text: "Really well done. You corrected a common misunderstanding without frustration, and still got a safe meal. Staff often repeat what they've been told — sometimes you're the first person to explain why it isn't enough.",
+        text: "You corrected a real misconception — heat and wiping genuinely aren't enough, and many servers don't know that. Explaining it directly like this often lands well with people who are trying to help. The tradeoff: it puts you in teacher mode, which works great with receptive staff but can create friction if a server feels like they're being corrected in front of a busy section.",
         isEnd: true,
       },
       manager_to_rescue: {
@@ -154,7 +154,7 @@ export const SCENARIOS: Scenario[] = [
       end_manager_success: {
         id: "end_manager_success",
         speaker: "app",
-        text: "Asking for a manager when a server doesn't know the answer is completely valid — not rude at all. You advocated for yourself calmly and clearly, and it worked.",
+        text: "Escalating to a manager is completely valid — not rude, just efficient. It gets your question to someone who actually knows the answer, and it signals that this matters. The tradeoff: some servers feel embarrassed when a customer goes over their head. That's not your problem to solve, but if you do it often at the same restaurant, it can affect how your table is treated.",
         isEnd: true,
       },
       server_reply_1a: {
@@ -232,13 +232,13 @@ export const SCENARIOS: Scenario[] = [
       end_success: {
         id: "end_success",
         speaker: "app",
-        text: "You did it! You clearly stated your needs, asked the right questions about cross-contact, and found a safe meal. It takes practice, but you handled it beautifully.",
+        text: "You asked about cross-contact directly and got a real answer — that's the whole skill. The tradeoff to being this specific: it can slow a busy server down and occasionally gets an eye-roll from kitchen staff. But a reaction is much worse than an awkward moment, so the specifics are always worth it.",
         isEnd: true,
       },
       end_success_salad: {
         id: "end_success_salad",
         speaker: "app",
-        text: "Great job speaking up! Asking for glove changes and clean prep areas is completely reasonable and the best way to stay safe with salads.",
+        text: "Asking for glove changes and a clean bowl is exactly right for salads — they're one of the highest cross-contact risks on most menus because they're assembled by hand. The tradeoff: the more specific your requests, the more they stand out. That's fine. You're not being difficult; you're being precise about a medical need.",
         isEnd: true,
       },
       // ── Informed Server mode ────────────────────────────────────────────────
@@ -417,13 +417,13 @@ export const SCENARIOS: Scenario[] = [
       end_sauce_firm: {
         id: "end_sauce_firm",
         speaker: "app",
-        text: "Really well done. A person who stays dismissive after a clear explanation isn't interested in your safety — that's not something you can fix in a single conversation. That's exactly why bringing backup food you prepared yourself is always the right move. You explained it clearly and without anger. That takes real strength.",
+        text: "Standing your ground with evidence — celiac can develop at any age, your doctor confirmed it — closes the 'you used to eat fine' argument. The tradeoff: holding firm with a dismissive family member can create tension that outlasts the cookout. It's worth it, but know that not everyone comes around in the moment. You can be right and still have an awkward afternoon.",
         isEnd: true,
       },
       end_sauce_kind: {
         id: "end_sauce_kind",
         speaker: "app",
-        text: "You kept the peace and stayed safe. A dismissive person isn't going to change in the middle of a cookout — and that's okay. You don't owe anyone a medical lecture. This is exactly why backup snacks exist: so you're never dependent on someone else's understanding to eat safely.",
+        text: "Choosing to drop it and move on is a completely valid strategy. Someone who stays dismissive after one clear explanation isn't going to be convinced by a second one. The tradeoff: it can feel like letting them win — and if this person is a regular presence in your life, unaddressed dismissal tends to resurface. Sometimes peace now means the same conversation again later.",
         isEnd: true,
       },
       bob_reply_2: {
@@ -496,13 +496,13 @@ export const SCENARIOS: Scenario[] = [
       end_boundary_set: {
         id: "end_boundary_set",
         speaker: "app",
-        text: "Perfectly handled. When someone insists it's all in your head, they've made clear they're not a reliable safety partner — and that's information worth having. You don't have to convince everyone. You just have to protect yourself. That's exactly why backup snacks exist.",
+        text: "Naming your body and your call — 'this is my health and I need to make this call for myself' — is a clear, warm boundary that doesn't invite debate. The tradeoff: it can land as shutting down conversation, which works well here because the conversation isn't productive. With someone who actually wants to understand, you might want to stay open a little longer.",
         isEnd: true,
       },
       end_brought_food: {
         id: "end_brought_food",
         speaker: "app",
-        text: "That's exactly right. Someone who stays dismissive after you've explained yourself isn't going to keep you safe — and you can't make them. You redirect, stay warm, and rely on the food you brought yourself. Backup snacks aren't a workaround; they're the plan. You did it.",
+        text: "Redirecting to something warm ('tell me about that potato salad') after not getting through is a real skill — it signals you're not holding a grudge and lets the social moment continue. The tradeoff: some people read the subject-change as you conceding the argument. That's okay. You weren't trying to win; you were trying to eat safely and enjoy the day.",
         isEnd: true,
       },
       // ── Receptive Relative mode ──────────────────────────────────────────────
@@ -541,13 +541,13 @@ export const SCENARIOS: Scenario[] = [
       receptive_end_great: {
         id: "receptive_end_great",
         speaker: "app",
-        text: "Beautifully done. When someone genuinely tries to accommodate you, accepting graciously strengthens the relationship. You were warm, specific, and appreciative — that's exactly right.",
+        text: "When someone genuinely tries to accommodate you, accepting warmly and specifically ('plain chicken without sauce would be perfect') gives them a clear win — and that makes them more likely to try next time. The tradeoff: accepting help from family means trusting their execution, which requires judgment. Bob checked, confirmed, and is handling it himself — those are the signs that this is actually safe to accept.",
         isEnd: true,
       },
       receptive_end_fine: {
         id: "receptive_end_fine",
         speaker: "app",
-        text: "Lovely response. You reassured him, kept the moment warm, and stayed safe. Having backup food was a great call — it took the pressure off both of you.",
+        text: "Reassuring him that you're sorted — 'please don't feel bad' — removes the guilt and keeps the dynamic easy. The tradeoff: some people read this as you not taking your own needs seriously, or as you letting them off the hook. With Bob specifically, he was trying. You weren't dismissing his effort; you were genuinely covered. That distinction matters.",
         isEnd: true,
       },
       receptive_brought_food: {
@@ -1019,7 +1019,7 @@ export const SCENARIOS: Scenario[] = [
       curious_end: {
         id: "curious_end",
         speaker: "app",
-        text: "That's what this conversation can look like at its best. You found a natural moment, explained it simply, and let them be kind. The fix is easy — and most people, when they understand, are genuinely glad to know.",
+        text: "Using the natural moment — they just mentioned food — makes this feel like a normal part of conversation rather than a scheduled talk. The tradeoff: in-the-moment disclosures can catch people off guard if they're still reading the room. Alex took it well here. With someone more guarded, a private setting with no time pressure might land better than seizing the first relevant moment.",
         isEnd: true,
       },
       // ── Caught Off Guard mode ────────────────────────────────────────────
@@ -1086,7 +1086,7 @@ export const SCENARIOS: Scenario[] = [
       defensive_end: {
         id: "defensive_end",
         speaker: "app",
-        text: "Navigating someone's initial surprise while staying patient and warm is genuinely hard. You explained clearly, corrected the misunderstanding without frustration, and gave them room to process. They came around. That's grace under pressure.",
+        text: "Staying patient when someone's first reaction is resistance takes real restraint. You corrected 'regular food' to 'gluten specifically' without matching their frustration — that factual precision matters, and keeping it calm meant they could actually hear it. The tradeoff: staying warm and patient when someone's being difficult can feel like you're not being taken seriously. You are. It just takes some people a moment longer.",
         isEnd: true,
       },
     },
@@ -1187,13 +1187,13 @@ export const SCENARIOS: Scenario[] = [
       pf_decline_end: {
         id: "pf_decline_end",
         speaker: "app",
-        text: "Handled with real grace. You confirmed what you needed to know, declined the risky dish specifically, and made sure she felt appreciated rather than corrected. Protecting yourself and keeping the relationship warm at the same time — that's the goal.",
+        text: "Asking the follow-up question — 'were the pans used for anything else?' — caught something she didn't realize was a problem. Declining that specific dish while staying warm is the right call. The tradeoff: asking that level of detail takes confidence, and on a first meeting it can feel intrusive. In this case she wasn't offended — but not every host will react that way. Reading the room about how much to probe is part of the skill.",
         isEnd: true,
       },
       pf_trust_end: {
         id: "pf_trust_end",
         speaker: "app",
-        text: "Sometimes you make a judgment call. If she went out of her way to research, that's genuine effort and worth acknowledging. You can ask more detailed questions at a future visit now that the relationship has started warm.",
+        text: "Trusting her effort rather than probing further is a judgment call, not a mistake. She researched, she offered, and the relationship is new. The tradeoff: you're accepting some uncertainty about cross-contamination. If you do react, it'll be harder to know why. Reserving the detailed questions for your second or third visit — once trust is built — is a reasonable strategy. You balanced safety against relationship-building.",
         isEnd: true,
       },
       pf_meal_ask: {
@@ -1278,13 +1278,13 @@ export const SCENARIOS: Scenario[] = [
       pf_skeptic_dramatic_firm_end: {
         id: "pf_skeptic_dramatic_firm_end",
         speaker: "app",
-        text: "You gave the medical reality clearly and without apologizing for it. Someone who stays skeptical after a direct explanation has decided not to understand — that's not something you can fix at the dinner table. You did everything right.",
+        text: "Stating the medical reality directly — immune system, intestinal damage, trace amounts — leaves no room for 'but just a little bit.' The tradeoff: this approach is confident and clear, which works well here. In some family dynamics, though, factual correction can come across as lecturing, and if the person already feels challenged, it can make them dig in rather than reconsider.",
         isEnd: true,
       },
       pf_skeptic_dramatic_soft_end: {
         id: "pf_skeptic_dramatic_soft_end",
         speaker: "app",
-        text: "Naming your doctor as the authority takes the argument off the table — it's not you being precious, it's a medical directive. You kept it warm and closed the door without slamming it. That's a skill.",
+        text: "Citing your doctor shifts the authority off you and onto someone harder to dismiss. The tradeoff: 'my doctor said so' ends the argument but doesn't actually change their understanding — they may comply while still privately thinking you're being precious. That's fine for today, but if this person is a regular presence in your life, you may have this exact conversation again.",
         isEnd: true,
       },
       pf_skeptic_picky: {
@@ -1299,13 +1299,13 @@ export const SCENARIOS: Scenario[] = [
       pf_skeptic_picky_clear_end: {
         id: "pf_skeptic_picky_clear_end",
         speaker: "app",
-        text: "Straightforward and correct. Drawing the line between lifestyle choice and medical condition means the conversation doesn't have to spiral. Well done.",
+        text: "Direct and factual — autoimmune condition, intestinal damage, no cheat days. This closes the 'but is it really medical?' question clearly. The tradeoff: it's authoritative, which works with someone who genuinely didn't know. If they were being passive-aggressive, this can come across as preachy rather than informative.",
         isEnd: true,
       },
       pf_skeptic_picky_gentle_end: {
         id: "pf_skeptic_picky_gentle_end",
         speaker: "app",
-        text: "Adding a little humor ('I wish it were just a preference!') keeps it light and disarms defensiveness. You made your point, kept the warmth, and closed the loop.",
+        text: "Drawing the distinction warmly — and adding 'I wish it were just a preference' — lowers the other person's defenses and invites them to update their view without feeling corrected. The tradeoff: it's a softer landing, which keeps things pleasant. But softness sometimes gets read as ambiguity; if they're still uncertain after this, a clearer statement might be needed at the next visit.",
         isEnd: true,
       },
       pf_skeptic_old_times: {
@@ -1587,22 +1587,27 @@ export const SCENARIOS: Scenario[] = [
         speaker: "other",
         text: "Friend: '[when the bill arrives] Okay, let's just split this equally — easiest, right?'",
         options: [
-          { id: "direct_ask", text: "Would you mind if I just covered mine separately? I ordered pretty light — it wouldn't be fair to you all otherwise.", nextStepId: "sb_even_reactive_response" },
-          { id: "soft_ask", text: "I'd actually love to just pay for what I had — I kept it pretty minimal tonight. Is that okay with everyone?", nextStepId: "sb_even_reactive_response" },
+          { id: "fairness_framing", text: "Would you mind if I just covered mine separately? I ordered light — it wouldn't be fair to you all otherwise.", nextStepId: "sb_even_reactive_fair_end" },
+          { id: "explain_celiac", text: "Could I just cover mine? With my celiac I could only order a couple of things, so I don't want to shortchange everyone on a split.", nextStepId: "sb_even_reactive_explain_end" },
+          { id: "quiet_amount", text: "[To the server] Actually — could I get a separate check? [to the group] I'll sort mine out, go ahead and split the rest.", nextStepId: "sb_even_reactive_quiet_end" },
         ],
       },
-      sb_even_reactive_response: {
-        id: "sb_even_reactive_response",
-        speaker: "other",
-        text: "Friend: 'Oh right, yeah — that makes sense. Go for it.'",
-        options: [
-          { id: "thanks", text: "Thank you — I really appreciate it.", nextStepId: "sb_even_reactive_end" },
-        ],
-      },
-      sb_even_reactive_end: {
-        id: "sb_even_reactive_end",
+      sb_even_reactive_fair_end: {
+        id: "sb_even_reactive_fair_end",
         speaker: "app",
-        text: "Framing it as fair to them — 'it wouldn't be fair to you' — is more effective than framing it as a need on your end. You're not asking for a favor; you're pointing out the honest math. That's a subtle but real difference, and it works.",
+        text: "Framing it as fairness to them — 'it wouldn't be fair to you all' — is more persuasive than framing it as a personal need. You're not asking for an exception; you're pointing out the honest math. The tradeoff: it doesn't explain why you ordered light. That's usually fine, but if someone is curious they may still ask.",
+        isEnd: true,
+      },
+      sb_even_reactive_explain_end: {
+        id: "sb_even_reactive_explain_end",
+        speaker: "app",
+        text: "Naming celiac gives people a real reason and closes any follow-up questions before they happen. The tradeoff: you've now disclosed a medical condition to everyone at the table — which may have been fine already, or may be more than you wanted to share in this setting. Know your audience before using this one.",
+        isEnd: true,
+      },
+      sb_even_reactive_quiet_end: {
+        id: "sb_even_reactive_quiet_end",
+        speaker: "app",
+        text: "Going directly to the server is the most efficient move — it bypasses any negotiation entirely. The tradeoff: it skips the group conversation, which can feel slightly abrupt to people who like to settle the bill together. Works best when you're confident the group won't read it as antisocial.",
         isEnd: true,
       },
 
@@ -1823,10 +1828,28 @@ export const SCENARIOS: Scenario[] = [
         speaker: "app",
         text: "You got glutened last night and woke up in a full flare — fatigue, cramping, brain fog. You have plans with a friend in two hours. What do you want to say?",
         options: [
-          { id: "direct", text: "Hey — I have to cancel today. I got glutened last night and I'm in a full flare. I'm so sorry for the last-minute notice.", nextStepId: "cp_warm_friend_responds" },
-          { id: "brief", text: "I'm really sorry — I have to bail today. Celiac flare. I'll explain more when I'm not horizontal.", nextStepId: "cp_warm_friend_responds" },
-          { id: "softer", text: "I hate doing this, but I got glutened last night and I'm really sick. I can't make it today — can we reschedule?", nextStepId: "cp_warm_friend_responds" },
+          { id: "explain_full", text: "Hey — I got glutened last night and I'm in a full celiac flare. Fatigue, cramping, the works. I have to cancel today. Really sorry for the short notice.", nextStepId: "cp_warm_tip_full" },
+          { id: "brief", text: "I have to cancel today — celiac flare. I'll give you the full story when I'm not completely wiped.", nextStepId: "cp_warm_tip_brief" },
+          { id: "reschedule_forward", text: "I'm so sorry — I'm sick from a gluten exposure and I can't make it today. Can we look at next weekend instead?", nextStepId: "cp_warm_tip_reschedule" },
         ],
+      },
+      cp_warm_tip_full: {
+        id: "cp_warm_tip_full",
+        speaker: "app",
+        text: "Giving them the full picture makes the seriousness clear and leaves nothing to wonder about. The tradeoff: composing a detailed message takes real energy when you're already depleted from a flare — and it can invite follow-up questions when you just need rest.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "cp_warm_friend_responds" }],
+      },
+      cp_warm_tip_brief: {
+        id: "cp_warm_tip_brief",
+        speaker: "app",
+        text: "Brief and clear — this preserves your energy when you need it most. The tradeoff: some people feel shut out when they care about you and get little context. A good friend will usually follow up, but not everyone reads 'celiac flare' as the emergency it actually is.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "cp_warm_friend_responds" }],
+      },
+      cp_warm_tip_reschedule: {
+        id: "cp_warm_tip_reschedule",
+        speaker: "app",
+        text: "Leading with a reschedule signals the friendship matters and you're already looking forward. The tradeoff: you're committing to a future date before you know how long recovery takes — which could set up another cancellation if the flare lingers.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "cp_warm_friend_responds" }],
       },
       cp_warm_friend_responds: {
         id: "cp_warm_friend_responds",
@@ -1834,13 +1857,13 @@ export const SCENARIOS: Scenario[] = [
         text: "Friend: 'Oh no — don't even worry about it. Please rest. Is there anything I can do? We can figure out a new time whenever you're better.'",
         options: [
           { id: "gracious", text: "Thank you for being so understanding. I really appreciate it — I'll reach out when I'm back on my feet.", nextStepId: "cp_warm_end" },
-          { id: "reassure", text: "You're so kind. I'm okay — just need a day or two. I'm already looking forward to rescheduling.", nextStepId: "cp_warm_end" },
+          { id: "reassure", text: "You're the best. I'm okay — just need a couple of days. Already looking forward to rescheduling.", nextStepId: "cp_warm_end" },
         ],
       },
       cp_warm_end: {
         id: "cp_warm_end",
         speaker: "app",
-        text: "You said what you needed to say without over-explaining or apologizing five times. A simple, honest message is the right call — a good friend doesn't need a medical report, just the truth. Notice you didn't say 'I'm so so sorry' three times or promise to make it up to them. That keeps it clean.",
+        text: "You said what you needed to say without spiraling into apologies. Notice you didn't promise to 'make it up to them' or apologize three times — that pattern puts the other person in the awkward position of reassuring you while you're the sick one. One honest cancellation message is enough.",
         isEnd: true,
       },
 
@@ -1849,7 +1872,7 @@ export const SCENARIOS: Scenario[] = [
       cp_skeptic_start: {
         id: "cp_skeptic_start",
         speaker: "app",
-        text: "You cancel, and your friend's response isn't exactly warm.",
+        text: "You cancel with a short message, and your friend's response isn't exactly warm.",
         options: [{ id: "cont", text: "Continue", nextStepId: "cp_skeptic_cancel" }],
       },
       cp_skeptic_cancel: {
@@ -1863,44 +1886,50 @@ export const SCENARIOS: Scenario[] = [
       cp_skeptic_friend_questions: {
         id: "cp_skeptic_friend_questions",
         speaker: "other",
-        text: "Friend: 'Wait — you were totally fine at dinner Friday. How are you suddenly this sick two days later?'",
+        text: "Friend: 'Wait — you were totally fine at dinner Friday. How are you suddenly this sick?'",
         options: [
-          { id: "explain_lag", text: "Celiac reactions can take hours to fully hit, and sometimes the worst of it comes the next morning. I started feeling it last night — today is rough.", nextStepId: "cp_skeptic_tip" },
-          { id: "keep_brief", text: "It works that way sometimes — the reaction builds. I really don't feel well today.", nextStepId: "cp_skeptic_tip" },
+          { id: "explain_lag", text: "Celiac reactions take time to fully build — sometimes the worst hits the next morning. I felt it coming last night and today is rough.", nextStepId: "cp_skeptic_tip_explain" },
+          { id: "assert_brief", text: "That's just how it works. I'm not well today.", nextStepId: "cp_skeptic_tip_brief" },
         ],
       },
-      cp_skeptic_tip: {
-        id: "cp_skeptic_tip",
+      cp_skeptic_tip_explain: {
+        id: "cp_skeptic_tip_explain",
         speaker: "app",
-        text: "The delayed reaction is a real thing and worth naming once — it answers the 'but you seemed fine' question. You don't owe more detail than that. Notice you're not apologizing for how your body works.",
+        text: "Explaining the delayed reaction gives them real information and often closes the 'but you seemed fine' question for good. The tradeoff: it invites more questions and puts you in teaching mode when you're already sick. Worth it once — less worth it every time.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "cp_skeptic_pushes" }],
+      },
+      cp_skeptic_tip_brief: {
+        id: "cp_skeptic_tip_brief",
+        speaker: "app",
+        text: "Short and final — you're not offering a science lesson, just the fact. This works well when you don't have the energy for a back-and-forth. The tradeoff: 'that's just how it works' can read as dismissive to someone who's genuinely trying to understand.",
         options: [{ id: "cont", text: "Continue", nextStepId: "cp_skeptic_pushes" }],
       },
       cp_skeptic_pushes: {
         id: "cp_skeptic_pushes",
         speaker: "other",
-        text: "Friend: 'Can't you just take something for it and come anyway? Even for a bit? I feel like you're always canceling.'",
+        text: "Friend: 'Can't you just take something and come for a bit? I feel like you're always canceling.'",
         options: [
-          { id: "no_med_explain", text: "There's nothing to take for a celiac reaction — it's not like an upset stomach. I'm dealing with real fatigue and pain right now. I want to be there and I genuinely can't be.", nextStepId: "cp_skeptic_end_firm" },
-          { id: "soft_hold", text: "I wish I could. There's no medication for this — my body just needs to process it. I know it's frustrating. I really am sorry.", nextStepId: "cp_skeptic_end_soft" },
-          { id: "set_boundary", text: "I'm not going to be able to come. I know that's disappointing — I can talk more when I'm better.", nextStepId: "cp_skeptic_end_brief" },
+          { id: "no_med_explain", text: "There's no medication for a celiac reaction — it's not like food poisoning you can treat. I'm dealing with real fatigue and pain right now. I genuinely can't.", nextStepId: "cp_skeptic_end_firm" },
+          { id: "soft_hold", text: "I hear you, and I know it's frustrating. I wish I could push through it. I just can't today — please don't take it personally.", nextStepId: "cp_skeptic_end_soft" },
+          { id: "set_boundary", text: "I'm not coming today. I know that's disappointing. Let's talk when I'm better.", nextStepId: "cp_skeptic_end_brief" },
         ],
       },
       cp_skeptic_end_firm: {
         id: "cp_skeptic_end_firm",
         speaker: "app",
-        text: "Clarifying that there's no medication is important — it closes the 'just take something' door without being dismissive. You stayed warm while being completely clear. That's the right combination when someone is pushing.",
+        text: "Correcting the 'just take something' assumption closes the door on that logic and educates them at the same time. The tradeoff: it's firm and factual, which reads as confident — but to someone already frustrated, it can feel like you're lecturing instead of connecting.",
         isEnd: true,
       },
       cp_skeptic_end_soft: {
         id: "cp_skeptic_end_soft",
         speaker: "app",
-        text: "Acknowledging their frustration ('I know it's frustrating') without caving to it is a skill. You validated their feeling without agreeing to do something your body can't do. That's a real balance.",
+        text: "Acknowledging their frustration before your own reality keeps the emotional temperature lower. The tradeoff: 'please don't take it personally' puts the weight on their reaction rather than on what's actually happening — it can sound like you're managing them rather than being honest.",
         isEnd: true,
       },
       cp_skeptic_end_brief: {
         id: "cp_skeptic_end_brief",
         speaker: "app",
-        text: "Brief and final. When someone keeps pushing after you've explained once, you don't owe another explanation. 'I'm not able to come' is a complete sentence. Offering to talk more later leaves the door open without prolonging a hard moment.",
+        text: "After you've explained once, you don't owe a second explanation. Short and final protects your energy and keeps the boundary clear. The tradeoff: it can feel cold to someone who's hurt — offering to talk later helps, but only if you mean it.",
         isEnd: true,
       },
 
@@ -1917,37 +1946,55 @@ export const SCENARIOS: Scenario[] = [
         speaker: "other",
         text: "Friend: 'I get that you're sick. But this keeps happening. I'm starting to wonder if you actually want to hang out.'",
         options: [
-          { id: "acknowledge_impact", text: "I completely understand why it feels that way, and I hate that I keep putting you in this position. Flares are unpredictable — I never know when they're coming. It's not about wanting to see you. I really do.", nextStepId: "cp_repeat_tip" },
-          { id: "honest_and_warm", text: "That's fair. And it hurts to hear, because I do want to see you — I'm just genuinely sick when I cancel. I know 'I'm sick' starts to sound like an excuse after a while. It isn't.", nextStepId: "cp_repeat_tip" },
-          { id: "direct_clarify", text: "I want to be clear: I'm canceling because I'm sick, not because I don't want to see you. I know those feel the same from the outside. They're not.", nextStepId: "cp_repeat_tip" },
+          { id: "acknowledge_impact", text: "I completely understand why it feels that way. Flares are unpredictable — I can't plan around them any more than you can. It has nothing to do with wanting to see you. I really do.", nextStepId: "cp_repeat_tip_validate" },
+          { id: "vulnerable_push_back", text: "Honestly, that hurts to hear — because I've never once canceled because I didn't want to see you. Every time, I've been genuinely sick. I need you to know that even when it's hard to believe.", nextStepId: "cp_repeat_tip_pushback" },
+          { id: "defer_convo", text: "I hear you, and I don't want to brush past this. But I'm in a bad flare right now and I can't have this conversation properly. Can we talk in a day or two when I'm able to actually be present for it?", nextStepId: "cp_repeat_tip_defer" },
         ],
       },
-      cp_repeat_tip: {
-        id: "cp_repeat_tip",
+      cp_repeat_tip_validate: {
+        id: "cp_repeat_tip_validate",
         speaker: "app",
-        text: "Acknowledging the impact on them first — before defending yourself — changes the whole tone. They feel heard, which makes them more able to actually hear you. You're not agreeing that you did something wrong; you're recognizing how it lands.",
+        text: "Leading with 'I understand why it feels that way' lowers their defenses before you explain yourself. The tradeoff: it can come across as managing their feelings rather than actually engaging with the accusation — some people hear this as deflection.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "cp_repeat_friend_softer" }],
+      },
+      cp_repeat_tip_pushback: {
+        id: "cp_repeat_tip_pushback",
+        speaker: "app",
+        text: "Naming how it lands for you ('that hurts') and then correcting the record directly is more emotionally honest. The tradeoff: it's a firmer response — it can feel like you're making the conversation about your feelings rather than theirs, which might not land well when they're already hurt.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "cp_repeat_friend_softer" }],
+      },
+      cp_repeat_tip_defer: {
+        id: "cp_repeat_tip_defer",
+        speaker: "app",
+        text: "Deferring a hard conversation when you're genuinely sick is a real option — you can't give this discussion what it needs right now. The tradeoff: it can feel like avoidance to someone who's already frustrated. 'In a day or two' only works if you actually follow through.",
         options: [{ id: "cont", text: "Continue", nextStepId: "cp_repeat_friend_softer" }],
       },
       cp_repeat_friend_softer: {
         id: "cp_repeat_friend_softer",
         speaker: "other",
-        text: "Friend: 'I just don't know how to plan around it. It feels like every time we make plans something happens.'",
+        text: "Friend: 'I just don't know how to plan around it. It feels like every time we make plans, something happens.'",
         options: [
-          { id: "offer_structure", text: "What if we tried lower-stakes plans — something easy to reschedule? Or I give you a same-day check-in before we commit. I want to actually see you, and I want to find a way that works.", nextStepId: "cp_repeat_end_practical" },
-          { id: "invite_flexibility", text: "That's a real problem and I want to fix it. Maybe we stop making plans far in advance and just do same-week stuff when I know how I'm feeling. Less pressure for both of us.", nextStepId: "cp_repeat_end_practical" },
-          { id: "honest_limit", text: "I hear you. I can't promise it won't happen again — this is chronic. But I can promise that when I cancel it's real, and that I'll always reschedule. That's what I can offer.", nextStepId: "cp_repeat_end_honest" },
+          { id: "offer_structure", text: "What if we switch to same-day or same-week plans — where I can actually tell you how I'm feeling before we commit? Less planning, less falling through.", nextStepId: "cp_repeat_end_practical" },
+          { id: "honest_limit", text: "I can't promise this won't happen again — it's chronic and I can't predict it. What I can promise is that when I cancel, it's real, and I'll always try to reschedule. That's the honest answer.", nextStepId: "cp_repeat_end_honest" },
+          { id: "flip_it", text: "I want to ask you something: what would actually help you feel less let down when this happens? Because I want to find something that works for both of us, not just apologize every time.", nextStepId: "cp_repeat_end_collaborative" },
         ],
       },
       cp_repeat_end_practical: {
         id: "cp_repeat_end_practical",
         speaker: "app",
-        text: "Offering a concrete alternative — same-day check-ins, lower-stakes plans — shows you're invested in solving the problem, not just apologizing for it. That turns a frustrating conversation into a plan. Most people respond well to that shift.",
+        text: "Offering a concrete structural change turns apology into problem-solving — and most people respond well to that shift. The tradeoff: same-day plans require your friend to stay flexible too. It only works if they're actually willing to live that way, not everyone is.",
         isEnd: true,
       },
       cp_repeat_end_honest: {
         id: "cp_repeat_end_honest",
         speaker: "app",
-        text: "Sometimes the most honest thing you can say is 'I can't promise it won't happen, but here's what I can offer.' That's not a failure — it's an accurate picture of life with a chronic condition. A friendship that can't hold that reality isn't one you can maintain on false promises. You were real with them. That matters.",
+        text: "This is the most truthful answer you can give about a chronic condition. The tradeoff: 'I can't promise it won't happen again' is hard to hear — it asks them to accept uncertainty indefinitely. Some friendships can hold that. Some can't. Being honest about the limit is better than building on a promise you can't keep.",
+        isEnd: true,
+      },
+      cp_repeat_end_collaborative: {
+        id: "cp_repeat_end_collaborative",
+        speaker: "app",
+        text: "Flipping the question invites them into the solution rather than putting all the work on you. The tradeoff: it requires them to be self-aware enough to answer honestly, and if they're still in a hurt/reactive place, they might read it as deflecting responsibility. Read the room before using this one.",
         isEnd: true,
       },
     },
