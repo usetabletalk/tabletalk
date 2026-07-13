@@ -1,3 +1,4 @@
+import { Feather } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
 import { FlatList, Platform, Pressable, StyleSheet, Text, View } from "react-native";
@@ -12,22 +13,26 @@ const SORTED_SCENARIOS = [...SCENARIOS].sort((a, b) =>
   sortKey(a.title).localeCompare(sortKey(b.title))
 );
 
+const MODE_TINT_MAP: Record<string, keyof ReturnType<typeof useColors>["tints"]> = {
+  mint: "mint",
+  lemon: "lemon",
+  rose: "rose",
+};
+
 export default function PracticeScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
   const router = useRouter();
 
-  const renderItem = ({ item, index }: { item: typeof SCENARIOS[0]; index: number }) => {
-    const tintOptions = [colors.tints.lavender, colors.tints.sky, colors.tints.peach, colors.tints.mint];
-    const cardTint = tintOptions[index % tintOptions.length];
-
+  const renderItem = ({ item }: { item: typeof SCENARIOS[0] }) => {
     return (
       <Pressable
         style={({ pressed }) => [
           styles.card,
           {
-            backgroundColor: cardTint,
+            backgroundColor: colors.card,
             borderRadius: colors.radius,
+            borderColor: colors.border,
             opacity: pressed ? 0.9 : 1,
             transform: [{ scale: pressed ? 0.98 : 1 }],
           },
@@ -37,9 +42,39 @@ export default function PracticeScreen() {
         <Text style={[styles.cardTitle, { color: colors.foreground }]}>
           {item.title}
         </Text>
-        <Text style={[styles.cardDescription, { color: colors.foreground, opacity: 0.8 }]}>
+        <Text style={[styles.cardDescription, { color: colors.mutedForeground }]}>
           {item.description}
         </Text>
+
+        {item.modes && item.modes.length > 0 && (
+          <View style={styles.modesRow}>
+            {item.modes.map((mode) => {
+              const tintKey = MODE_TINT_MAP[mode.tint] ?? "mint";
+              return (
+                <View
+                  key={mode.id}
+                  style={[
+                    styles.modeChip,
+                    {
+                      backgroundColor: colors.tints[tintKey],
+                      borderRadius: 20,
+                    },
+                  ]}
+                >
+                  <Feather
+                    name={mode.icon as any}
+                    size={11}
+                    color={colors.mutedForeground}
+                    style={{ marginRight: 4 }}
+                  />
+                  <Text style={[styles.modeLabel, { color: colors.mutedForeground }]}>
+                    {mode.label}
+                  </Text>
+                </View>
+              );
+            })}
+          </View>
+        )}
       </Pressable>
     );
   };
@@ -57,12 +92,18 @@ export default function PracticeScreen() {
           { paddingBottom: insets.bottom + 100 },
         ]}
         ListHeaderComponent={
-          <View style={[styles.header, { backgroundColor: colors.secondary, paddingTop: 24 }]}>
-            <Text style={[styles.title, { color: colors.secondaryForeground }]}>
+          <View style={[styles.hero, { backgroundColor: colors.primary }]}>
+            <View style={[styles.heroBadge, { backgroundColor: colors.primaryForeground + "22" }]}>
+              <Feather name="message-circle" size={14} color={colors.primaryForeground} style={{ marginRight: 5 }} />
+              <Text style={[styles.heroBadgeText, { color: colors.primaryForeground }]}>
+                Role-play practice
+              </Text>
+            </View>
+            <Text style={[styles.heroTitle, { color: colors.primaryForeground }]}>
               Practice Conversations
             </Text>
-            <Text style={[styles.subtitle, { color: colors.secondaryForeground, opacity: 0.85 }]}>
-              Rehearse difficult situations in a safe space before they happen.
+            <Text style={[styles.heroSubtitle, { color: colors.primaryForeground }]}>
+              Rehearse tricky real-life situations in a safe space — before they happen.
             </Text>
           </View>
         }
@@ -76,44 +117,78 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   listContent: {
-    padding: 24,
+    padding: 20,
     paddingTop: 0,
   },
-  header: {
-    padding: 24,
+  hero: {
+    paddingHorizontal: 24,
+    paddingTop: 28,
+    paddingBottom: 32,
     marginBottom: 24,
-    marginHorizontal: -24,
-    borderBottomLeftRadius: 32,
-    borderBottomRightRadius: 32,
+    marginHorizontal: -20,
+    borderBottomLeftRadius: 28,
+    borderBottomRightRadius: 28,
   },
-  title: {
-    fontFamily: "Inter_700Bold",
-    fontSize: 28,
-    marginBottom: 8,
+  heroBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "flex-start",
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 20,
+    marginBottom: 12,
   },
-  subtitle: {
-    fontFamily: "Inter_400Regular",
-    fontSize: 16,
-    lineHeight: 24,
-  },
-  card: {
-    padding: 20,
-    marginBottom: 16,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
-  },
-  cardTitle: {
+  heroBadgeText: {
     fontFamily: "Inter_600SemiBold",
-    fontSize: 20,
-    marginBottom: 8,
+    fontSize: 12,
+    letterSpacing: 0.3,
   },
-  cardDescription: {
+  heroTitle: {
+    fontFamily: "Inter_700Bold",
+    fontSize: 30,
+    marginBottom: 8,
+    lineHeight: 36,
+  },
+  heroSubtitle: {
     fontFamily: "Inter_400Regular",
     fontSize: 15,
     lineHeight: 22,
-    marginBottom: 16,
+    opacity: 0.88,
+  },
+  card: {
+    padding: 20,
+    marginBottom: 14,
+    borderWidth: 1,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.06,
+    shadowRadius: 6,
+    elevation: 2,
+  },
+  cardTitle: {
+    fontFamily: "Inter_700Bold",
+    fontSize: 18,
+    marginBottom: 6,
+  },
+  cardDescription: {
+    fontFamily: "Inter_400Regular",
+    fontSize: 14,
+    lineHeight: 21,
+    marginBottom: 14,
+  },
+  modesRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 6,
+  },
+  modeChip: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+  },
+  modeLabel: {
+    fontFamily: "Inter_400Regular",
+    fontSize: 12,
   },
 });
