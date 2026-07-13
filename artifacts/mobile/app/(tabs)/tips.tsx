@@ -11,10 +11,9 @@ import {
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Feather, Ionicons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 
 import { useColors } from "@/hooks/useColors";
-import { useAppState } from "@/contexts/AppStateContext";
 import { CATEGORIES, TIPS, Tip } from "@/data/tips";
 
 if (
@@ -27,7 +26,6 @@ if (
 export default function TipsScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
-  const { state, toggleSavedTip } = useAppState();
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>(
     () => Object.fromEntries(CATEGORIES.map((c) => [c.id, true]))
   );
@@ -88,7 +86,6 @@ export default function TipsScreen() {
   }, [colors.tints, collapsed]);
 
   const renderItem = ({ item }: { item: Tip }) => {
-    const isSaved = state.savedTips.includes(item.id);
     const isExpanded = !!expandedTips[item.id];
 
     return (
@@ -112,17 +109,6 @@ export default function TipsScreen() {
             {item.title}
           </Text>
           <View style={styles.cardHeaderRight}>
-            <Pressable
-              onPress={() => toggleSavedTip(item.id)}
-              hitSlop={8}
-              style={styles.saveButton}
-            >
-              <Ionicons
-                name={isSaved ? "heart" : "heart-outline"}
-                size={20}
-                color={isSaved ? colors.destructive : colors.mutedForeground}
-              />
-            </Pressable>
             <Feather
               name={isExpanded ? "chevron-up" : "chevron-down"}
               size={18}
@@ -287,8 +273,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 24,
     paddingBottom: 16,
-  },
-  saveButton: {
-    padding: 4,
   },
 });
