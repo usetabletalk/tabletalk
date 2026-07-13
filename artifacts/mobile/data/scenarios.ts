@@ -1896,7 +1896,7 @@ export const SCENARIOS: Scenario[] = [
         speaker: "app",
         text: "You got glutened last night and woke up in a full flare, fatigue, cramping, brain fog. You have plans with a friend in two hours. What do you want to say?",
         options: [
-          { id: "explain_full", text: "Hey. I got glutened last night and I'm in a full celiac flare. Fatigue, cramping, the works. I have to cancel today. Really sorry for the short notice.", nextStepId: "cp_warm_tip_full" },
+          { id: "explain_full", text: "Hey, I got glutened last night and I'm in a full celiac flare. Fatigue, cramping, the works. I have to cancel today. Really sorry for the short notice.", nextStepId: "cp_warm_tip_full" },
           { id: "brief", text: "I have to cancel today, celiac flare. I'll give you the full story when I'm not completely wiped.", nextStepId: "cp_warm_tip_brief" },
           { id: "reschedule_forward", text: "I'm so sorry. I'm sick from a gluten exposure and I can't make it today. Can we look at next weekend instead?", nextStepId: "cp_warm_tip_reschedule" },
         ],
