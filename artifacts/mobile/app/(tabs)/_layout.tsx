@@ -12,13 +12,13 @@ import { useColors } from "@/hooks/useColors";
 function NativeTabLayout() {
   return (
     <NativeTabs>
-      <NativeTabs.Trigger name="index">
-        <Icon sf={{ default: "message", selected: "message.fill" }} />
-        <Label>Practice</Label>
-      </NativeTabs.Trigger>
       <NativeTabs.Trigger name="tips">
         <Icon sf={{ default: "lightbulb", selected: "lightbulb.fill" }} />
         <Label>Tips</Label>
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="index">
+        <Icon sf={{ default: "message", selected: "message.fill" }} />
+        <Label>Practice</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="community">
         <Icon sf={{ default: "person.3", selected: "person.3.fill" }} />
@@ -78,18 +78,6 @@ function ClassicTabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
-        options={{
-          title: "Practice",
-          tabBarIcon: ({ color }) =>
-            isIOS ? (
-              <SymbolView name="message" tintColor={color} size={24} />
-            ) : (
-              <Feather name="message-circle" size={22} color={color} />
-            ),
-        }}
-      />
-      <Tabs.Screen
         name="tips"
         options={{
           title: "Tips & Tricks",
@@ -98,6 +86,18 @@ function ClassicTabLayout() {
               <SymbolView name="lightbulb" tintColor={color} size={24} />
             ) : (
               <Feather name="info" size={22} color={color} />
+            ),
+        }}
+      />
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: "Practice",
+          tabBarIcon: ({ color }) =>
+            isIOS ? (
+              <SymbolView name="message" tintColor={color} size={24} />
+            ) : (
+              <Feather name="message-circle" size={22} color={color} />
             ),
         }}
       />
