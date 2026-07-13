@@ -54,7 +54,7 @@ export const TIPS: Tip[] = [
     id: "t17",
     categoryId: "hidden-gluten",
     title: "Taco Seasoning",
-    content: "Many store-bought taco seasoning packets use wheat flour or modified food starch (which can be wheat-based) as a filler or anti-caking agent. This includes some of the most common brands. Always read the label: look for 'contains wheat' or 'wheat' in the ingredients list. Safe alternatives are easy to find: several brands make certified gluten-free packets, or you can make your own blend with chili powder, cumin, garlic powder, onion powder, smoked paprika, and salt.",
+    content: "Many store-bought taco seasoning packets use wheat flour as a filler — including some of the most common brands. Always check the label for 'wheat' or 'contains wheat.' Certified GF packets are easy to find, or make your own: chili powder, cumin, garlic powder, onion powder, smoked paprika, and salt.",
   },
   {
     id: "t21",
