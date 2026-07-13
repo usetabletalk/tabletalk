@@ -1164,7 +1164,7 @@ export const SCENARIOS: Scenario[] = [
         text: "Mom: '[Setting food on the table] I made a roast, roasted vegetables, and a nice gravy. Help yourselves!'",
         options: [
           { id: "bring_up_now", text: "Mention your celiac now before you serve yourself", nextStepId: "pf_first_meal_mention_tip" },
-          { id: "probe_quietly", text: "Ask about specific dishes without bringing up celiac — keep it casual for now", nextStepId: "pf_meal_ask" },
+          { id: "probe_quietly", text: "Ask about specific dishes without bringing up celiac — keep it casual for now", nextStepId: "pf_meal_ask_quiet" },
         ],
       },
       pf_first_meal_mention_tip: {
@@ -1221,6 +1221,21 @@ export const SCENARIOS: Scenario[] = [
         id: "pf_meal_ask_live",
         speaker: "other",
         text: "You: [to Mom] 'Everything looks beautiful. Can I ask — what's in the gravy? I just need to check a couple of things with my celiac.'",
+        options: [
+          { id: "she_helps", text: "She checks and confirms the roast and plain vegetables are safe.", nextStepId: "pf_meal_safe_end" },
+          { id: "she_flustered", text: "She isn't sure and seems flustered.", nextStepId: "pf_meal_unsure" },
+        ],
+      },
+      pf_meal_ask_quiet: {
+        id: "pf_meal_ask_quiet",
+        speaker: "app",
+        text: "Asking about ingredients without naming celiac keeps things low-key and avoids making it A Whole Thing at the table. The tradeoff: if she doesn't know the full picture — that cross-contamination matters, not just ingredients — you might not get the right answer even with the right question.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "pf_meal_ask_live_quiet" }],
+      },
+      pf_meal_ask_live_quiet: {
+        id: "pf_meal_ask_live_quiet",
+        speaker: "other",
+        text: "You: [to Mom] 'Everything looks wonderful. Could I ask — what's in the gravy? I just want to make sure there's nothing I need to avoid.'",
         options: [
           { id: "she_helps", text: "She checks and confirms the roast and plain vegetables are safe.", nextStepId: "pf_meal_safe_end" },
           { id: "she_flustered", text: "She isn't sure and seems flustered.", nextStepId: "pf_meal_unsure" },
