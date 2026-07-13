@@ -99,6 +99,12 @@ export const TIPS: Tip[] = [
     content: "Air fryers are almost impossible to fully decontaminate in a shared kitchen. The mesh basket, heating element, and interior walls trap crumbs and grease that are very hard to reach. If your household uses the air fryer for breaded foods, gluten-containing crumbs are likely embedded in it. Ideally, have a dedicated GF air fryer — or skip it and use the oven with a lined baking tray you control.",
   },
   {
+    id: "t22",
+    categoryId: "eating-out",
+    title: "GF vs. Gluten Friendly vs. Allergy",
+    content: "These three terms mean very different things — and knowing the difference can protect you.\n\n'Gluten-free' on a menu means the dish is prepared without gluten-containing ingredients. It says nothing about cross-contact. A kitchen can label something GF while still cooking it in shared oil, on shared surfaces, or with shared utensils.\n\n'Gluten friendly' is a marketing term with no standard definition. It generally means the restaurant is aware of gluten and tries to accommodate — but it offers no guarantee. Treat it as a starting point for a conversation, not a safety assurance.\n\nPreference vs. allergy: many servers are trained to ask this, and your answer changes how the kitchen handles your order. Saying 'preference' usually means standard care. Saying 'allergy' triggers stricter protocols — glove changes, clean surfaces, separate utensils. For celiacs, always say allergy, even though celiac is technically an autoimmune condition rather than a classic allergy. The word 'allergy' is the signal kitchens are trained to act on.\n\nThe most useful question to ask: 'If I tell you I have a gluten allergy, what does your kitchen do differently?' The answer tells you immediately how seriously they take it.",
+  },
+  {
     id: "t8",
     categoryId: "eating-out",
     title: "Fryers",
