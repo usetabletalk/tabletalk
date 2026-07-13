@@ -231,23 +231,31 @@ export default function ScenarioScreen() {
         ]}
       >
         {currentStep?.options && currentStep.options.length > 0 ? (
-          currentStep.options.map((opt) => (
-            <Pressable
-              key={opt.id}
-              style={({ pressed }) => [
-                styles.optionButton,
-                {
-                  backgroundColor: colors.card,
-                  borderColor: colors.border,
-                  borderRadius: colors.radius,
-                  opacity: pressed ? 0.7 : 1,
-                },
-              ]}
-              onPress={() => handleOptionSelect(opt)}
-            >
-              <Text style={[styles.optionText, { color: colors.primary }]}>{opt.text}</Text>
-            </Pressable>
-          ))
+          <ScrollView
+            style={styles.optionsScroll}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+          >
+            <View style={styles.optionsInner}>
+              {currentStep.options.map((opt) => (
+                <Pressable
+                  key={opt.id}
+                  style={({ pressed }) => [
+                    styles.optionButton,
+                    {
+                      backgroundColor: colors.card,
+                      borderColor: colors.border,
+                      borderRadius: colors.radius,
+                      opacity: pressed ? 0.7 : 1,
+                    },
+                  ]}
+                  onPress={() => handleOptionSelect(opt)}
+                >
+                  <Text style={[styles.optionText, { color: colors.primary }]}>{opt.text}</Text>
+                </Pressable>
+              ))}
+            </View>
+          </ScrollView>
         ) : currentStep?.isEnd ? (
           <Pressable
             style={({ pressed }) => [
@@ -381,7 +389,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 16,
     borderTopWidth: 1,
+    maxHeight: 280,
+  },
+  optionsScroll: {
+    flexGrow: 0,
+  },
+  optionsInner: {
     gap: 12,
+    paddingBottom: 4,
   },
   optionButton: {
     padding: 16,
