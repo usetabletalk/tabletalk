@@ -1127,13 +1127,13 @@ export const SCENARIOS: Scenario[] = [
         id: "pf_partner_prep_tip",
         speaker: "app",
         text: "Smart ask. Most people understand 'no gluten ingredients' but don't think about cross-contamination. If your partner can set that expectation now, you won't have to explain it cold at the table when everyone's already sitting down.",
-        options: [{ id: "cont", text: "Continue", nextStepId: "pf_first_meal" }],
+        options: [{ id: "cont", text: "Continue", nextStepId: "pf_first_meal_prepped" }],
       },
       pf_partner_prep_light: {
         id: "pf_partner_prep_light",
         speaker: "app",
         text: "A heads-up is a great start — you're not arriving cold. You can fill in the details about cross-contamination in person if the meal calls for it. Either way, you've already made it easier on yourself.",
-        options: [{ id: "cont", text: "Continue", nextStepId: "pf_first_meal" }],
+        options: [{ id: "cont", text: "Continue", nextStepId: "pf_first_meal_prepped" }],
       },
       pf_first_arrival: {
         id: "pf_first_arrival",
@@ -1163,8 +1163,23 @@ export const SCENARIOS: Scenario[] = [
         speaker: "other",
         text: "Mom: '[Setting food on the table] I made a roast, roasted vegetables, and a nice gravy. Help yourselves!'",
         options: [
+          { id: "bring_up_now", text: "Mention your celiac now before you serve yourself", nextStepId: "pf_first_meal_mention_tip" },
+          { id: "probe_quietly", text: "Ask about specific dishes without bringing up celiac — keep it casual for now", nextStepId: "pf_meal_ask" },
+        ],
+      },
+      pf_first_meal_mention_tip: {
+        id: "pf_first_meal_mention_tip",
+        speaker: "app",
+        text: "Bringing it up at the table rather than at the door is completely fine — you still get the same information. The tradeoff: it's a slightly more public moment with everyone watching, which can feel like more pressure. But 'I should mention I have celiac' before you serve yourself is natural and low-stakes.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "pf_meal_ask" }],
+      },
+      pf_first_meal_prepped: {
+        id: "pf_first_meal_prepped",
+        speaker: "other",
+        text: "Mom: '[Setting food on the table] I made a roast, roasted vegetables, and a nice gravy. Help yourselves!'",
+        options: [
           { id: "she_seems_confident", text: "She seems confident she made something safe — but you're not sure if she understood cross-contamination.", nextStepId: "pf_meal_check" },
-          { id: "totally_unsure", text: "You have no idea what's safe here and need to figure it out without making a scene.", nextStepId: "pf_meal_ask" },
+          { id: "totally_unsure", text: "You're still not sure what's actually safe and want to ask before filling your plate.", nextStepId: "pf_meal_ask" },
         ],
       },
       pf_meal_check: {
