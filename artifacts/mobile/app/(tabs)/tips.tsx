@@ -16,6 +16,16 @@ import { Feather } from "@expo/vector-icons";
 import { useColors } from "@/hooks/useColors";
 import { CATEGORIES, TIPS, Tip } from "@/data/tips";
 
+function renderContent(text: string, baseStyle: object, boldStyle: object) {
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <Text key={i} style={boldStyle}>{part.slice(2, -2)}</Text>;
+    }
+    return <Text key={i} style={baseStyle}>{part}</Text>;
+  });
+}
+
 if (
   Platform.OS === "android" &&
   UIManager.setLayoutAnimationEnabledExperimental
@@ -119,7 +129,11 @@ export default function TipsScreen() {
 
         {isExpanded && (
           <Text style={[styles.cardContent, { color: colors.mutedForeground }]}>
-            {item.content}
+            {renderContent(
+              item.content,
+              { color: colors.mutedForeground, fontFamily: "Inter_400Regular" },
+              { color: colors.mutedForeground, fontFamily: "Inter_600SemiBold" }
+            )}
           </Text>
         )}
       </View>
