@@ -1,0 +1,44 @@
+Add a new scenario to the app called "Splitting the Bill." Follow the exact same data structure, file conventions, and node format used by the existing scenarios — look at how the current scenario files are structured (question nodes with tag/prompt/options, end nodes with tone/label/scripts/why) and match that pattern exactly. Don't introduce new fields, components, or styling; this should slot in as a new content file the same way the others do.
+
+This scenario covers the awkwardness of group dining costs when celiac changes what or how much you can order — either because you ordered less/cheaper food than everyone else, or because the group wants to order family-style and share plates. Build it with the following structure:
+
+Root question: "What's actually happening?"
+
+
+→ The group wants to split the bill evenly, but I ordered less or cheaper food
+→ The group wants to order family-style / shared plates
+→ I already agreed to family-style and need to back out safely
+→ Someone's questioning why I'm not chiming in on cost or participating in the shared order
+
+
+Branch: Splitting evenly when I ordered less
+
+
+Question: "Is this a group that splits evenly by default, or did someone just suggest it this time?"
+End nodes: one script for proposing itemized/individual payment upfront before the bill even comes, one for addressing it once the "let's just split it" moment has already happened at the table.
+
+
+Branch: Group wants family-style
+
+
+Question: "Is family-style being suggested before you've ordered, or after the group has already started planning it?"
+End nodes: one script for redirecting to individual entrees early ("could we do this one differently this time?"), one for opting out of the shared dishes while still contributing to or being included in the group experience (e.g. ordering your own dish alongside their shared ones).
+
+
+Branch: Already agreed to family-style, need to back out
+
+
+Question: "Has anything been ordered yet, or is food already on the table?"
+End nodes: one script for renegotiating before food arrives, one for handling it gracefully once shared dishes are already out (e.g. quietly not eating from them, requesting a separate dish now).
+
+
+Branch: Someone questions why you're not participating (cost or food)
+
+
+Question: "Are they questioning the cost split, or questioning why you're not eating the shared food?"
+Two end nodes, since these need different scripts: one financial (why you're not covering an even share when you ordered less), one social (why you're not digging into the shared plates even though you're paying in).
+
+
+For every end node, write all three tone variants already used elsewhere in the app (direct/brief/firm) plus a why explanation, matching the voice and length of the existing scenario content. Keep in mind this scenario has two intertwined stakes — money and food safety — so make sure the why fields are specific about which one each script is protecting (e.g. a script defusing a cost complaint should note that it avoids over-explaining the medical reasoning to a purely financial objection, and vice versa).
+
+Add this scenario to the scenario-select list using the same listing format as the others, with a one-line description.

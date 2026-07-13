@@ -1518,4 +1518,290 @@ export const SCENARIOS: Scenario[] = [
       },
     },
   },
+  {
+    id: "splitting-the-bill",
+    title: "Splitting the Bill",
+    description: "Navigate group dining costs when celiac changes what you can order.",
+    estimatedMinutes: 4,
+    firstStepId: "sb_root",
+    modes: [
+      { id: "even-split", label: "Splitting Evenly", description: "The group wants to split the bill evenly but you ordered less.", icon: "help-circle", tint: "lemon", firstStepId: "sb_even_q" },
+      { id: "family-style", label: "Family-Style / Shared Plates", description: "The group wants to share dishes — which isn't safe for you.", icon: "alert-circle", tint: "rose", firstStepId: "sb_fs_timing" },
+      { id: "questioned", label: "Being Questioned", description: "Someone is calling out your cost split or why you're not eating the shared food.", icon: "smile", tint: "mint", firstStepId: "sb_q_type" },
+    ],
+    steps: {
+      sb_root: {
+        id: "sb_root",
+        speaker: "app",
+        text: "Group dining with celiac adds two layers most people don't think about: what you can safely eat, and how that affects the cost split. Pick your situation.",
+        options: [
+          { id: "even", text: "The group wants to split evenly, but I ordered less", nextStepId: "sb_even_q" },
+          { id: "fs", text: "The group wants family-style / shared plates", nextStepId: "sb_fs_timing" },
+          { id: "backout", text: "I already agreed to family-style and need to back out", nextStepId: "sb_backout_timing" },
+          { id: "questioned", text: "Someone is questioning why I'm not participating", nextStepId: "sb_q_type" },
+        ],
+      },
+
+      // ── Even split, ordered less ──────────────────────────────────────────
+
+      sb_even_q: {
+        id: "sb_even_q",
+        speaker: "app",
+        text: "Is this a group that splits evenly by default, or did someone just suggest it now?",
+        options: [
+          { id: "default_split", text: "This group always splits evenly — I should bring it up proactively", nextStepId: "sb_even_proactive_tip" },
+          { id: "suggested_now", text: "'Let's just split it' just came up at the table", nextStepId: "sb_even_reactive_moment" },
+        ],
+      },
+      sb_even_proactive_tip: {
+        id: "sb_even_proactive_tip",
+        speaker: "app",
+        text: "Before the bill comes is the easiest time to bring this up — no one feels called out and there's nothing to undo. A casual mention while ordering lands much better than a negotiation at the end.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "sb_even_proactive_say" }],
+      },
+      sb_even_proactive_say: {
+        id: "sb_even_proactive_say",
+        speaker: "other",
+        text: "You: '[while ordering] Hey — would you all mind if we did individual checks tonight? I tend to order light and it just works out more fairly all around.'",
+        options: [
+          { id: "group_agrees", text: "Friends: 'Oh yeah, totally fine — actually easier honestly.'", nextStepId: "sb_even_proactive_end" },
+          { id: "group_hesitates", text: "Friend: 'Ugh, individual checks are always such a hassle...'", nextStepId: "sb_even_proactive_pushback" },
+        ],
+      },
+      sb_even_proactive_pushback: {
+        id: "sb_even_proactive_pushback",
+        speaker: "other",
+        text: "You: 'I get it — I'll just ask the server to split mine off separately. You all can still do one check between you. Takes two seconds.'",
+        options: [
+          { id: "they_agree", text: "Friend: 'Oh yeah, that works.'", nextStepId: "sb_even_proactive_end" },
+        ],
+      },
+      sb_even_proactive_end: {
+        id: "sb_even_proactive_end",
+        speaker: "app",
+        text: "Bringing it up before anyone's ordered means there's no awkwardness and nothing to walk back. Framing it as 'fair for everyone' rather than a personal exception keeps the mood light — you're not asking for special treatment, just an honest split. Well done.",
+        isEnd: true,
+      },
+      sb_even_reactive_moment: {
+        id: "sb_even_reactive_moment",
+        speaker: "other",
+        text: "Friend: '[when the bill arrives] Okay, let's just split this equally — easiest, right?'",
+        options: [
+          { id: "direct_ask", text: "Would you mind if I just covered mine separately? I ordered pretty light — it wouldn't be fair to you all otherwise.", nextStepId: "sb_even_reactive_response" },
+          { id: "soft_ask", text: "I'd actually love to just pay for what I had — I kept it pretty minimal tonight. Is that okay with everyone?", nextStepId: "sb_even_reactive_response" },
+        ],
+      },
+      sb_even_reactive_response: {
+        id: "sb_even_reactive_response",
+        speaker: "other",
+        text: "Friend: 'Oh right, yeah — that makes sense. Go for it.'",
+        options: [
+          { id: "thanks", text: "Thank you — I really appreciate it.", nextStepId: "sb_even_reactive_end" },
+        ],
+      },
+      sb_even_reactive_end: {
+        id: "sb_even_reactive_end",
+        speaker: "app",
+        text: "Framing it as fair to them — 'it wouldn't be fair to you' — is more effective than framing it as a need on your end. You're not asking for a favor; you're pointing out the honest math. That's a subtle but real difference, and it works.",
+        isEnd: true,
+      },
+
+      // ── Family-style / shared plates ──────────────────────────────────────
+
+      sb_fs_timing: {
+        id: "sb_fs_timing",
+        speaker: "app",
+        text: "Is family-style being suggested before anyone's ordered, or has the group already started planning it out?",
+        options: [
+          { id: "before_order", text: "Before we've ordered — I can redirect early", nextStepId: "sb_fs_early_tip" },
+          { id: "already_planning", text: "They're already planning the order", nextStepId: "sb_fs_late_tip" },
+        ],
+      },
+      sb_fs_early_tip: {
+        id: "sb_fs_early_tip",
+        speaker: "app",
+        text: "Before anyone's committed to anything is the easiest moment to redirect. You don't need to explain everything — a simple 'could we do it differently this time?' is usually enough.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "sb_fs_early_say" }],
+      },
+      sb_fs_early_say: {
+        id: "sb_fs_early_say",
+        speaker: "other",
+        text: "Friend: 'Should we just do family-style and share a bunch of stuff?'",
+        options: [
+          { id: "redirect_simple", text: "Could we do individual entrees this time? With my celiac I have to be careful about shared dishes — cross-contamination is a real thing for me.", nextStepId: "sb_fs_early_friend" },
+          { id: "redirect_offer", text: "I'd love to, but shared plates are tricky for me with celiac. Would it work if everyone ordered their own and we still got a few extras for the table that I just skip?", nextStepId: "sb_fs_early_friend" },
+        ],
+      },
+      sb_fs_early_friend: {
+        id: "sb_fs_early_friend",
+        speaker: "other",
+        text: "Friend: 'Oh — yeah, of course. I didn't think about that. Let's just do our own things.'",
+        options: [
+          { id: "thanks", text: "Thank you — I really appreciate it. I'm excited to see the menu!", nextStepId: "sb_fs_early_end" },
+        ],
+      },
+      sb_fs_early_end: {
+        id: "sb_fs_early_end",
+        speaker: "app",
+        text: "You redirected before anything was committed, which meant no one had to undo a plan. The brief mention of why (cross-contamination) gave enough context without turning it into a medical briefing. Clean and effective.",
+        isEnd: true,
+      },
+      sb_fs_late_tip: {
+        id: "sb_fs_late_tip",
+        speaker: "app",
+        text: "When the group is already planning a shared order, opting out doesn't have to derail anything. The goal is to stay included in the meal socially while handling your food separately — and you can often do both.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "sb_fs_late_say" }],
+      },
+      sb_fs_late_say: {
+        id: "sb_fs_late_say",
+        speaker: "other",
+        text: "Friend: 'Okay so I'm thinking we get the dumplings, the noodle dish, the shared rice, and a couple of the small plates. Everyone in?'",
+        options: [
+          { id: "opt_out_own_dish", text: "I'm in for the energy of it! I'll just order my own dish separately — I have to be careful with shared plates because of celiac. Happy to chip in on the drinks or something.", nextStepId: "sb_fs_late_friend" },
+          { id: "opt_out_simple", text: "Go for it — I'll just grab my own entrée since shared dishes are tricky for me with celiac. I won't be in on the food cost but I'm absolutely here for it.", nextStepId: "sb_fs_late_friend" },
+        ],
+      },
+      sb_fs_late_friend: {
+        id: "sb_fs_late_friend",
+        speaker: "other",
+        text: "Friend: 'Oh totally — no worries at all. Get whatever works for you!'",
+        options: [
+          { id: "great", text: "Perfect — this is going to be a great dinner.", nextStepId: "sb_fs_late_end" },
+        ],
+      },
+      sb_fs_late_end: {
+        id: "sb_fs_late_end",
+        speaker: "app",
+        text: "Offering to contribute elsewhere (drinks, a side) signals you're still invested in the group experience — it's not about opting out of the meal, just the shared dishes. That keeps the social dynamic intact even when your food situation is separate.",
+        isEnd: true,
+      },
+
+      // ── Already agreed to family-style, need to back out ─────────────────
+
+      sb_backout_timing: {
+        id: "sb_backout_timing",
+        speaker: "app",
+        text: "Has anything been ordered yet, or is the food already on the table?",
+        options: [
+          { id: "not_ordered", text: "Nothing's been ordered yet", nextStepId: "sb_backout_pre_tip" },
+          { id: "food_arrived", text: "Food is already on the table", nextStepId: "sb_backout_post_tip" },
+        ],
+      },
+      sb_backout_pre_tip: {
+        id: "sb_backout_pre_tip",
+        speaker: "app",
+        text: "Before anything's ordered, backing out is easy — no one has to undo anything. A quick honest mention is all it takes.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "sb_backout_pre_say" }],
+      },
+      sb_backout_pre_say: {
+        id: "sb_backout_pre_say",
+        speaker: "other",
+        text: "You: '[to the group, before the server comes] Hey — I need to take back what I said earlier about family-style. With my celiac, shared dishes are actually a cross-contamination risk for me. I'll just order my own — sorry for the flip!'",
+        options: [
+          { id: "they_understand", text: "Friends: 'Oh no, don't apologize — of course. Get whatever you need.'", nextStepId: "sb_backout_pre_end" },
+        ],
+      },
+      sb_backout_pre_end: {
+        id: "sb_backout_pre_end",
+        speaker: "app",
+        text: "A short, direct correction before the order is placed costs nothing — no food was wasted, no one's plan was disrupted. Owning the change ('sorry for the flip') keeps it light and removes any awkwardness. You handled it exactly right.",
+        isEnd: true,
+      },
+      sb_backout_post_tip: {
+        id: "sb_backout_post_tip",
+        speaker: "app",
+        text: "When the food is already out, the options shift slightly: you can quietly not eat from the shared dishes and explain if asked, or flag it now and ask the server for a separate dish. Both are valid — the right call depends on how much attention you want to draw.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "sb_backout_post_moment" }],
+      },
+      sb_backout_post_moment: {
+        id: "sb_backout_post_moment",
+        speaker: "other",
+        text: "Friend: '[dishes arriving] Okay, dig in everyone!'",
+        options: [
+          { id: "flag_now", text: "[to friend, quietly] Hey — I should have said this earlier, but I actually can't eat from the shared dishes with my celiac. Cross-contamination. Can I ask the server to bring me something separate?", nextStepId: "sb_backout_post_flag_end" },
+          { id: "quietly_skip", text: "[Take a drink, smile, don't reach for the shared dishes — wait to see if anyone notices]", nextStepId: "sb_backout_post_quiet_end" },
+        ],
+      },
+      sb_backout_post_flag_end: {
+        id: "sb_backout_post_flag_end",
+        speaker: "app",
+        text: "Flagging it quietly and immediately is usually the cleanest move. You're not disrupting the meal — you're just getting yourself a safe plate. The earlier you mention it, the less of a thing it becomes. It's okay that you didn't say it sooner; you said it now.",
+        isEnd: true,
+      },
+      sb_backout_post_quiet_end: {
+        id: "sb_backout_post_quiet_end",
+        speaker: "app",
+        text: "Quietly not participating is a legitimate choice — especially if you'd rather handle it privately than make an announcement mid-meal. If someone asks, you can explain simply then. This approach works best when you have something else to eat, or when drawing attention feels like too much right now.",
+        isEnd: true,
+      },
+
+      // ── Being questioned ─────────────────────────────────────────────────
+
+      sb_q_type: {
+        id: "sb_q_type",
+        speaker: "app",
+        text: "What are they questioning?",
+        options: [
+          { id: "cost", text: "The cost split — why I'm not paying an equal share", nextStepId: "sb_q_cost_moment" },
+          { id: "food", text: "Why I'm not eating the shared food even though I'm at the table", nextStepId: "sb_q_food_moment" },
+        ],
+      },
+
+      // Questioned about cost ───────────────────────────────────────────────
+
+      sb_q_cost_moment: {
+        id: "sb_q_cost_moment",
+        speaker: "other",
+        text: "Friend: 'Wait — how come you're only paying for your own? I feel like we're all in this together.'",
+        options: [
+          { id: "cost_direct", text: "I only had the soup and a water — splitting evenly would mean paying for your cocktails and the three shared dishes I couldn't eat. It just doesn't add up fairly.", nextStepId: "sb_q_cost_direct_end" },
+          { id: "cost_soft", text: "I completely get the 'in it together' vibe! I'm just trying to be fair to you all — I ordered really lightly because of my celiac restrictions, so paying equally would mean I'm covering food I couldn't even touch.", nextStepId: "sb_q_cost_soft_end" },
+          { id: "cost_brief", text: "I couldn't eat most of what was ordered, so paying an equal share wouldn't really make sense. Happy to cover exactly what I had.", nextStepId: "sb_q_cost_direct_end" },
+        ],
+      },
+      sb_q_cost_direct_end: {
+        id: "sb_q_cost_direct_end",
+        speaker: "app",
+        text: "This is a financial objection, not a medical one — and the response should match. You don't need to explain celiac here; you just need to explain the math. 'I'd be paying for food I couldn't eat' is the whole argument, and it's a fair one. The medical context is only worth adding if they push further.",
+        isEnd: true,
+      },
+      sb_q_cost_soft_end: {
+        id: "sb_q_cost_soft_end",
+        speaker: "app",
+        text: "Validating the 'in it together' spirit before redirecting to the math keeps the moment warm rather than defensive. You're not refusing to participate — you're pointing out that participating fairly means paying for what you actually had. That's a reasonable position and you made it feel like one.",
+        isEnd: true,
+      },
+
+      // Questioned about not eating shared food ────────────────────────────
+
+      sb_q_food_moment: {
+        id: "sb_q_food_moment",
+        speaker: "other",
+        text: "Friend: 'You've barely touched anything — are you not hungry? Why aren't you having any of the shared stuff?'",
+        options: [
+          { id: "food_explain", text: "I have celiac, so I can't eat from shared dishes — cross-contamination is a real risk even if the ingredients are fine. I should have mentioned it before we ordered. I'm good though!", nextStepId: "sb_q_food_explain_end" },
+          { id: "food_brief", text: "I have a celiac thing with shared dishes — I'm fine, just working with what I can have. Don't worry about me!", nextStepId: "sb_q_food_brief_end" },
+          { id: "food_redirect", text: "I'm actually good — I have a medical thing that makes shared plates tricky. I'm honestly just happy to be here. Tell me about that dish though — what is it?", nextStepId: "sb_q_food_redirect_end" },
+        ],
+      },
+      sb_q_food_explain_end: {
+        id: "sb_q_food_explain_end",
+        speaker: "app",
+        text: "Owning the 'I should have mentioned it' takes any awkwardness off them and puts it back in your hands. Ending with 'I'm good though' closes the concern loop and keeps the meal moving. This is the fuller explanation — right for someone who seems genuinely puzzled and wants to understand.",
+        isEnd: true,
+      },
+      sb_q_food_brief_end: {
+        id: "sb_q_food_brief_end",
+        speaker: "app",
+        text: "Brief and reassuring. You answered the question, made clear there's no drama, and moved on. This works best when the question feels casual rather than pointed — you gave them just enough to stop worrying without making it a moment.",
+        isEnd: true,
+      },
+      sb_q_food_redirect_end: {
+        id: "sb_q_food_redirect_end",
+        speaker: "app",
+        text: "Redirecting to curiosity about their food ('tell me about that dish') is a smooth way to close the topic and keep the energy up. You answered the question, signaled you're fine, and handed the conversation back to them. That takes a bit of social grace and you pulled it off.",
+        isEnd: true,
+      },
+    },
+  },
 ];
