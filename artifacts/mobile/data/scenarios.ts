@@ -33,7 +33,7 @@ export const SCENARIOS: Scenario[] = [
   {
     id: "restaurant-ordering",
     title: "Ordering at a Restaurant",
-    description: "Practice talking to a server about cross-contamination.",
+    description: "Practice talking to a server about cross-contact.",
     estimatedMinutes: 3,
     firstStepId: "start",
     modes: [
@@ -77,7 +77,7 @@ export const SCENARIOS: Scenario[] = [
         options: [
           {
             id: "ask_cross_contact",
-            text: "Thank you. Since I have celiac, I also need to ask about cross-contamination. Are the burgers cooked on the same grill as the regular buns?",
+            text: "Thank you. Since I have celiac, I also need to ask about cross-contact. Are the burgers cooked on the same grill as the regular buns?",
             nextStepId: "server_reply_1a",
           },
           {
@@ -116,7 +116,7 @@ export const SCENARIOS: Scenario[] = [
         options: [
           {
             id: "wait_for_answer",
-            text: "Thank you so much for being honest and going to check, that means a lot.",
+            text: "Thank you for going to check.",
             nextStepId: "chef_finds_solution",
           },
         ],
@@ -136,7 +136,7 @@ export const SCENARIOS: Scenario[] = [
       end_educated_server: {
         id: "end_educated_server",
         speaker: "app",
-        text: "You corrected a real misconception: heat and wiping genuinely aren't enough, and many servers don't know that. Explaining it directly like this often lands well with people who are trying to help. The tradeoff: it puts you in teacher mode, which works great with receptive staff but can create friction if a server feels like they're being corrected in front of a busy section.",
+        text: "You corrected a common misconception: heat and wiping really aren't enough, but many servers don't know that. Explaining it directly like this often lands well with people who are trying to help. The tradeoff: it puts you in teacher mode, which works great with receptive staff but can create friction if a server feels like they're being corrected.",
         isEnd: true,
       },
       manager_to_rescue: {
@@ -154,13 +154,13 @@ export const SCENARIOS: Scenario[] = [
       end_manager_success: {
         id: "end_manager_success",
         speaker: "app",
-        text: "Escalating to a manager is completely valid. Not rude, just efficient. It gets your question to someone who actually knows the answer, and it signals that this matters. The tradeoff: some servers feel embarrassed when a customer goes over their head. That's not your problem to solve, but if you do it often at the same restaurant, it can affect how your table is treated.",
+        text: "Escalating to a manager isn't rude, it's efficient. It gets your question to someone who actually knows the answer, and your health is most important. Some servers feel embarrassed when a customer goes over their head, but keep in mind: that's not your problem to solve.",
         isEnd: true,
       },
       server_reply_1a: {
         id: "server_reply_1a",
         speaker: "app",
-        text: "Excellent! Asking about cross-contamination is the most important step. Many restaurants don't realize shared grills are a problem.",
+        text: "Excellent! Asking about cross-contact is the most important step. Many restaurants don't realize shared grills are a problem.",
         options: [
           {
             id: "continue",
@@ -200,7 +200,7 @@ export const SCENARIOS: Scenario[] = [
         options: [
           {
             id: "confirm_salad",
-            text: "Could you also ask the kitchen to change their gloves and use a clean bowl to mix it? I'm highly sensitive.",
+            text: "Could you also ask the kitchen to change their gloves and use a clean bowl to mix it?",
             nextStepId: "end_success_salad",
           },
         ],
@@ -232,13 +232,13 @@ export const SCENARIOS: Scenario[] = [
       end_success: {
         id: "end_success",
         speaker: "app",
-        text: "You asked about cross-contact directly and got a real answer. That's the whole skill. The tradeoff to being this specific: it can slow a busy server down and occasionally gets an eye-roll from kitchen staff. But a reaction is much worse than an awkward moment, so the specifics are always worth it.",
+        text: "You asked about cross-contact directly and got a strong answer! Yes, it can slow a busy server down and occasionally gets an eye-roll from kitchen staff. But a reaction is much worse than an awkward moment, so the specifics are always worth it.",
         isEnd: true,
       },
       end_success_salad: {
         id: "end_success_salad",
         speaker: "app",
-        text: "Asking for glove changes and a clean bowl is exactly right for salads. They're one of the highest cross-contact risks on most menus because they're assembled by hand. The tradeoff: the more specific your requests, the more they stand out. That's fine. You're not being difficult; you're being precise about a medical need.",
+        text: "Asking for glove changes and a clean bowl is exactly right for salads. They're one of the highest cross-contact risks on most menus because they're assembled by hand.",
         isEnd: true,
       },
       // ── Informed Server mode ────────────────────────────────────────────────
@@ -277,7 +277,7 @@ export const SCENARIOS: Scenario[] = [
       informed_success: {
         id: "informed_success",
         speaker: "app",
-        text: "Notice what good looks like: proactive detail, no vague 'we're careful,' and an actual protocol. You asked a follow-up question confidently and accepted the safe option warmly. That's the whole skill.",
+        text: "Notice what good looks like: proactive detail and an actual protocol. You asked a follow-up question confidently and accepted the safe option polietly.",
         isEnd: true,
       },
       // ── Uninformed Server mode ───────────────────────────────────────────────
@@ -301,7 +301,7 @@ export const SCENARIOS: Scenario[] = [
         speaker: "other",
         text: "Server: 'Of course! We have a gluten-free bun for burgers, and our salads are safe without croutons. The kitchen is really careful.'",
         options: [
-          { id: "ask_cc", text: "Thank you. I also need to ask specifically about cross-contamination. Are GF items cooked on a completely separate surface?", nextStepId: "server_cc_wrong" },
+          { id: "ask_cc", text: "Thank you. I also need to ask specifically about cross-contact. Are GF items cooked on a completely separate surface?", nextStepId: "server_cc_wrong" },
           { id: "salad_route", text: "For the salad, is it prepared in a clean bowl that hasn't touched bread items?", nextStepId: "uninformed_salad_rinse" },
         ],
       },
@@ -454,7 +454,7 @@ export const SCENARIOS: Scenario[] = [
       bob_reply_3: {
         id: "bob_reply_3",
         speaker: "app",
-        text: "It's so hard when people push, but remember: your health is more important than their temporary disappointment. Cross-contamination from the sauce or grill will make you sick.",
+        text: "It's so hard when people push, but remember: your health is more important than their temporary disappointment. Cross-contact from the sauce or grill will make you sick.",
         options: [
           { id: "try_again", text: "Let's try that again", nextStepId: "bob_reply_2_actual" },
         ],
@@ -502,7 +502,7 @@ export const SCENARIOS: Scenario[] = [
       end_brought_food: {
         id: "end_brought_food",
         speaker: "app",
-        text: "Redirecting to something warm ('tell me about that potato salad') after not getting through is a real skill. It signals you're not holding a grudge and lets the social moment continue. The tradeoff: some people read the subject-change as you conceding the argument. That's okay. You weren't trying to win; you were trying to eat safely and enjoy the day.",
+        text: "Redirecting to something warm ('tell me about that potato salad') after not getting through is a real skill. It signals you're not holding a grudge and lets the social moment continue. Now, some people read the subject-change as you conceding the argument. But that's okay. You aren't trying to win; you're trying to eat safely and enjoy the day.",
         isEnd: true,
       },
       // ── Receptive Relative mode ──────────────────────────────────────────────
@@ -541,13 +541,13 @@ export const SCENARIOS: Scenario[] = [
       receptive_end_great: {
         id: "receptive_end_great",
         speaker: "app",
-        text: "When someone genuinely tries to accommodate you, accepting warmly and specifically ('plain chicken without sauce would be perfect') gives them a clear win, and that makes them more likely to try next time. The tradeoff: accepting help from family means trusting their execution, which requires judgment. Bob checked, confirmed, and is handling it himself. Those are the signs that this is actually safe to accept.",
+        text: "When someone genuinely tries to accommodate you, accepting warmly and specifically ('plain chicken without sauce would be perfect') gives them a clear win, and that makes them more likely to try next time. Keep in mind: accepting help from family means trusting their execution, which requires judgment.",
         isEnd: true,
       },
       receptive_end_fine: {
         id: "receptive_end_fine",
         speaker: "app",
-        text: "Saying 'please don't feel bad' removes the guilt and keeps the dynamic easy. The tradeoff: some people read this as you not taking your own needs seriously, or as you letting them off the hook. With Bob specifically, he was trying. You weren't dismissing his effort; you were genuinely covered. That distinction matters.",
+        text: "Saying 'please don't feel bad' removes the guilt and keeps the dynamic easy. With Bob specifically, he was trying. You weren't dismissing his effort.",
         isEnd: true,
       },
       receptive_brought_food: {
@@ -648,7 +648,7 @@ export const SCENARIOS: Scenario[] = [
           },
           {
             id: "ask_cc_specifically",
-            text: "I need to check on cross-contamination specifically, were the GF dishes cooked in separate pots and pans from the gluten items?",
+            text: "I need to check on cross-contact specifically, were the GF dishes cooked in separate pots and pans from the gluten items?",
             nextStepId: "coord_cc_confused",
           },
           {
@@ -661,11 +661,11 @@ export const SCENARIOS: Scenario[] = [
       coord_cc_confused: {
         id: "coord_cc_confused",
         speaker: "other",
-        text: "Coordinator: 'Oh, they're made with completely gluten-free ingredients, so cross-contamination isn't really an issue. The ingredients are safe, so the food is safe. I promise!'",
+        text: "Coordinator: 'Oh, they're made with completely gluten-free ingredients, so cross-contact isn't really an issue. The ingredients are safe, so the food is safe. I promise!'",
         options: [
           {
             id: "explain_cc_catered",
-            text: "Thank you for making GF options! I want to explain, with celiac, cross-contamination means gluten particles can transfer through shared pots, pans, or water, even when the recipe itself has no gluten. That's what I need to find out about.",
+            text: "Thank you for making GF options! I want to explain, with celiac, cross-contact means gluten particles can transfer through shared pots, pans, or water, even when the recipe itself has no gluten. That's what I need to find out about.",
             nextStepId: "coord_lightbulb",
           },
         ],
@@ -1086,7 +1086,7 @@ export const SCENARIOS: Scenario[] = [
       defensive_end: {
         id: "defensive_end",
         speaker: "app",
-        text: "Staying patient when someone's first reaction is resistance takes real restraint. You corrected 'regular food' to 'gluten specifically' without matching their frustration, that factual precision matters, and keeping it calm meant they could actually hear it. The tradeoff: staying warm and patient when someone's being difficult can feel like you're not being taken seriously. You are. It just takes some people a moment longer.",
+        text: "Staying patient when someone's first reaction is resistance takes real restraint. You corrected 'regular food' to 'gluten specifically' without matching their frustration, that factual precision matters, and keeping it calm meant they could actually hear it. Staying warm and patient when someone's being difficult can feel like you're not being taken seriously. You are. It just takes some people a moment longer.",
         isEnd: true,
       },
     },
@@ -1119,20 +1119,20 @@ export const SCENARIOS: Scenario[] = [
         speaker: "other",
         text: "Your partner: 'Yeah, I'll text my mom before we leave, just let her know about the celiac so she's not caught off guard.'",
         options: [
-          { id: "ask_detail", text: "Can you also mention that cross-contamination matters, not just the ingredients? Shared pans or utensils can cause a reaction too.", nextStepId: "pf_partner_prep_tip" },
+          { id: "ask_detail", text: "Can you also mention that cross-contact matters, not just the ingredients? Shared pans or utensils can cause a reaction too.", nextStepId: "pf_partner_prep_tip" },
           { id: "just_heads_up", text: "Thank you, even a quick heads-up makes a real difference.", nextStepId: "pf_partner_prep_light" },
         ],
       },
       pf_partner_prep_tip: {
         id: "pf_partner_prep_tip",
         speaker: "app",
-        text: "Smart ask. Most people understand 'no gluten ingredients' but don't think about cross-contamination. If your partner can set that expectation now, you won't have to explain it cold at the table when everyone's already sitting down.",
+        text: "Smart ask. Most people understand 'no gluten ingredients' but don't think about cross-contact. If your partner can set that expectation now, you won't have to explain it cold at the table when everyone's already sitting down.",
         options: [{ id: "cont", text: "Continue", nextStepId: "pf_first_meal_prepped" }],
       },
       pf_partner_prep_light: {
         id: "pf_partner_prep_light",
         speaker: "app",
-        text: "A heads-up is a great start. You're not arriving cold. You can fill in the details about cross-contamination in person if the meal calls for it. Either way, you've already made it easier on yourself.",
+        text: "A heads-up is a great start. You're not arriving cold. You can fill in the details about cross-contact in person if the meal calls for it. Either way, you've already made it easier on yourself.",
         options: [{ id: "cont", text: "Continue", nextStepId: "pf_first_meal_prepped" }],
       },
       pf_first_arrival: {
@@ -1178,7 +1178,7 @@ export const SCENARIOS: Scenario[] = [
         speaker: "other",
         text: "Mom: '[Setting food on the table] I made a roast, roasted vegetables, and a nice gravy. Help yourselves!'",
         options: [
-          { id: "she_seems_confident", text: "She seems confident she made something safe, but you're not sure if she understood cross-contamination.", nextStepId: "pf_meal_check" },
+          { id: "she_seems_confident", text: "She seems confident she made something safe, but you're not sure if she understood cross-contact.", nextStepId: "pf_meal_check" },
           { id: "totally_unsure", text: "You're still not sure what's actually safe and want to ask before filling your plate.", nextStepId: "pf_meal_ask" },
         ],
       },
@@ -1208,7 +1208,7 @@ export const SCENARIOS: Scenario[] = [
       pf_trust_end: {
         id: "pf_trust_end",
         speaker: "app",
-        text: "Trusting her effort rather than probing further is a judgment call, not a mistake. She researched, she offered, and the relationship is new. The tradeoff: you're accepting some uncertainty about cross-contamination. If you do react, it'll be harder to know why. Reserving the detailed questions for your second or third visit, once trust is built, is a reasonable strategy. You balanced safety against relationship-building.",
+        text: "Trusting her effort rather than probing further is a judgment call, not a mistake. She researched, she offered, and the relationship is new. The tradeoff: you're accepting some uncertainty about cross-contact. If you do react, it'll be harder to know why. Reserving the detailed questions for your second or third visit, once trust is built, is a reasonable strategy. You balanced safety against relationship-building.",
         isEnd: true,
       },
       pf_meal_ask: {
@@ -1229,7 +1229,7 @@ export const SCENARIOS: Scenario[] = [
       pf_meal_ask_quiet: {
         id: "pf_meal_ask_quiet",
         speaker: "app",
-        text: "Asking about ingredients without naming celiac keeps things low-key and avoids making it A Whole Thing at the table. The tradeoff: if she doesn't know the full picture, that cross-contamination matters, not just ingredients, you might not get the right answer even with the right question.",
+        text: "Asking about ingredients without naming celiac keeps things low-key and avoids making it A Whole Thing at the table. The tradeoff: if she doesn't know the full picture, that cross-contact matters, not just ingredients, you might not get the right answer even with the right question.",
         options: [{ id: "cont", text: "Continue", nextStepId: "pf_meal_ask_live_quiet" }],
       },
       pf_meal_ask_live_quiet: {
@@ -1481,7 +1481,7 @@ export const SCENARIOS: Scenario[] = [
       pf_forgetting_direct: {
         id: "pf_forgetting_direct",
         speaker: "other",
-        text: "You: [to Mom, before the meal] 'Can I mention something? I know celiac is a lot to remember, but I've been getting sick after visits. I think it's cross-contamination more than the main ingredients. I'd love to figure out together what works.'",
+        text: "You: [to Mom, before the meal] 'Can I mention something? I know celiac is a lot to remember, but I've been getting sick after visits. I think it's cross-contact more than the main ingredients. I'd love to figure out together what works.'",
         options: [
           { id: "she_listens", text: "She listens and says she wants to get it right.", nextStepId: "pf_forgetting_direct_end" },
           { id: "she_defensive", text: "She seems a little defensive.", nextStepId: "pf_forgetting_defensive" },
@@ -1560,7 +1560,7 @@ export const SCENARIOS: Scenario[] = [
       pf_hs_before: {
         id: "pf_hs_before",
         speaker: "app",
-        text: "Eating beforehand is a completely legitimate strategy, especially at events where you have no control over the menu and the social stakes are high. You still get to be fully present, enjoy the conversation, and not spend the event anxious about cross-contamination.",
+        text: "Eating beforehand is a completely legitimate strategy, especially at events where you have no control over the menu and the social stakes are high. You still get to be fully present, enjoy the conversation, and not spend the event anxious about cross-contact.",
         options: [{ id: "cont", text: "Continue", nextStepId: "pf_hs_before_moment" }],
       },
       pf_hs_before_moment: {
@@ -1701,7 +1701,7 @@ export const SCENARIOS: Scenario[] = [
         speaker: "other",
         text: "Friend: 'Should we just do family-style and share a bunch of stuff?'",
         options: [
-          { id: "redirect_simple", text: "Could we do individual entrees this time? With my celiac I have to be careful about shared dishes, cross-contamination is a real thing for me.", nextStepId: "sb_fs_early_friend" },
+          { id: "redirect_simple", text: "Could we do individual entrees this time? With my celiac I have to be careful about shared dishes, cross-contact is a real thing for me.", nextStepId: "sb_fs_early_friend" },
           { id: "redirect_offer", text: "I'd love to, but shared plates are tricky for me with celiac. Would it work if everyone ordered their own and we still got a few extras for the table that I just skip?", nextStepId: "sb_fs_early_friend" },
         ],
       },
@@ -1716,7 +1716,7 @@ export const SCENARIOS: Scenario[] = [
       sb_fs_early_end: {
         id: "sb_fs_early_end",
         speaker: "app",
-        text: "You redirected before anything was committed, which meant no one had to undo a plan. The brief mention of why (cross-contamination) gave enough context without turning it into a medical briefing. Clean and effective.",
+        text: "You redirected before anything was committed, which meant no one had to undo a plan. The brief mention of why (cross-contact) gave enough context without turning it into a medical briefing. Clean and effective.",
         isEnd: true,
       },
       sb_fs_late_tip: {
@@ -1769,7 +1769,7 @@ export const SCENARIOS: Scenario[] = [
       sb_backout_pre_say: {
         id: "sb_backout_pre_say",
         speaker: "other",
-        text: "You: '[to the group, before the server comes] Hey. I need to take back what I said earlier about family-style. With my celiac, shared dishes are actually a cross-contamination risk for me. I'll just order my own, sorry for the flip!'",
+        text: "You: '[to the group, before the server comes] Hey. I need to take back what I said earlier about family-style. With my celiac, shared dishes are actually a cross-contact risk for me. I'll just order my own, sorry for the flip!'",
         options: [
           { id: "they_understand", text: "Friends: 'Oh no, don't apologize, of course. Get whatever you need.'", nextStepId: "sb_backout_pre_end" },
         ],
@@ -1791,7 +1791,7 @@ export const SCENARIOS: Scenario[] = [
         speaker: "other",
         text: "Friend: '[dishes arriving] Okay, dig in everyone!'",
         options: [
-          { id: "flag_now", text: "[to friend, quietly] Hey. I should have said this earlier, but I actually can't eat from the shared dishes with my celiac. Cross-contamination. Can I ask the server to bring me something separate?", nextStepId: "sb_backout_post_flag_end" },
+          { id: "flag_now", text: "[to friend, quietly] Hey. I should have said this earlier, but I actually can't eat from the shared dishes with my celiac. Cross-contact. Can I ask the server to bring me something separate?", nextStepId: "sb_backout_post_flag_end" },
           { id: "quietly_skip", text: "[Take a drink, smile, don't reach for the shared dishes, wait to see if anyone notices]", nextStepId: "sb_backout_post_quiet_end" },
         ],
       },
@@ -1852,7 +1852,7 @@ export const SCENARIOS: Scenario[] = [
         speaker: "other",
         text: "Friend: 'You've barely touched anything, are you not hungry? Why aren't you having any of the shared stuff?'",
         options: [
-          { id: "food_explain", text: "I have celiac, so I can't eat from shared dishes, cross-contamination is a real risk even if the ingredients are fine. I should have mentioned it before we ordered. I'm good though!", nextStepId: "sb_q_food_explain_end" },
+          { id: "food_explain", text: "I have celiac, so I can't eat from shared dishes, cross-contact is a real risk even if the ingredients are fine. I should have mentioned it before we ordered. I'm good though!", nextStepId: "sb_q_food_explain_end" },
           { id: "food_brief", text: "I have a celiac thing with shared dishes. I'm fine, just working with what I can have. Don't worry about me!", nextStepId: "sb_q_food_brief_end" },
           { id: "food_redirect", text: "I'm actually good. I have a medical thing that makes shared plates tricky. I'm honestly just happy to be here. Tell me about that dish though, what is it?", nextStepId: "sb_q_food_redirect_end" },
         ],
@@ -1969,7 +1969,7 @@ export const SCENARIOS: Scenario[] = [
       cp_skeptic_tip_brief: {
         id: "cp_skeptic_tip_brief",
         speaker: "app",
-        text: "Short and final. You're not offering a science lesson, just the fact. This works well when you don't have the energy for a back-and-forth. The tradeoff: 'that's just how it works' can read as dismissive to someone who's genuinely trying to understand.",
+        text: "Short and final. You're not offering a science lesson, just the facts. This works well when you don't have the energy for a back-and-forth. The tradeoff: 'that's just how it works' can read as dismissive to someone who's genuinely trying to understand.",
         options: [{ id: "cont", text: "Continue", nextStepId: "cp_skeptic_pushes" }],
       },
       cp_skeptic_pushes: {
@@ -1985,13 +1985,13 @@ export const SCENARIOS: Scenario[] = [
       cp_skeptic_end_firm: {
         id: "cp_skeptic_end_firm",
         speaker: "app",
-        text: "Correcting the 'just take something' assumption closes the door on that logic and educates them at the same time. The tradeoff: it's firm and factual, which reads as confident, but to someone already frustrated, it can feel like you're lecturing instead of connecting.",
+        text: "Correcting the 'just take something' assumption closes the door on that logic and educates them at the same time.",
         isEnd: true,
       },
       cp_skeptic_end_soft: {
         id: "cp_skeptic_end_soft",
         speaker: "app",
-        text: "Acknowledging their frustration before your own reality keeps the emotional temperature lower. The tradeoff: 'please don't take it personally' puts the weight on their reaction rather than on what's actually happening. It can sound like you're managing them rather than being honest.",
+        text: "Acknowledging their frustration before your own reality keeps the emotional temperature lower. But don't think you have to prioritize their emotions over your health every time.",
         isEnd: true,
       },
       cp_skeptic_end_brief: {
@@ -2034,7 +2034,7 @@ export const SCENARIOS: Scenario[] = [
       cp_repeat_tip_defer: {
         id: "cp_repeat_tip_defer",
         speaker: "app",
-        text: "Deferring a hard conversation when you're genuinely sick is a real option. You can't give this discussion what it needs right now. The tradeoff: it can feel like avoidance to someone who's already frustrated. 'In a day or two' only works if you actually follow through.",
+        text: "Deferring a hard conversation when you're genuinely sick is totally normal. You can't give this discussion what it needs right now. Keep in mind: it can feel like avoidance to someone who's already frustrated. 'In a day or two' only works if you actually follow through.",
         options: [{ id: "cont", text: "Continue", nextStepId: "cp_repeat_friend_softer" }],
       },
       cp_repeat_friend_softer: {
@@ -2050,7 +2050,7 @@ export const SCENARIOS: Scenario[] = [
       cp_repeat_end_practical: {
         id: "cp_repeat_end_practical",
         speaker: "app",
-        text: "Offering a concrete structural change turns apology into problem-solving, and most people respond well to that shift. The tradeoff: same-day plans require your friend to stay flexible too. It only works if they're actually willing to live that way, not everyone is.",
+        text: "Offering a concrete structural change turns apology into problem-solving, and most people respond well to that shift. The tradeoff: same-day plans require your friend to stay flexible too. It only works if they're actually willing to live that way, and not everyone is.",
         isEnd: true,
       },
       cp_repeat_end_honest: {
@@ -2063,6 +2063,175 @@ export const SCENARIOS: Scenario[] = [
         id: "cp_repeat_end_collaborative",
         speaker: "app",
         text: "Flipping the question invites them into the solution rather than putting all the work on you. The tradeoff: it requires them to be self-aware enough to answer honestly, and if they're still in a hurt/reactive place, they might read it as deflecting responsibility. Read the room before using this one.",
+        isEnd: true,
+      },
+    },
+  },
+  {
+    id: "too-much-detail",
+    title: "Too Much Detail",
+    description: "Someone keeps pushing for the graphic details of what celiac actually does to your body. Practice redirecting without explaining more than you want to.",
+    estimatedMinutes: 4,
+    firstStepId: "gd_curious_start",
+    modes: [
+      { id: "curious", label: "Genuinely Curious", description: "They mean well and are fascinated. They don't realize you'd rather not go there.", icon: "smile", tint: "mint", firstStepId: "gd_curious_start" },
+      { id: "persistent", label: "Won't Drop It", description: "You've deflected once and they're still pushing. Practice holding the line warmly.", icon: "help-circle", tint: "lemon", firstStepId: "gd_persistent_start" },
+      { id: "audience", label: "In Front of Others", description: "They're asking at a group dinner and now everyone at the table is listening.", icon: "alert-circle", tint: "rose", firstStepId: "gd_audience_start" },
+    ],
+    steps: {
+      // ── Genuinely Curious ────────────────────────────────────────────────
+
+      gd_curious_start: {
+        id: "gd_curious_start",
+        speaker: "app",
+        text: "You've just mentioned you have celiac disease at dinner. Your friend leans in.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "gd_curious_asks" }],
+      },
+      gd_curious_asks: {
+        id: "gd_curious_asks",
+        speaker: "other",
+        text: "Friend: 'Wait, so what actually happens? Like, if you eat gluten, what does it do to you?'",
+        options: [
+          { id: "brief_medical", text: "My immune system basically attacks my own intestines. The symptoms are pretty rough. I'd rather not do the full rundown over food!", nextStepId: "gd_curious_tip_brief" },
+          { id: "redirect_light", text: "The short version: I feel terrible for days. It's not very dinner-table-appropriate though!", nextStepId: "gd_curious_tip_redirect" },
+          { id: "honest_boundary", text: "Honestly, I'd rather not get into the specifics right now. The main thing is I have to be careful about what I eat.", nextStepId: "gd_curious_tip_boundary" },
+        ],
+      },
+      gd_curious_tip_brief: {
+        id: "gd_curious_tip_brief",
+        speaker: "app",
+        text: "Giving a real but non-graphic answer satisfies most people's curiosity without going into your body in detail. The tradeoff: 'immune system attacks my intestines' sometimes makes people more curious, not less. If they keep asking, you have every right to say that's as much as you want to share.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "gd_curious_satisfied" }],
+      },
+      gd_curious_tip_redirect: {
+        id: "gd_curious_tip_redirect",
+        speaker: "app",
+        text: "A light redirect with a touch of humor lands well with people who are curious but not pushy. It answers the spirit of the question (it's bad) without the details, and the 'dinner-table' framing signals the topic is closed without sounding defensive. The tradeoff: some people will laugh and keep asking anyway.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "gd_curious_satisfied" }],
+      },
+      gd_curious_tip_boundary: {
+        id: "gd_curious_tip_boundary",
+        speaker: "app",
+        text: "You don't owe anyone a description of your body. Naming your preference directly, 'I'd rather not get into the specifics,' is clear and calm. The tradeoff: some people hear this as mysterious or evasive, and it can actually spark more curiosity than a brief non-graphic answer would.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "gd_curious_satisfied" }],
+      },
+      gd_curious_satisfied: {
+        id: "gd_curious_satisfied",
+        speaker: "other",
+        text: "Friend: 'Oh, totally fair, that sounds rough. I won't pry. Thanks for explaining the gist of it.'",
+        options: [
+          { id: "warm_close", text: "Thanks for understanding! It's just one of those things. Anyway, how's your food?", nextStepId: "gd_curious_end" },
+          { id: "add_bit", text: "I appreciate that. It really does affect daily life in a big way, even if I don't always show it.", nextStepId: "gd_curious_end" },
+        ],
+      },
+      gd_curious_end: {
+        id: "gd_curious_end",
+        speaker: "app",
+        text: "You shared what you were comfortable with and moved the conversation on. That's the whole skill: answering enough to satisfy curiosity without going further than you want to. You don't have to earn people's understanding by describing symptoms in detail.",
+        isEnd: true,
+      },
+
+      // ── Won't Drop It ────────────────────────────────────────────────────
+
+      gd_persistent_start: {
+        id: "gd_persistent_start",
+        speaker: "app",
+        text: "You've already given a brief answer. Your friend isn't satisfied.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "gd_persistent_asks_again" }],
+      },
+      gd_persistent_asks_again: {
+        id: "gd_persistent_asks_again",
+        speaker: "other",
+        text: "Friend: 'Okay but like, what actually happens? Does it hurt? Is it a stomach thing? I'm just curious!'",
+        options: [
+          { id: "firm_warm", text: "I hear you, and I know it sounds interesting. I'd really rather not talk about my body symptoms right now. Can we change the subject?", nextStepId: "gd_persistent_tip_firm" },
+          { id: "just_enough", text: "GI damage, fatigue, brain fog. That's honestly the extent of what I'm comfortable sharing.", nextStepId: "gd_persistent_tip_enough" },
+          { id: "humor_firm", text: "I promise you do not want the details, especially not right now. Let's just say it's really not pleasant and leave it there!", nextStepId: "gd_persistent_tip_humor" },
+        ],
+      },
+      gd_persistent_tip_firm: {
+        id: "gd_persistent_tip_firm",
+        speaker: "app",
+        text: "Naming the request directly, 'can we change the subject,' is a clear and kind way to close this. Most people will respect it. The tradeoff: it's more direct than some people are used to hearing, and a friend who pushed twice might feel a little called out. That's okay. You set a real boundary, clearly.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "gd_persistent_friend_backs_off" }],
+      },
+      gd_persistent_tip_enough: {
+        id: "gd_persistent_tip_enough",
+        speaker: "app",
+        text: "Giving a clinical list without elaborating signals this is where the conversation stops. It answers the question factually while making clear you're not going further. The tradeoff: 'that's the extent of what I'm comfortable sharing' is a firm phrase, which is exactly right here, but it can feel slightly formal with a close friend.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "gd_persistent_friend_backs_off" }],
+      },
+      gd_persistent_tip_humor: {
+        id: "gd_persistent_tip_humor",
+        speaker: "app",
+        text: "Humor is a real tool for deflecting persistent curiosity without creating friction. The tradeoff: if this person pushes a third time after you've used humor, you'll need to be more direct. Humor works best as a first or second line of defense, not an indefinite strategy.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "gd_persistent_friend_backs_off" }],
+      },
+      gd_persistent_friend_backs_off: {
+        id: "gd_persistent_friend_backs_off",
+        speaker: "other",
+        text: "Friend: 'Oh, okay! Sorry, I was just curious. I didn't mean to make it weird.'",
+        options: [
+          { id: "no_worries", text: "No worries at all, I know it comes from a good place. I just don't love talking about the body stuff.", nextStepId: "gd_persistent_end" },
+          { id: "brief_close", text: "All good. It's just not my favorite topic. You didn't know!", nextStepId: "gd_persistent_end" },
+        ],
+      },
+      gd_persistent_end: {
+        id: "gd_persistent_end",
+        speaker: "app",
+        text: "You held the line and the friendship survived. Letting someone off the hook with 'you didn't know' is generous and accurate. The tradeoff: people who ask twice tend to ask again next time. A brief 'I don't love talking about symptoms' note in a future conversation can head it off before it starts.",
+        isEnd: true,
+      },
+
+      // ── In Front of Others ───────────────────────────────────────────────
+
+      gd_audience_start: {
+        id: "gd_audience_start",
+        speaker: "app",
+        text: "You're at a group dinner. You've just mentioned you can't eat the bread. Someone at the table gets curious.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "gd_audience_asks" }],
+      },
+      gd_audience_asks: {
+        id: "gd_audience_asks",
+        speaker: "other",
+        text: "Person: 'Oh, do you have celiac? What happens when you eat gluten? Like, does it mess up your whole digestive system?'",
+        options: [
+          { id: "brief_public", text: "Yeah, it causes real damage to my intestines if I'm not careful. Not the most appetizing explanation though, so I'll spare the table the details!", nextStepId: "gd_audience_tip_brief" },
+          { id: "deflect_group", text: "Short answer: yes, it's pretty awful. Long answer: let's save that for somewhere that isn't dinner.", nextStepId: "gd_audience_tip_deflect" },
+          { id: "redirect_group", text: "It's a whole thing! The main takeaway is I just need to be careful. Anyway, what did everyone else order?", nextStepId: "gd_audience_tip_redirect" },
+        ],
+      },
+      gd_audience_tip_brief: {
+        id: "gd_audience_tip_brief",
+        speaker: "app",
+        text: "Answering briefly and framing the redirect as consideration for the group, 'spare the table,' is smart. You're not shutting the question down, you're saving everyone from an unpleasant conversation. Most people at the table will silently thank you. The tradeoff: the person who asked might feel a little deflected. That's okay.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "gd_audience_table_moves_on" }],
+      },
+      gd_audience_tip_deflect: {
+        id: "gd_audience_tip_deflect",
+        speaker: "app",
+        text: "'Short answer / long answer' is a clean structure for a public deflection. It confirms the question is worth asking while signaling this isn't the moment. The tradeoff: 'somewhere that isn't dinner' implicitly offers to continue later, so be ready for a follow-up after the meal.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "gd_audience_table_moves_on" }],
+      },
+      gd_audience_tip_redirect: {
+        id: "gd_audience_tip_redirect",
+        speaker: "app",
+        text: "A quick answer followed by an immediate redirect to the group is one of the fastest ways to move a public conversation. 'What did everyone else order?' is low-key but effective. The tradeoff: the person who asked might feel a little brushed off. That's a reasonable price for not describing your symptoms at dinner.",
+        options: [{ id: "cont", text: "Continue", nextStepId: "gd_audience_table_moves_on" }],
+      },
+      gd_audience_table_moves_on: {
+        id: "gd_audience_table_moves_on",
+        speaker: "other",
+        text: "Person: 'Oh, totally, yeah. Sorry for asking at dinner. That makes sense.'",
+        options: [
+          { id: "warm_end", text: "No need to apologize, it's a reasonable thing to wonder about! Just not the best dinner topic.", nextStepId: "gd_audience_end" },
+          { id: "move_on", text: "All good! Now, are those appetizers coming or what?", nextStepId: "gd_audience_end" },
+        ],
+      },
+      gd_audience_end: {
+        id: "gd_audience_end",
+        speaker: "app",
+        text: "You handled a public question about your body without making the table uncomfortable or oversharing. That balance, brief, honest, and light, is genuinely hard to strike. The fact that you're practicing it means you'll find it easier next time.",
         isEnd: true,
       },
     },
