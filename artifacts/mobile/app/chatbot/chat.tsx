@@ -202,9 +202,9 @@ export default function ChatbotChatScreen() {
 
     if (item.role === "advice") {
       return (
-        <View style={[styles.bubble, { backgroundColor: colors.card, borderRadius: colors.radius, borderWidth: 1, borderColor: colors.accent + "55", maxWidth: "92%" }]}>
-          <Feather name="message-circle" size={13} color={colors.accent} style={{ marginBottom: 4 }} />
-          <Text style={[styles.bubbleText, { color: colors.accent }]}>{item.content}</Text>
+        <View style={[styles.disclaimerBubble, { backgroundColor: colors.tints.mint, borderRadius: colors.radius }]}>
+          <Feather name="message-circle" size={14} color={colors.accent} style={{ marginTop: 2, flexShrink: 0 }} />
+          <Text style={[styles.disclaimerText, { color: colors.accent }]}>{item.content}</Text>
         </View>
       );
     }
