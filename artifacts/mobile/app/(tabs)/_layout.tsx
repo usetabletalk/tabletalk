@@ -16,10 +16,6 @@ function NativeTabLayout() {
         <Icon sf={{ default: "lightbulb", selected: "lightbulb.fill" }} />
         <Label>Tips</Label>
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="index">
-        <Icon sf={{ default: "message", selected: "message.fill" }} />
-        <Label>Practice</Label>
-      </NativeTabs.Trigger>
       <NativeTabs.Trigger name="chatbot">
         <Icon sf={{ default: "face.smiling", selected: "face.smiling.inverse" }} />
         <Label>Chatbot</Label>
@@ -97,12 +93,7 @@ function ClassicTabLayout() {
         name="index"
         options={{
           title: "Practice",
-          tabBarIcon: ({ color }) =>
-            isIOS ? (
-              <SymbolView name="message" tintColor={color} size={24} />
-            ) : (
-              <Feather name="message-circle" size={22} color={color} />
-            ),
+          href: null,
         }}
       />
       <Tabs.Screen
