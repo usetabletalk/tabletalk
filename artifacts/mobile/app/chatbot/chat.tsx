@@ -26,12 +26,22 @@ type ChatMessage = {
 
 const DEBRIEF_MARKER = "[DEBRIEF]";
 
-function parseResponse(raw: string): { role: "assistant" | "debrief"; content: string } {
-  const trimmed = raw.trimStart();
-  if (trimmed.startsWith(DEBRIEF_MARKER)) {
-    return { role: "debrief", content: trimmed.slice(DEBRIEF_MARKER.length).trimStart() };
+/** Splits a raw AI response into one or two display messages.
+ *  If [DEBRIEF] appears mid-response (after an in-character closing line),
+ *  the text before it becomes a regular assistant bubble and the text after
+ *  becomes a debrief bubble. If it appears at the very start, only a debrief
+ *  bubble is returned. If absent, a single assistant bubble is returned. */
+function parseResponse(raw: string): Array<{ role: "assistant" | "debrief"; content: string }> {
+  const markerIndex = raw.indexOf(DEBRIEF_MARKER);
+  if (markerIndex === -1) {
+    return [{ role: "assistant", content: raw.trim() }];
   }
-  return { role: "assistant", content: raw };
+  const before = raw.slice(0, markerIndex).trim();
+  const after = raw.slice(markerIndex + DEBRIEF_MARKER.length).trimStart();
+  const parts: Array<{ role: "assistant" | "debrief"; content: string }> = [];
+  if (before.length > 0) parts.push({ role: "assistant", content: before });
+  if (after.length > 0) parts.push({ role: "debrief", content: after });
+  return parts;
 }
 
 const DISCLAIMER =
@@ -88,13 +98,13 @@ export default function ChatbotChatScreen() {
     ];
     callApi(openingHistory)
       .then((response) => {
-        const parsed = parseResponse(response);
-        const assistantMsg: ChatMessage = {
-          id: "opening",
-          role: parsed.role,
-          content: parsed.content,
-        };
-        setDisplayMessages((prev) => [...prev, assistantMsg]);
+        const parts = parseResponse(response);
+        const newMsgs: ChatMessage[] = parts.map((p, i) => ({
+          id: `opening-${i}`,
+          role: p.role,
+          content: p.content,
+        }));
+        setDisplayMessages((prev) => [...prev, ...newMsgs]);
         setApiHistory([...openingHistory, { role: "assistant", content: response }]);
       })
       .catch(() => {
@@ -122,13 +132,14 @@ export default function ChatbotChatScreen() {
 
     try {
       const response = await callApi(nextHistory);
-      const parsed = parseResponse(response);
-      const assistantMsg: ChatMessage = {
-        id: (Date.now() + 1).toString(),
-        role: parsed.role,
-        content: parsed.content,
-      };
-      setDisplayMessages((prev) => [...prev, assistantMsg]);
+      const parts = parseResponse(response);
+      const ts = Date.now();
+      const newMsgs: ChatMessage[] = parts.map((p, i) => ({
+        id: `${ts + i}`,
+        role: p.role,
+        content: p.content,
+      }));
+      setDisplayMessages((prev) => [...prev, ...newMsgs]);
       setApiHistory([...nextHistory, { role: "assistant", content: response }]);
     } catch {
       setDisplayMessages((prev) => [
