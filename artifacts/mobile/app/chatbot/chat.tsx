@@ -154,6 +154,7 @@ export default function ChatbotChatScreen() {
     setDisplayMessages((prev) => [...prev, userMsg]);
     setInput("");
     setLoading(true);
+    setTimeout(() => flatListRef.current?.scrollToEnd({ animated: true }), 50);
 
     try {
       const response = await callApi(nextHistory);
