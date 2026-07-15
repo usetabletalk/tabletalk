@@ -17,7 +17,7 @@ function NativeTabLayout() {
         <Label>Tips</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="chatbot">
-        <Icon sf={{ default: "face.smiling", selected: "face.smiling.inverse" }} />
+        <Icon sf={{ default: "message", selected: "message.fill" }} />
         <Label>Chatbot</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="community">
@@ -25,7 +25,7 @@ function NativeTabLayout() {
         <Label>Community</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="profile">
-        <Icon sf={{ default: "person.circle", selected: "person.circle.fill" }} />
+        <Icon sf={{ default: "face.smiling", selected: "face.smiling.inverse" }} />
         <Label>Profile</Label>
       </NativeTabs.Trigger>
     </NativeTabs>
@@ -106,9 +106,9 @@ function ClassicTabLayout() {
           title: "Chatbot",
           tabBarIcon: ({ color }) =>
             isIOS ? (
-              <SymbolView name="face.smiling" tintColor={color} size={24} />
+              <SymbolView name="message" tintColor={color} size={24} />
             ) : (
-              <Feather name="smile" size={22} color={color} />
+              <Feather name="message-square" size={22} color={color} />
             ),
         }}
       />
@@ -130,9 +130,9 @@ function ClassicTabLayout() {
           title: "Profile",
           tabBarIcon: ({ color }) =>
             isIOS ? (
-              <SymbolView name="person.circle" tintColor={color} size={24} />
+              <SymbolView name="face.smiling" tintColor={color} size={24} />
             ) : (
-              <Feather name="user" size={22} color={color} />
+              <Feather name="smile" size={22} color={color} />
             ),
         }}
       />
