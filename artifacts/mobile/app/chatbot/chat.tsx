@@ -45,7 +45,7 @@ function parseResponse(raw: string): Array<{ role: "assistant" | "debrief"; cont
 }
 
 const DISCLAIMER =
-  "Quick note: I'm here to help you think through celiac-friendly situations and practice tricky conversations — but I'm not a doctor or dietitian, and I can't guarantee whether a specific product or dish is gluten-free. For medical questions, check with your care team; for specific foods, check labels or ask directly. Let's get into it!";
+  "Quick note: I'm here to help you think through celiac-friendly situations and practice tricky conversations — but I'm not a doctor or dietitian, and I can't guarantee whether a specific product or dish is gluten-free. For medical questions, check with your care team; for specific foods, check labels or ask directly. Let's get into it!\n\nTip: put anything in [square brackets] to step outside the roleplay and talk to me directly — for example, type [give feedback] any time you want a debrief.";
 
 const API_BASE = Platform.OS === "web" ? "/api" : (process.env.EXPO_PUBLIC_API_URL ?? "/api");
 
