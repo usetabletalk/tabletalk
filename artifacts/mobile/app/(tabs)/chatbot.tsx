@@ -1,4 +1,5 @@
 import { Feather } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import React from "react";
 import { FlatList, Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -21,6 +22,15 @@ const MODE_TINT_MAP: Record<string, keyof ReturnType<typeof useColors>["tints"]>
 export default function ChatbotScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
+  const router = useRouter();
+
+  const handleCardPress = (item: typeof SCENARIOS[0]) => {
+    if (item.modes && item.modes.length > 0) {
+      router.push(`/chatbot/${item.id}`);
+    } else {
+      router.push(`/chatbot/chat?scenarioId=${item.id}`);
+    }
+  };
 
   const renderItem = ({ item }: { item: typeof SCENARIOS[0] }) => {
     return (
@@ -35,6 +45,7 @@ export default function ChatbotScreen() {
             transform: [{ scale: pressed ? 0.98 : 1 }],
           },
         ]}
+        onPress={() => handleCardPress(item)}
       >
         <Text style={[styles.cardTitle, { color: colors.foreground }]}>
           {item.title}
