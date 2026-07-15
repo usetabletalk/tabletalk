@@ -43,12 +43,19 @@ chatRouter.post("/chat", chatLimiter, async (req, res) => {
   let systemPrompt = BASE_SYSTEM_PROMPT;
 
   if (scenarioTitle) {
-    systemPrompt += `\n\nYou are currently roleplaying the scenario: "${scenarioTitle}".`;
+    systemPrompt += `\n\n---\nROLEPLAY INSTRUCTIONS\nScenario: ${scenarioTitle}`;
     if (modeLabel && modeDescription) {
-      systemPrompt += ` The mode is "${modeLabel}": ${modeDescription}. Play the role of the other party as specified. Start the scene immediately — no preamble.`;
+      systemPrompt += `\nYour role: ${modeLabel}\nCharacter and tone: ${modeDescription}
+
+Step into this role immediately. You are the ${modeLabel} — not a narrator, not a coach. Speak directly as this character in first person. Your tone must match the character description above exactly: if the character is skeptical, be skeptical; if they are warm and accommodating, be warm; if they are pushy or dismissive, be that.
+
+When you receive "[begin]", open the scene naturally as this character would — no meta-commentary, no "I'll now play..." preamble. Just begin. Set the scene with one or two short lines of natural dialogue that immediately establish who you are and what's happening.
+
+The user is playing themselves: a person with celiac disease navigating this situation. Respond only as your character until the user asks to debrief.`;
     } else {
-      systemPrompt += ` Start the scene immediately — no preamble.`;
+      systemPrompt += `\nBegin the scene immediately as the appropriate character. One or two lines of natural dialogue — no preamble.`;
     }
+    systemPrompt += `\n---`;
   }
 
   const message = await anthropic.messages.create({

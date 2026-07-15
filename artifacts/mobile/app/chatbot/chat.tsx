@@ -1,6 +1,6 @@
 import { Feather } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -38,56 +38,86 @@ export default function ChatbotChatScreen() {
   const scenario = SCENARIOS.find((s) => s.id === scenarioId);
   const mode = scenario?.modes?.find((m) => m.id === modeId);
 
-  const [messages, setMessages] = useState<ChatMessage[]>([
+  const [displayMessages, setDisplayMessages] = useState<ChatMessage[]>([
     { id: "disclaimer", role: "disclaimer", content: DISCLAIMER },
   ]);
+  const [apiHistory, setApiHistory] = useState<Array<{ role: "user" | "assistant"; content: string }>>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const openingFired = useRef(false);
 
-  const apiMessages = messages
-    .filter((m) => m.role !== "disclaimer")
-    .map((m) => ({ role: m.role as "user" | "assistant", content: m.content }));
+  const callApi = async (
+    history: Array<{ role: "user" | "assistant"; content: string }>
+  ): Promise<string> => {
+    const res = await fetch(`${API_BASE}/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        messages: history,
+        scenarioTitle: scenario?.title,
+        modeLabel: mode?.label,
+        modeDescription: mode?.description,
+      }),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = (await res.json()) as { response: string };
+    return data.response;
+  };
+
+  // Trigger the AI's opening line when the screen mounts with a scenario
+  useEffect(() => {
+    if (!scenarioId || openingFired.current) return;
+    openingFired.current = true;
+    setLoading(true);
+    const openingHistory: Array<{ role: "user" | "assistant"; content: string }> = [
+      { role: "user", content: "[begin]" },
+    ];
+    callApi(openingHistory)
+      .then((response) => {
+        const assistantMsg: ChatMessage = {
+          id: "opening",
+          role: "assistant",
+          content: response,
+        };
+        setDisplayMessages((prev) => [...prev, assistantMsg]);
+        setApiHistory([...openingHistory, { role: "assistant", content: response }]);
+      })
+      .catch(() => {
+        setDisplayMessages((prev) => [
+          ...prev,
+          { id: "opening-err", role: "assistant", content: "Couldn't start the scene. Please try again." },
+        ]);
+      })
+      .finally(() => {
+        setLoading(false);
+        setTimeout(() => flatListRef.current?.scrollToEnd({ animated: false }), 100);
+      });
+  }, [scenarioId]);
 
   const sendMessage = async () => {
     const text = input.trim();
     if (!text || loading) return;
 
     const userMsg: ChatMessage = { id: Date.now().toString(), role: "user", content: text };
-    const nextApiMessages = [...apiMessages, { role: "user" as const, content: text }];
+    const nextHistory = [...apiHistory, { role: "user" as const, content: text }];
 
-    setMessages((prev) => [...prev, userMsg]);
+    setDisplayMessages((prev) => [...prev, userMsg]);
     setInput("");
     setLoading(true);
 
     try {
-      const res = await fetch(`${API_BASE}/chat`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: nextApiMessages,
-          scenarioTitle: scenario?.title,
-          modeLabel: mode?.label,
-          modeDescription: mode?.description,
-        }),
-      });
-
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = (await res.json()) as { response: string };
-
+      const response = await callApi(nextHistory);
       const assistantMsg: ChatMessage = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: data.response,
+        content: response,
       };
-      setMessages((prev) => [...prev, assistantMsg]);
+      setDisplayMessages((prev) => [...prev, assistantMsg]);
+      setApiHistory([...nextHistory, { role: "assistant", content: response }]);
     } catch {
-      setMessages((prev) => [
+      setDisplayMessages((prev) => [
         ...prev,
-        {
-          id: (Date.now() + 1).toString(),
-          role: "assistant",
-          content: "Sorry, something went wrong. Please try again.",
-        },
+        { id: (Date.now() + 1).toString(), role: "assistant", content: "Sorry, something went wrong. Please try again." },
       ]);
     } finally {
       setLoading(false);
@@ -148,7 +178,7 @@ export default function ChatbotChatScreen() {
 
       <FlatList
         ref={flatListRef}
-        data={messages}
+        data={displayMessages}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         contentContainerStyle={[
