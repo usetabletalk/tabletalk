@@ -21,28 +21,49 @@ import { useAppState } from "@/contexts/AppStateContext";
 
 type ChatMessage = {
   id: string;
-  role: "user" | "assistant" | "disclaimer" | "debrief";
+  role: "user" | "assistant" | "disclaimer" | "debrief" | "advice";
   content: string;
 };
 
 const DEBRIEF_MARKER = "[DEBRIEF]";
+const ADVICE_OPEN = "[ADVICE]";
+const ADVICE_CLOSE = "[/ADVICE]";
 
-/** Splits a raw AI response into one or two display messages.
- *  If [DEBRIEF] appears mid-response (after an in-character closing line),
- *  the text before it becomes a regular assistant bubble and the text after
- *  becomes a debrief bubble. If it appears at the very start, only a debrief
- *  bubble is returned. If absent, a single assistant bubble is returned. */
-function parseResponse(raw: string): Array<{ role: "assistant" | "debrief"; content: string }> {
-  const markerIndex = raw.indexOf(DEBRIEF_MARKER);
-  if (markerIndex === -1) {
-    return [{ role: "assistant", content: raw.trim() }];
+type ParsedPart = { role: "assistant" | "debrief" | "advice"; content: string };
+
+/** Splits a raw AI response into display segments.
+ *  - [ADVICE]...[/ADVICE] blocks → green advice bubbles
+ *  - [DEBRIEF] marker → mint debrief bubble (everything after it)
+ *  - All other text → white assistant bubbles */
+function parseResponse(raw: string): ParsedPart[] {
+  // Split off [DEBRIEF] tail first
+  const debriefIdx = raw.indexOf(DEBRIEF_MARKER);
+  const mainText = debriefIdx === -1 ? raw : raw.slice(0, debriefIdx).trimEnd();
+  const debriefText = debriefIdx === -1 ? "" : raw.slice(debriefIdx + DEBRIEF_MARKER.length).trimStart();
+
+  // Parse [ADVICE]...[/ADVICE] blocks within mainText
+  const parts: ParsedPart[] = [];
+  let cursor = 0;
+  while (cursor < mainText.length) {
+    const openIdx = mainText.indexOf(ADVICE_OPEN, cursor);
+    if (openIdx === -1) break;
+    const closeIdx = mainText.indexOf(ADVICE_CLOSE, openIdx + ADVICE_OPEN.length);
+    if (closeIdx === -1) break;
+
+    const before = mainText.slice(cursor, openIdx).trim();
+    if (before) parts.push({ role: "assistant", content: before });
+
+    const advice = mainText.slice(openIdx + ADVICE_OPEN.length, closeIdx).trim();
+    if (advice) parts.push({ role: "advice", content: advice });
+
+    cursor = closeIdx + ADVICE_CLOSE.length;
   }
-  const before = raw.slice(0, markerIndex).trim();
-  const after = raw.slice(markerIndex + DEBRIEF_MARKER.length).trimStart();
-  const parts: Array<{ role: "assistant" | "debrief"; content: string }> = [];
-  if (before.length > 0) parts.push({ role: "assistant", content: before });
-  if (after.length > 0) parts.push({ role: "debrief", content: after });
-  return parts;
+
+  const remaining = mainText.slice(cursor).trim();
+  if (remaining) parts.push({ role: "assistant", content: remaining });
+  if (debriefText) parts.push({ role: "debrief", content: debriefText });
+
+  return parts.length > 0 ? parts : [{ role: "assistant", content: raw.trim() }];
 }
 
 const DISCLAIMER =
@@ -175,6 +196,15 @@ export default function ChatbotChatScreen() {
         <View style={[styles.disclaimerBubble, { backgroundColor: colors.tints.mint, borderRadius: colors.radius }]}>
           <Feather name="check-circle" size={14} color={colors.mutedForeground} style={{ marginTop: 2, flexShrink: 0 }} />
           <Text style={[styles.disclaimerText, { color: colors.foreground }]}>{item.content}</Text>
+        </View>
+      );
+    }
+
+    if (item.role === "advice") {
+      return (
+        <View style={[styles.bubble, { backgroundColor: colors.card, borderRadius: colors.radius, borderWidth: 1, borderColor: colors.accent + "55", maxWidth: "92%" }]}>
+          <Feather name="message-circle" size={13} color={colors.accent} style={{ marginBottom: 4 }} />
+          <Text style={[styles.bubbleText, { color: colors.accent }]}>{item.content}</Text>
         </View>
       );
     }
