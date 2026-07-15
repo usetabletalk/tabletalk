@@ -1,5 +1,5 @@
 import { Feather } from "@expo/vector-icons";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
@@ -163,12 +163,21 @@ export default function ChatbotChatScreen() {
     );
   };
 
+  const headerTitle = [scenario?.title, mode?.label].filter(Boolean).join(" · ");
+
   return (
     <KeyboardAvoidingView
       style={[styles.container, { backgroundColor: colors.background }]}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0}
     >
+      <Stack.Screen
+        options={{
+          headerTitle,
+          headerTitleStyle: { fontFamily: "Inter_600SemiBold", fontSize: 15 },
+          headerTitleAlign: "center",
+        }}
+      />
       <FlatList
         ref={flatListRef}
         data={displayMessages}
