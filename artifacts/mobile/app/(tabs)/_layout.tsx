@@ -24,6 +24,10 @@ function NativeTabLayout() {
         <Icon sf={{ default: "person.3", selected: "person.3.fill" }} />
         <Label>Community</Label>
       </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="chatbot">
+        <Icon sf={{ default: "face.smiling", selected: "face.smiling.inverse" }} />
+        <Label>Chatbot</Label>
+      </NativeTabs.Trigger>
     </NativeTabs>
   );
 }
@@ -110,6 +114,18 @@ function ClassicTabLayout() {
               <SymbolView name="person.3" tintColor={color} size={24} />
             ) : (
               <Feather name="users" size={22} color={color} />
+            ),
+        }}
+      />
+      <Tabs.Screen
+        name="chatbot"
+        options={{
+          title: "Chatbot",
+          tabBarIcon: ({ color }) =>
+            isIOS ? (
+              <SymbolView name="face.smiling" tintColor={color} size={24} />
+            ) : (
+              <Feather name="smile" size={22} color={color} />
             ),
         }}
       />
