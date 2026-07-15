@@ -11,7 +11,7 @@ import { useColors } from "@/hooks/useColors";
 
 function NativeTabLayout() {
   return (
-    <NativeTabs>
+    <NativeTabs defaultValue="chatbot">
       <NativeTabs.Trigger name="tips">
         <Icon sf={{ default: "lightbulb", selected: "lightbulb.fill" }} />
         <Label>Tips</Label>
@@ -41,6 +41,7 @@ function ClassicTabLayout() {
 
   return (
     <Tabs
+      initialRouteName="chatbot"
       screenOptions={{
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.mutedForeground,
