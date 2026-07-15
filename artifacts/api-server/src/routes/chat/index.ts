@@ -28,11 +28,11 @@ For anything that depends on a specific brand or manufacturer, restaurant prepar
 Tone: Warm and practical — like a knowledgeable friend who's been living with celiac for years, not a clinical pamphlet.`;
 
 chatRouter.post("/chat", chatLimiter, async (req, res) => {
-  const { messages, scenarioTitle, modeLabel, modeDescription } = req.body as {
+  const { messages, scenarioTitle, modeLabel, rolePrompt } = req.body as {
     messages: Array<{ role: "user" | "assistant"; content: string }>;
     scenarioTitle?: string;
     modeLabel?: string;
-    modeDescription?: string;
+    rolePrompt?: string;
   };
 
   if (!Array.isArray(messages) || messages.length === 0) {
@@ -44,14 +44,14 @@ chatRouter.post("/chat", chatLimiter, async (req, res) => {
 
   if (scenarioTitle) {
     systemPrompt += `\n\n---\nROLEPLAY INSTRUCTIONS\nScenario: ${scenarioTitle}`;
-    if (modeLabel && modeDescription) {
-      systemPrompt += `\nYour role: ${modeLabel}\nCharacter and tone: ${modeDescription}
+    if (rolePrompt) {
+      systemPrompt += `\n\n${rolePrompt}
 
-Step into this role immediately. You are the ${modeLabel} — not a narrator, not a coach. Speak directly as this character in first person. Your tone must match the character description above exactly: if the character is skeptical, be skeptical; if they are warm and accommodating, be warm; if they are pushy or dismissive, be that.
+Step into this role immediately — not as a narrator or coach, but as this character speaking in first person. When you receive "[begin]", open the scene with one or two lines of natural dialogue that immediately establish who you are and what's happening. No meta-commentary, no "I'll now play..." preamble.
 
-When you receive "[begin]", open the scene naturally as this character would — no meta-commentary, no "I'll now play..." preamble. Just begin. Set the scene with one or two short lines of natural dialogue that immediately establish who you are and what's happening.
-
-The user is playing themselves: a person with celiac disease navigating this situation. Respond only as your character until the user asks to debrief.`;
+The user is playing themselves: a person with celiac disease navigating this situation. Stay in character until the user asks to stop and debrief.`;
+    } else if (modeLabel) {
+      systemPrompt += `\nYour role: ${modeLabel}. Begin the scene immediately as this character — one or two lines of natural dialogue, no preamble.`;
     } else {
       systemPrompt += `\nBegin the scene immediately as the appropriate character. One or two lines of natural dialogue — no preamble.`;
     }
