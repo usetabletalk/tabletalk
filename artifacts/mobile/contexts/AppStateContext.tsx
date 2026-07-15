@@ -4,12 +4,15 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 type AppState = {
   completedScenarios: string[];
   savedTips: string[];
+  userName: string;
+  userPronouns: string;
 };
 
 type AppContextType = {
   state: AppState;
   markScenarioCompleted: (id: string) => Promise<void>;
   toggleSavedTip: (id: string) => Promise<void>;
+  updateProfile: (fields: { userName?: string; userPronouns?: string }) => Promise<void>;
   isLoaded: boolean;
 };
 
@@ -21,6 +24,8 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<AppState>({
     completedScenarios: [],
     savedTips: [],
+    userName: "",
+    userPronouns: "",
   });
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -60,9 +65,15 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newState));
   };
 
+  const updateProfile = async (fields: { userName?: string; userPronouns?: string }) => {
+    const newState = { ...state, ...fields };
+    setState(newState);
+    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newState));
+  };
+
   return (
     <AppContext.Provider
-      value={{ state, markScenarioCompleted, toggleSavedTip, isLoaded }}
+      value={{ state, markScenarioCompleted, toggleSavedTip, updateProfile, isLoaded }}
     >
       {children}
     </AppContext.Provider>

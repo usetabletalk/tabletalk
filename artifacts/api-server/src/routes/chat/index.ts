@@ -55,11 +55,13 @@ Formatting rules (always apply during roleplay):
 - All other responses should be plain spoken dialogue.`;
 
 chatRouter.post("/chat", chatLimiter, async (req, res) => {
-  const { messages, scenarioTitle, modeLabel, rolePrompt } = req.body as {
+  const { messages, scenarioTitle, modeLabel, rolePrompt, userName, userPronouns } = req.body as {
     messages: Array<{ role: "user" | "assistant"; content: string }>;
     scenarioTitle?: string;
     modeLabel?: string;
     rolePrompt?: string;
+    userName?: string;
+    userPronouns?: string;
   };
 
   if (!Array.isArray(messages) || messages.length === 0) {
@@ -68,6 +70,12 @@ chatRouter.post("/chat", chatLimiter, async (req, res) => {
   }
 
   let systemPrompt = BASE_SYSTEM_PROMPT;
+
+  if (userName || userPronouns) {
+    systemPrompt += `\n\nUSER INFO`;
+    if (userName) systemPrompt += `\nThe user's name is ${userName}. Use their name naturally in conversation — not every message, but where it feels genuine.`;
+    if (userPronouns) systemPrompt += `\nThe user's pronouns are ${userPronouns}. Use these pronouns consistently when referring to them.`;
+  }
 
   if (scenarioTitle) {
     systemPrompt += `\n\n---\nROLEPLAY INSTRUCTIONS\nScenario: ${scenarioTitle}`;

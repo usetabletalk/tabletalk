@@ -17,6 +17,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "@/hooks/useColors";
 import { SCENARIOS } from "@/data/scenarios";
 import { ROLE_PROMPTS } from "@/data/rolePrompts";
+import { useAppState } from "@/contexts/AppStateContext";
 
 type ChatMessage = {
   id: string;
@@ -55,6 +56,7 @@ export default function ChatbotChatScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const flatListRef = useRef<FlatList>(null);
+  const { state: appState } = useAppState();
 
   const scenario = SCENARIOS.find((s) => s.id === scenarioId);
   const mode = scenario?.modes?.find((m) => m.id === modeId);
@@ -81,6 +83,8 @@ export default function ChatbotChatScreen() {
         scenarioTitle: scenario?.title,
         modeLabel: mode?.label,
         rolePrompt,
+        userName: appState.userName || undefined,
+        userPronouns: appState.userPronouns || undefined,
       }),
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
