@@ -34,6 +34,24 @@ function RootLayoutNav() {
           ...(Platform.OS === "web" && { headerStatusBarHeight: 50 }),
         } as object}
       />
+      <Stack.Screen
+        name="chatbot/[id]"
+        options={{
+          presentation: "card",
+          headerTitle: "",
+          headerBackTitle: "",
+          ...(Platform.OS === "web" && { headerStatusBarHeight: 50 }),
+        } as object}
+      />
+      <Stack.Screen
+        name="chatbot/chat"
+        options={{
+          presentation: "card",
+          headerTitle: "",
+          headerBackTitle: "",
+          ...(Platform.OS === "web" && { headerStatusBarHeight: 50 }),
+        } as object}
+      />
     </Stack>
   );
 }
