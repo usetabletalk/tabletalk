@@ -169,17 +169,6 @@ export default function ChatbotChatScreen() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0}
     >
-      {(scenario || mode) && (
-        <View style={[styles.contextBadge, { backgroundColor: colors.tints.peach }]}>
-          <Text style={[styles.contextText, { color: colors.foreground }]} numberOfLines={1}>
-            {[scenario?.title, mode?.label].filter(Boolean).join(" · ")}
-          </Text>
-          <Pressable onPress={() => router.back()} hitSlop={12}>
-            <Text style={[styles.changeText, { color: colors.primary }]}>Change</Text>
-          </Pressable>
-        </View>
-      )}
-
       <FlatList
         ref={flatListRef}
         data={displayMessages}
@@ -252,23 +241,6 @@ export default function ChatbotChatScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  contextBadge: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-  },
-  contextText: {
-    fontFamily: "Inter_500Medium",
-    fontSize: 13,
-    flex: 1,
-    marginRight: 8,
-  },
-  changeText: {
-    fontFamily: "Inter_600SemiBold",
-    fontSize: 13,
-  },
   listContent: {
     paddingHorizontal: 16,
     gap: 12,
