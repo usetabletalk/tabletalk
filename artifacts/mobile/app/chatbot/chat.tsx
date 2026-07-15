@@ -20,9 +20,19 @@ import { ROLE_PROMPTS } from "@/data/rolePrompts";
 
 type ChatMessage = {
   id: string;
-  role: "user" | "assistant" | "disclaimer";
+  role: "user" | "assistant" | "disclaimer" | "debrief";
   content: string;
 };
+
+const DEBRIEF_MARKER = "[DEBRIEF]";
+
+function parseResponse(raw: string): { role: "assistant" | "debrief"; content: string } {
+  const trimmed = raw.trimStart();
+  if (trimmed.startsWith(DEBRIEF_MARKER)) {
+    return { role: "debrief", content: trimmed.slice(DEBRIEF_MARKER.length).trimStart() };
+  }
+  return { role: "assistant", content: raw };
+}
 
 const DISCLAIMER =
   "Quick note: I'm here to help you think through celiac-friendly situations and practice tricky conversations — but I'm not a doctor or dietitian, and I can't guarantee whether a specific product or dish is gluten-free. For medical questions, check with your care team; for specific foods, check labels or ask directly. Let's get into it!";
@@ -78,10 +88,11 @@ export default function ChatbotChatScreen() {
     ];
     callApi(openingHistory)
       .then((response) => {
+        const parsed = parseResponse(response);
         const assistantMsg: ChatMessage = {
           id: "opening",
-          role: "assistant",
-          content: response,
+          role: parsed.role,
+          content: parsed.content,
         };
         setDisplayMessages((prev) => [...prev, assistantMsg]);
         setApiHistory([...openingHistory, { role: "assistant", content: response }]);
@@ -111,10 +122,11 @@ export default function ChatbotChatScreen() {
 
     try {
       const response = await callApi(nextHistory);
+      const parsed = parseResponse(response);
       const assistantMsg: ChatMessage = {
         id: (Date.now() + 1).toString(),
-        role: "assistant",
-        content: response,
+        role: parsed.role,
+        content: parsed.content,
       };
       setDisplayMessages((prev) => [...prev, assistantMsg]);
       setApiHistory([...nextHistory, { role: "assistant", content: response }]);
@@ -132,11 +144,21 @@ export default function ChatbotChatScreen() {
   const renderItem = ({ item }: { item: ChatMessage }) => {
     const isUser = item.role === "user";
     const isDisclaimer = item.role === "disclaimer";
+    const isDebrief = item.role === "debrief";
 
     if (isDisclaimer) {
       return (
         <View style={[styles.disclaimerBubble, { backgroundColor: colors.tints.mint, borderRadius: colors.radius }]}>
           <Feather name="info" size={14} color={colors.mutedForeground} style={{ marginTop: 2, flexShrink: 0 }} />
+          <Text style={[styles.disclaimerText, { color: colors.foreground }]}>{item.content}</Text>
+        </View>
+      );
+    }
+
+    if (isDebrief) {
+      return (
+        <View style={[styles.disclaimerBubble, { backgroundColor: colors.tints.mint, borderRadius: colors.radius }]}>
+          <Feather name="check-circle" size={14} color={colors.mutedForeground} style={{ marginTop: 2, flexShrink: 0 }} />
           <Text style={[styles.disclaimerText, { color: colors.foreground }]}>{item.content}</Text>
         </View>
       );
