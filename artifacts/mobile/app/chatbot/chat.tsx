@@ -163,8 +163,6 @@ export default function ChatbotChatScreen() {
     );
   };
 
-  const headerTitle = [scenario?.title, mode?.label].filter(Boolean).join(" · ");
-
   return (
     <KeyboardAvoidingView
       style={[styles.container, { backgroundColor: colors.background }]}
@@ -173,8 +171,18 @@ export default function ChatbotChatScreen() {
     >
       <Stack.Screen
         options={{
-          headerTitle,
-          headerTitleStyle: { fontFamily: "Inter_600SemiBold", fontSize: 15 },
+          headerTitle: () => (
+            <View style={styles.headerTitleContainer}>
+              <Text style={[styles.headerTitleMain, { color: colors.foreground }]} numberOfLines={1}>
+                {scenario?.title ?? "Chat"}
+              </Text>
+              {mode?.label ? (
+                <Text style={[styles.headerTitleSub, { color: colors.mutedForeground }]} numberOfLines={1}>
+                  {mode.label}
+                </Text>
+              ) : null}
+            </View>
+          ),
           headerTitleAlign: "center",
         }}
       />
@@ -250,6 +258,19 @@ export default function ChatbotChatScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
+  headerTitleContainer: {
+    alignItems: "center",
+    maxWidth: 180,
+  },
+  headerTitleMain: {
+    fontFamily: "Inter_600SemiBold",
+    fontSize: 15,
+  },
+  headerTitleSub: {
+    fontFamily: "Inter_400Regular",
+    fontSize: 11,
+    marginTop: 1,
+  },
   listContent: {
     paddingHorizontal: 16,
     gap: 12,
