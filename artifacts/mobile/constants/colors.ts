@@ -3,6 +3,20 @@
  * A warm, colorful, and reassuring palette for Table Talk.
  */
 
+export type AccentKey = "coral" | "teal" | "purple" | "sky" | "rose";
+
+/** Per-accent primary + primaryForeground pairs for light and dark mode. */
+export const ACCENT_OPTIONS: Record<
+  AccentKey,
+  { label: string; light: string; dark: string; foreground: string }
+> = {
+  coral:  { label: "Coral",  light: "#E0603C", dark: "#F07B54", foreground: "#FFFFFF" },
+  teal:   { label: "Teal",   light: "#2E9B87", dark: "#43B49E", foreground: "#FFFFFF" },
+  purple: { label: "Purple", light: "#7C5CBF", dark: "#9B7FD4", foreground: "#FFFFFF" },
+  sky:    { label: "Sky",    light: "#3B82C4", dark: "#5B9FE0", foreground: "#FFFFFF" },
+  rose:   { label: "Rose",   light: "#C4517A", dark: "#E07A9C", foreground: "#FFFFFF" },
+};
+
 const colors = {
   light: {
     text: "#362B24",

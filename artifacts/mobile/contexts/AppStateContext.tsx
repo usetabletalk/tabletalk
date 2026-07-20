@@ -1,6 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 
+import type { AccentKey } from "@/constants/colors";
+
 export type ThemeMode = "light" | "dark" | "system";
 
 type AppState = {
@@ -9,6 +11,7 @@ type AppState = {
   userName: string;
   userPronouns: string;
   themeMode: ThemeMode;
+  accentColor: AccentKey;
 };
 
 type AppContextType = {
@@ -17,6 +20,7 @@ type AppContextType = {
   toggleSavedTip: (id: string) => void;
   updateProfile: (fields: { userName?: string; userPronouns?: string }) => void;
   updateThemeMode: (mode: ThemeMode) => void;
+  updateAccentColor: (accent: AccentKey) => void;
   isLoaded: boolean;
 };
 
@@ -30,6 +34,7 @@ const DEFAULT_STATE: AppState = {
   userName: "",
   userPronouns: "",
   themeMode: "system",
+  accentColor: "coral",
 };
 
 export function AppStateProvider({ children }: { children: React.ReactNode }) {
@@ -92,9 +97,13 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
     setState((prev) => ({ ...prev, themeMode: mode }));
   };
 
+  const updateAccentColor = (accent: AccentKey) => {
+    setState((prev) => ({ ...prev, accentColor: accent }));
+  };
+
   return (
     <AppContext.Provider
-      value={{ state, markScenarioCompleted, toggleSavedTip, updateProfile, updateThemeMode, isLoaded }}
+      value={{ state, markScenarioCompleted, toggleSavedTip, updateProfile, updateThemeMode, updateAccentColor, isLoaded }}
     >
       {children}
     </AppContext.Provider>

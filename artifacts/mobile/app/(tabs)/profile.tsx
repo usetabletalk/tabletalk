@@ -14,6 +14,8 @@ import { Feather } from "@expo/vector-icons";
 import { useColors } from "@/hooks/useColors";
 import { useAppState } from "@/contexts/AppStateContext";
 import type { ThemeMode } from "@/contexts/AppStateContext";
+import { ACCENT_OPTIONS } from "@/constants/colors";
+import type { AccentKey } from "@/constants/colors";
 
 const THEME_OPTIONS: { value: ThemeMode; label: string; icon: "sun" | "moon" | "monitor" }[] = [
   { value: "light", label: "Light", icon: "sun" },
@@ -21,10 +23,12 @@ const THEME_OPTIONS: { value: ThemeMode; label: string; icon: "sun" | "moon" | "
   { value: "system", label: "System", icon: "monitor" },
 ];
 
+const ACCENT_KEYS = Object.keys(ACCENT_OPTIONS) as AccentKey[];
+
 export default function ProfileScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
-  const { state, updateProfile, updateThemeMode, isLoaded } = useAppState();
+  const { state, updateProfile, updateThemeMode, updateAccentColor, isLoaded } = useAppState();
 
   const [name, setName] = useState("");
   const [pronouns, setPronouns] = useState("");
@@ -61,6 +65,10 @@ export default function ProfileScreen() {
 
   const handleThemeChange = (mode: ThemeMode) => {
     updateThemeMode(mode);
+  };
+
+  const handleAccentChange = (key: AccentKey) => {
+    updateAccentColor(key);
   };
 
   return (
@@ -190,6 +198,53 @@ export default function ProfileScreen() {
           })}
         </View>
       </View>
+
+      {/* Accent color section */}
+      <View style={styles.section}>
+        <Text style={[styles.label, { color: colors.mutedForeground }]}>Accent Color</Text>
+        <View style={styles.swatchRow}>
+          {ACCENT_KEYS.map((key) => {
+            const accent = ACCENT_OPTIONS[key];
+            const isActive = state.accentColor === key;
+            return (
+              <Pressable
+                key={key}
+                onPress={() => handleAccentChange(key)}
+                accessibilityRole="radio"
+                accessibilityState={{ selected: isActive }}
+                accessibilityLabel={`${accent.label} accent color`}
+                style={styles.swatchWrapper}
+              >
+                <View
+                  style={[
+                    styles.swatch,
+                    { backgroundColor: accent.light },
+                    isActive && {
+                      borderWidth: 3,
+                      borderColor: colors.foreground,
+                    },
+                  ]}
+                >
+                  {isActive && (
+                    <Feather name="check" size={14} color={accent.foreground} />
+                  )}
+                </View>
+                <Text
+                  style={[
+                    styles.swatchLabel,
+                    {
+                      color: isActive ? colors.foreground : colors.mutedForeground,
+                      fontFamily: isActive ? "Inter_600SemiBold" : "Inter_400Regular",
+                    },
+                  ]}
+                >
+                  {accent.label}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </View>
+      </View>
     </ScrollView>
   );
 }
@@ -260,5 +315,23 @@ const styles = StyleSheet.create({
   },
   segmentLabel: {
     fontSize: 14,
+  },
+  swatchRow: {
+    flexDirection: "row",
+    gap: 12,
+  },
+  swatchWrapper: {
+    alignItems: "center",
+    gap: 6,
+  },
+  swatch: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  swatchLabel: {
+    fontSize: 12,
   },
 });
