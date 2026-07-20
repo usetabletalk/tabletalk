@@ -944,7 +944,7 @@ const _ALL_SCENARIOS: Scenario[] = [
     },
   },
   {
-    id: "partner-conversation",
+    id: "REMOVED_partner-conversation",
     title: "Talking to a Partner",
     description: "Tell someone you're close to about kissing safely with celiac, before the moment gets awkward.",
     estimatedMinutes: 4,
