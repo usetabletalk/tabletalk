@@ -1878,7 +1878,7 @@ const _ALL_SCENARIOS: Scenario[] = [
     },
   },
   {
-    id: "canceling-plans",
+    id: "REMOVED_canceling-plans",
     title: "When You're Too Sick to Show Up",
     description: "Cancel plans after getting glutened, without over-apologizing or over-explaining.",
     estimatedMinutes: 4,
