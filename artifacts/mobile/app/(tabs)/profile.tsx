@@ -69,7 +69,7 @@ export default function ProfileScreen() {
       contentContainerStyle={[
         styles.content,
         {
-          paddingTop: insets.top + (Platform.OS === "web" ? 16 : 8),
+          paddingTop: (Platform.OS === "web" ? 50 : insets.top) + 24,
           paddingBottom: insets.bottom + 32,
         },
       ]}
