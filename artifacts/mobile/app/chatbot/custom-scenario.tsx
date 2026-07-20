@@ -177,18 +177,20 @@ export default function CustomScenarioScreen() {
                   accessibilityLabel={`${d.label}: ${d.description}`}
                 >
                   <View style={[styles.difficultyIconRow]}>
-                    <Feather
-                      name={d.icon as any}
-                      size={16}
-                      color={selected ? colors.primary : colors.mutedForeground}
-                    />
+                    <View style={styles.difficultyIconLabel}>
+                      <Feather
+                        name={d.icon as any}
+                        size={16}
+                        color={selected ? colors.primary : colors.mutedForeground}
+                      />
+                      <Text style={[styles.difficultyLabel, { color: selected ? colors.primary : colors.foreground }]}>
+                        {d.label}
+                      </Text>
+                    </View>
                     {selected && (
                       <View style={[styles.selectedDot, { backgroundColor: colors.primary }]} />
                     )}
                   </View>
-                  <Text style={[styles.difficultyLabel, { color: selected ? colors.primary : colors.foreground }]}>
-                    {d.label}
-                  </Text>
                   <Text style={[styles.difficultyTagline, { color: colors.mutedForeground }]}>
                     {d.tagline}
                   </Text>
@@ -374,6 +376,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 4,
+  },
+  difficultyIconLabel: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
   },
   selectedDot: {
     width: 7,
