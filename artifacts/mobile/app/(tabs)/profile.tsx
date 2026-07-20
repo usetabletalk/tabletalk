@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   Platform,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -12,11 +13,18 @@ import { Feather } from "@expo/vector-icons";
 
 import { useColors } from "@/hooks/useColors";
 import { useAppState } from "@/contexts/AppStateContext";
+import type { ThemeMode } from "@/contexts/AppStateContext";
+
+const THEME_OPTIONS: { value: ThemeMode; label: string; icon: "sun" | "moon" | "monitor" }[] = [
+  { value: "light", label: "Light", icon: "sun" },
+  { value: "dark", label: "Dark", icon: "moon" },
+  { value: "system", label: "System", icon: "monitor" },
+];
 
 export default function ProfileScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
-  const { state, updateProfile, isLoaded } = useAppState();
+  const { state, updateProfile, updateThemeMode, isLoaded } = useAppState();
 
   const [name, setName] = useState("");
   const [pronouns, setPronouns] = useState("");
@@ -34,8 +42,8 @@ export default function ProfileScreen() {
 
   const scheduleAutoSave = (newName: string, newPronouns: string) => {
     if (saveTimer.current) clearTimeout(saveTimer.current);
-    saveTimer.current = setTimeout(async () => {
-      await updateProfile({ userName: newName, userPronouns: newPronouns });
+    saveTimer.current = setTimeout(() => {
+      updateProfile({ userName: newName, userPronouns: newPronouns });
       setSaved(true);
       setTimeout(() => setSaved(false), 1800);
     }, 600);
@@ -51,6 +59,10 @@ export default function ProfileScreen() {
     scheduleAutoSave(name, v);
   };
 
+  const handleThemeChange = (mode: ThemeMode) => {
+    updateThemeMode(mode);
+  };
+
   return (
     <ScrollView
       style={[styles.container, { backgroundColor: colors.background }]}
@@ -61,6 +73,7 @@ export default function ProfileScreen() {
           paddingBottom: insets.bottom + 32,
         },
       ]}
+      showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
     >
       <Text style={[styles.pageTitle, { color: colors.foreground }]}>Your Profile</Text>
@@ -124,6 +137,59 @@ export default function ProfileScreen() {
           <Text style={[styles.savedText, { color: colors.mutedForeground }]}>Saved</Text>
         </View>
       )}
+
+      {/* Appearance section */}
+      <View style={styles.section}>
+        <Text style={[styles.label, { color: colors.mutedForeground }]}>Appearance</Text>
+        <View
+          style={[
+            styles.segmentedControl,
+            {
+              backgroundColor: colors.muted,
+              borderRadius: colors.radius,
+              borderColor: colors.border,
+            },
+          ]}
+        >
+          {THEME_OPTIONS.map((option) => {
+            const isActive = state.themeMode === option.value;
+            return (
+              <Pressable
+                key={option.value}
+                onPress={() => handleThemeChange(option.value)}
+                style={[
+                  styles.segment,
+                  {
+                    borderRadius: colors.radius - 2,
+                    backgroundColor: isActive ? colors.card : "transparent",
+                  },
+                  isActive && styles.segmentActive,
+                ]}
+                accessibilityRole="button"
+                accessibilityState={{ selected: isActive }}
+                accessibilityLabel={`${option.label} theme`}
+              >
+                <Feather
+                  name={option.icon}
+                  size={14}
+                  color={isActive ? colors.primary : colors.mutedForeground}
+                />
+                <Text
+                  style={[
+                    styles.segmentLabel,
+                    {
+                      color: isActive ? colors.foreground : colors.mutedForeground,
+                      fontFamily: isActive ? "Inter_600SemiBold" : "Inter_400Regular",
+                    },
+                  ]}
+                >
+                  {option.label}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </View>
+      </View>
     </ScrollView>
   );
 }
@@ -169,5 +235,30 @@ const styles = StyleSheet.create({
   savedText: {
     fontFamily: "Inter_400Regular",
     fontSize: 13,
+  },
+  segmentedControl: {
+    flexDirection: "row",
+    borderWidth: 1,
+    padding: 3,
+    gap: 2,
+  },
+  segment: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+    paddingVertical: 10,
+    paddingHorizontal: 8,
+  },
+  segmentActive: {
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.08,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+  segmentLabel: {
+    fontSize: 14,
   },
 });

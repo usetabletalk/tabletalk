@@ -90,7 +90,7 @@ export default function ChatbotScreen() {
   const topPad = Platform.OS === "web" ? 50 : insets.top;
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background, paddingTop: topPad }]}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <FlatList
         data={SORTED_SCENARIOS}
         keyExtractor={(item) => item.id}
@@ -100,7 +100,7 @@ export default function ChatbotScreen() {
           { paddingBottom: insets.bottom + 100 },
         ]}
         ListHeaderComponent={
-          <View style={[styles.hero, { backgroundColor: colors.primary }]}>
+          <View style={[styles.hero, { backgroundColor: colors.primary, paddingTop: topPad + 28 }]}>
             <View style={[styles.heroBadge, { backgroundColor: colors.primaryForeground + "22" }]}>
               <Feather name="smile" size={14} color={colors.primaryForeground} style={{ marginRight: 5 }} />
               <Text style={[styles.heroBadgeText, { color: colors.primaryForeground }]}>
@@ -130,7 +130,6 @@ const styles = StyleSheet.create({
   },
   hero: {
     paddingHorizontal: 24,
-    paddingTop: 28,
     paddingBottom: 32,
     marginBottom: 24,
     marginHorizontal: -20,
