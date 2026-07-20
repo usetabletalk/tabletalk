@@ -140,16 +140,14 @@ export default function CommunityScreen() {
 
         {orgsExpanded && (
           <View style={styles.sectionContent}>
-            {RESOURCES.map((resource, index) => {
-              const tintOptions = [colors.tints.sky, colors.tints.mint, colors.tints.lavender];
-              const tint = tintOptions[index % tintOptions.length];
+            {RESOURCES.map((resource) => {
               return (
                 <Pressable
                   key={resource.id}
                   style={({ pressed }) => [
                     styles.resourceCard,
                     {
-                      backgroundColor: tint,
+                      backgroundColor: colors.primary + "22",
                       borderRadius: colors.radius,
                       opacity: pressed ? 0.9 : 1,
                     },
@@ -158,8 +156,8 @@ export default function CommunityScreen() {
                   accessibilityRole="link"
                 >
                   <View style={styles.resourceHeader}>
-                    <View style={[styles.resourceIconWrapper, { backgroundColor: colors.background }]}>
-                      <Feather name="bookmark" size={18} color={colors.foreground} />
+                    <View style={[styles.resourceIconWrapper, { backgroundColor: colors.primary + "33" }]}>
+                      <Feather name="bookmark" size={18} color={colors.primary} />
                     </View>
                     <Feather name="external-link" size={18} color={colors.foreground} style={{ opacity: 0.5 }} />
                   </View>

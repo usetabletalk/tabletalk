@@ -79,8 +79,7 @@ export default function TipsScreen() {
 
   const sections = useMemo(() => {
     return CATEGORIES.map((cat, index) => {
-      const tintOptions = [colors.tints.rose, colors.tints.lemon, colors.tints.lavender, colors.tints.mint];
-      const tint = tintOptions[index % tintOptions.length];
+      const tint = colors.primary + "28";
       const allTips = TIPS.filter((t) => t.categoryId === cat.id).slice().sort((a, b) => a.title.localeCompare(b.title));
       const isCollapsed = !!collapsed[cat.id];
       return {
@@ -157,8 +156,8 @@ export default function TipsScreen() {
         },
       ]}
     >
-      <View style={[styles.sectionIconContainer, { backgroundColor: colors.background }]}>
-        <Feather name={icon} size={18} color={colors.foreground} />
+      <View style={[styles.sectionIconContainer, { backgroundColor: colors.primary + "33" }]}>
+        <Feather name={icon} size={18} color={colors.primary} />
       </View>
       <Text style={[styles.sectionTitle, { color: colors.foreground }]}>{title}</Text>
       <View style={styles.sectionHeaderRight}>
