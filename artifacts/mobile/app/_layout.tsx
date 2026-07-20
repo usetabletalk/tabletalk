@@ -20,6 +20,13 @@ import { AppStateProvider } from "@/contexts/AppStateContext";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
+// Hide browser scrollbars on web (showsVerticalScrollIndicator={false} alone doesn't suppress them)
+if (Platform.OS === "web" && typeof document !== "undefined") {
+  const style = document.createElement("style");
+  style.textContent = `* { scrollbar-width: none !important; } *::-webkit-scrollbar { display: none !important; }`;
+  document.head.appendChild(style);
+}
+
 const queryClient = new QueryClient();
 
 function RootLayoutNav() {
