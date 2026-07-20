@@ -29,7 +29,7 @@ export type Scenario = {
   modes?: ScenarioMode[];
 };
 
-export const SCENARIOS: Scenario[] = [
+const _ALL_SCENARIOS: Scenario[] = [
   {
     id: "restaurant-ordering",
     title: "Ordering at a Restaurant",
@@ -1092,10 +1092,10 @@ export const SCENARIOS: Scenario[] = [
     },
   },
   {
-    id: "partners-family",
-    title: "Meeting a Partner's Family",
-    description: "Navigate food safety and family dynamics, at the same table.",
-    estimatedMinutes: 5,
+    id: "REMOVED_partners-family",
+    title: "REMOVED",
+    description: "",
+    estimatedMinutes: 0,
     firstStepId: "first_start",
     modes: [
       { id: "first-meeting", label: "First Meeting", description: "Meeting the family for the first time and navigating celiac together.", icon: "smile", tint: "mint", firstStepId: "first_start" },
@@ -2237,3 +2237,7 @@ export const SCENARIOS: Scenario[] = [
     },
   },
 ];
+
+export const SCENARIOS: Scenario[] = _ALL_SCENARIOS.filter(
+  (s) => !s.id.startsWith("REMOVED_")
+);
