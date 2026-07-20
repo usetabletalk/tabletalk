@@ -203,8 +203,8 @@ export default function CommunityScreen() {
               >
                 <View style={styles.communityHeader}>
                   <View style={styles.communityMeta}>
-                    <View style={[styles.communityIconWrapper, { backgroundColor: colors.tints.lavender }]}>
-                      <Feather name={community.icon} size={16} color={colors.foreground} />
+                    <View style={[styles.communityIconWrapper, { backgroundColor: colors.primary + "22" }]}>
+                      <Feather name={community.icon} size={16} color={colors.primary} />
                     </View>
                     <Text style={[styles.platformLabel, { color: colors.mutedForeground }]}>
                       {community.platform}
