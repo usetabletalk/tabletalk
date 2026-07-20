@@ -121,7 +121,7 @@ export default function CustomScenarioScreen() {
             style={[styles.textInput, { backgroundColor: colors.card, borderColor: colors.border, borderRadius: colors.radius, color: colors.foreground }]}
             value={setting}
             onChangeText={setSetting}
-            placeholder="e.g. a friend's catered wedding, an office celebration, Grandma's holiday table…"
+            placeholder="e.g. a friend's catered wedding, an office celebration, Grandma's holiday table"
             placeholderTextColor={colors.mutedForeground}
             multiline
             maxLength={300}
@@ -134,7 +134,7 @@ export default function CustomScenarioScreen() {
             style={[styles.textInput, { backgroundColor: colors.card, borderColor: colors.border, borderRadius: colors.radius, color: colors.foreground }]}
             value={person}
             onChangeText={setPerson}
-            placeholder="e.g. a caterer, a relative, a well-meaning partner, a skeptical coworker…"
+            placeholder="e.g. a caterer, a relative, a well-meaning partner, a skeptical coworker"
             placeholderTextColor={colors.mutedForeground}
             multiline
             maxLength={200}
@@ -147,7 +147,7 @@ export default function CustomScenarioScreen() {
             style={[styles.textInput, { backgroundColor: colors.card, borderColor: colors.border, borderRadius: colors.radius, color: colors.foreground }]}
             value={skill}
             onChangeText={setSkill}
-            placeholder="e.g. explaining cross-contact to a stranger, holding my ground when people are doubtful…"
+            placeholder="e.g. explaining cross-contact to a stranger, holding my ground when people are doubtful"
             placeholderTextColor={colors.mutedForeground}
             multiline
             maxLength={300}
@@ -216,7 +216,7 @@ export default function CustomScenarioScreen() {
             ]}
             value={additionalInfo}
             onChangeText={setAdditionalInfo}
-            placeholder="e.g. I'm preparing for an upcoming event… there was a situation recently that went badly and I want to try it differently… I'd like the bot to start with a specific line…"
+            placeholder="e.g. I'm preparing for an upcoming event, there was a situation recently that went badly and I want to try it differently, I'd like the bot to start with a specific line"
             placeholderTextColor={colors.mutedForeground}
             multiline
             maxLength={600}
