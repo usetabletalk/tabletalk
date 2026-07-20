@@ -361,11 +361,10 @@ const styles = StyleSheet.create({
     marginTop: -4,
   },
   difficultyGrid: {
-    flexDirection: "row",
+    flexDirection: "column",
     gap: 10,
   },
   difficultyCard: {
-    flex: 1,
     borderWidth: 1.5,
     padding: 12,
     gap: 4,
