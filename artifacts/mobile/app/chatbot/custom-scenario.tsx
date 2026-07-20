@@ -349,7 +349,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: "Inter_400Regular",
     lineHeight: 22,
-    minHeight: 56,
+    minHeight: 90,
   },
   textInputTall: {
     minHeight: 100,
