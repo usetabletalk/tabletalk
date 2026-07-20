@@ -155,9 +155,6 @@ export default function ChatbotScreen() {
               <Text style={[styles.sectionLabelTitle, { color: colors.foreground }]}>
                 Try out these example scenarios
               </Text>
-              <Text style={[styles.sectionLabelSub, { color: colors.mutedForeground }]}>
-                Choose one to start a practice session.
-              </Text>
             </View>
           </>
         }
