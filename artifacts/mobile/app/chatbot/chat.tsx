@@ -72,18 +72,27 @@ const DISCLAIMER =
 const API_BASE = Platform.OS === "web" ? "/api" : (process.env.EXPO_PUBLIC_API_URL ?? "/api");
 
 export default function ChatbotChatScreen() {
-  const { scenarioId, modeId } = useLocalSearchParams<{ scenarioId: string; modeId?: string }>();
+  const { scenarioId, modeId, customTitle, customRolePrompt } = useLocalSearchParams<{
+    scenarioId?: string;
+    modeId?: string;
+    customTitle?: string;
+    customRolePrompt?: string;
+  }>();
   const colors = useColors();
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const flatListRef = useRef<FlatList>(null);
   const { state: appState } = useAppState();
 
-  const scenario = SCENARIOS.find((s) => s.id === scenarioId);
+  const isCustom = !!customTitle;
+
+  const scenario = isCustom ? undefined : SCENARIOS.find((s) => s.id === scenarioId);
   const mode = scenario?.modes?.find((m) => m.id === modeId);
 
   const rolePromptKey = modeId ? `${scenarioId}:${modeId}` : scenarioId ?? "";
-  const rolePrompt = ROLE_PROMPTS[rolePromptKey];
+  const builtInRolePrompt = ROLE_PROMPTS[rolePromptKey];
+  const effectiveRolePrompt = isCustom ? customRolePrompt : builtInRolePrompt;
+  const displayTitle = isCustom ? (customTitle ?? "Custom Scenario") : (scenario?.title ?? "Chat");
 
   const [displayMessages, setDisplayMessages] = useState<ChatMessage[]>([
     { id: "disclaimer", role: "disclaimer", content: DISCLAIMER },
@@ -101,9 +110,9 @@ export default function ChatbotChatScreen() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         messages: history,
-        scenarioTitle: scenario?.title,
+        scenarioTitle: displayTitle,
         modeLabel: mode?.label,
-        rolePrompt,
+        rolePrompt: effectiveRolePrompt,
         userName: appState.userName || undefined,
         userPronouns: appState.userPronouns || undefined,
       }),
@@ -115,7 +124,7 @@ export default function ChatbotChatScreen() {
 
   // Trigger the AI's opening line when the screen mounts with a scenario
   useEffect(() => {
-    if (!scenarioId || openingFired.current) return;
+    if ((!scenarioId && !isCustom) || openingFired.current) return;
     openingFired.current = true;
     setLoading(true);
     const openingHistory: Array<{ role: "user" | "assistant"; content: string }> = [
@@ -242,7 +251,7 @@ export default function ChatbotChatScreen() {
           headerTitle: () => (
             <View style={styles.headerTitleContainer}>
               <Text style={[styles.headerTitleMain, { color: colors.foreground }]} numberOfLines={1}>
-                {scenario?.title ?? "Chat"}
+                {displayTitle}
               </Text>
               {mode?.label ? (
                 <Text style={[styles.headerTitleSub, { color: colors.mutedForeground }]} numberOfLines={1}>

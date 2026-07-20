@@ -32,6 +32,10 @@ export default function ChatbotScreen() {
     }
   };
 
+  const handleCustomScenario = () => {
+    router.push("/chatbot/custom-scenario");
+  };
+
   const renderItem = ({ item }: { item: typeof SCENARIOS[0] }) => {
     return (
       <Pressable
@@ -100,20 +104,57 @@ export default function ChatbotScreen() {
           { paddingBottom: insets.bottom + 100 },
         ]}
         ListHeaderComponent={
-          <View style={[styles.hero, { backgroundColor: colors.primary, paddingTop: topPad + 28 }]}>
-            <View style={[styles.heroBadge, { backgroundColor: colors.primaryForeground + "22" }]}>
-              <Feather name="smile" size={14} color={colors.primaryForeground} style={{ marginRight: 5 }} />
-              <Text style={[styles.heroBadgeText, { color: colors.primaryForeground }]}>
-                AI chatbot
+          <>
+            <View style={[styles.hero, { backgroundColor: colors.primary, paddingTop: topPad + 28 }]}>
+              <View style={[styles.heroBadge, { backgroundColor: colors.primaryForeground + "22" }]}>
+                <Feather name="smile" size={14} color={colors.primaryForeground} style={{ marginRight: 5 }} />
+                <Text style={[styles.heroBadgeText, { color: colors.primaryForeground }]}>
+                  AI chatbot
+                </Text>
+              </View>
+              <Text style={[styles.heroTitle, { color: colors.primaryForeground }]}>
+                Chat Practice
+              </Text>
+              <Text style={[styles.heroSubtitle, { color: colors.primaryForeground }]}>
+                Choose a scenario and practice with an AI that responds like a real person.
               </Text>
             </View>
-            <Text style={[styles.heroTitle, { color: colors.primaryForeground }]}>
-              Chat Practice
+
+            {/* Custom scenario module */}
+            <Pressable
+              onPress={handleCustomScenario}
+              style={({ pressed }) => [
+                styles.customCard,
+                {
+                  backgroundColor: colors.card,
+                  borderColor: colors.primary,
+                  borderRadius: colors.radius,
+                  opacity: pressed ? 0.88 : 1,
+                  transform: [{ scale: pressed ? 0.98 : 1 }],
+                },
+              ]}
+              accessibilityRole="button"
+              accessibilityLabel="Create a custom scenario"
+            >
+              <View style={[styles.customIconWrapper, { backgroundColor: colors.primary + "18" }]}>
+                <Feather name="edit-3" size={22} color={colors.primary} />
+              </View>
+              <View style={styles.customCardBody}>
+                <Text style={[styles.customCardTitle, { color: colors.foreground }]}>
+                  Create a custom scenario
+                </Text>
+                <Text style={[styles.customCardDesc, { color: colors.mutedForeground }]}>
+                  Describe a real situation you're facing and we'll build a practice session around it.
+                </Text>
+              </View>
+              <Feather name="chevron-right" size={18} color={colors.mutedForeground} />
+            </Pressable>
+
+            {/* Section label */}
+            <Text style={[styles.sectionLabel, { color: colors.mutedForeground }]}>
+              Try out these example scenarios
             </Text>
-            <Text style={[styles.heroSubtitle, { color: colors.primaryForeground }]}>
-              Choose a scenario and practice with an AI that responds like a real person.
-            </Text>
-          </View>
+          </>
         }
       />
     </View>
@@ -161,6 +202,48 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 22,
     opacity: 0.88,
+  },
+  customCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 14,
+    padding: 16,
+    marginBottom: 10,
+    borderWidth: 2,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.06,
+    shadowRadius: 6,
+    elevation: 2,
+  },
+  customIconWrapper: {
+    width: 48,
+    height: 48,
+    borderRadius: 14,
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+  },
+  customCardBody: {
+    flex: 1,
+    gap: 3,
+  },
+  customCardTitle: {
+    fontFamily: "Inter_700Bold",
+    fontSize: 16,
+  },
+  customCardDesc: {
+    fontFamily: "Inter_400Regular",
+    fontSize: 13,
+    lineHeight: 19,
+  },
+  sectionLabel: {
+    fontFamily: "Inter_600SemiBold",
+    fontSize: 12,
+    letterSpacing: 0.5,
+    textTransform: "uppercase",
+    marginBottom: 6,
+    marginTop: 8,
   },
   card: {
     padding: 20,
