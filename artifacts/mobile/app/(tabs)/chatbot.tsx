@@ -151,9 +151,14 @@ export default function ChatbotScreen() {
             </Pressable>
 
             {/* Section label */}
-            <Text style={[styles.sectionLabel, { color: colors.mutedForeground }]}>
-              Try out these example scenarios
-            </Text>
+            <View style={styles.sectionLabel}>
+              <Text style={[styles.sectionLabelTitle, { color: colors.foreground }]}>
+                Try out these example scenarios
+              </Text>
+              <Text style={[styles.sectionLabelSub, { color: colors.mutedForeground }]}>
+                Choose one to start a practice session.
+              </Text>
+            </View>
           </>
         }
       />
@@ -238,12 +243,17 @@ const styles = StyleSheet.create({
     lineHeight: 19,
   },
   sectionLabel: {
-    fontFamily: "Inter_600SemiBold",
-    fontSize: 12,
-    letterSpacing: 0.5,
-    textTransform: "uppercase",
-    marginBottom: 6,
+    paddingVertical: 14,
     marginTop: 8,
+  },
+  sectionLabelTitle: {
+    fontFamily: "Inter_600SemiBold",
+    fontSize: 20,
+  },
+  sectionLabelSub: {
+    fontFamily: "Inter_400Regular",
+    fontSize: 13,
+    marginTop: 2,
   },
   card: {
     padding: 20,
