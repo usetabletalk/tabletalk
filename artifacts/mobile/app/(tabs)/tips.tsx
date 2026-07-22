@@ -92,7 +92,7 @@ export default function TipsScreen() {
         data: isCollapsed ? [] : allTips,
       };
     }).filter((s) => s.tipCount > 0);
-  }, [colors.tints, collapsed]);
+  }, [colors.primary, colors.tints, collapsed]);
 
   const renderItem = ({ item }: { item: Tip }) => {
     const isExpanded = !!expandedTips[item.id];
