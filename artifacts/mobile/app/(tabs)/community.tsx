@@ -48,13 +48,69 @@ const ORGANIZATIONS: OrgResource[] = [
     url: "https://www.kidswithfoodallergies.org",
     restrictionIds: ALL_9_ALLERGENS,
   },
-  // Soy — additional adult-focused resource
+  // Per-allergen specific third resources
+  {
+    id: "acaai-dairy",
+    name: "American College of Allergy, Asthma & Immunology",
+    description: "Board-certified allergists providing clinical guidelines and a specialist finder for milk allergy.",
+    url: "https://acaai.org/allergies/allergic-conditions/food/milk/",
+    restrictionIds: ["dairy"],
+  },
+  {
+    id: "aaaai-egg",
+    name: "American Academy of Allergy, Asthma & Immunology",
+    description: "Patient resources, clinical guidance, and an allergist directory for egg allergy management.",
+    url: "https://www.aaaai.org/conditions-treatments/allergies/food-allergies",
+    restrictionIds: ["egg"],
+  },
+  {
+    id: "acaai-fish",
+    name: "American College of Allergy, Asthma & Immunology",
+    description: "Clinical resources and a specialist finder for fish allergy diagnosis and management.",
+    url: "https://acaai.org/allergies/allergic-conditions/food/fish/",
+    restrictionIds: ["fish"],
+  },
+  {
+    id: "aaaai-shellfish",
+    name: "American Academy of Allergy, Asthma & Immunology",
+    description: "Evidence-based guidance on shellfish allergy, including diagnosis, treatment, and prevention.",
+    url: "https://www.aaaai.org/conditions-treatments/allergies/food-allergies",
+    restrictionIds: ["shellfish"],
+  },
   {
     id: "acaai-soy",
     name: "American College of Allergy, Asthma & Immunology",
     description: "Board-certified allergists providing clinical guidelines, a soy allergy overview, and a specialist finder.",
     url: "https://acaai.org/allergies/allergic-conditions/food/soy/",
     restrictionIds: ["soy"],
+  },
+  {
+    id: "acaai-sesame",
+    name: "American College of Allergy, Asthma & Immunology",
+    description: "Resources on sesame, the 9th major allergen — including labeling rules and management.",
+    url: "https://acaai.org/allergies/allergic-conditions/food/sesame/",
+    restrictionIds: ["sesame"],
+  },
+  {
+    id: "gig",
+    name: "Gluten Intolerance Group (GIG)",
+    description: "Support groups and the GFCO certification program for gluten-free and wheat-free products.",
+    url: "https://gluten.org",
+    restrictionIds: ["wheat"],
+  },
+  {
+    id: "allergy-asthma-network",
+    name: "Allergy & Asthma Network",
+    description: "Patient-focused education and advocacy for people living with peanut and other allergies.",
+    url: "https://allergyasthmanetwork.org",
+    restrictionIds: ["peanut"],
+  },
+  {
+    id: "acaai-treenut",
+    name: "American College of Allergy, Asthma & Immunology",
+    description: "Clinical guidance on tree nut allergy diagnosis, cross-reactivity, and emergency management.",
+    url: "https://acaai.org/allergies/allergic-conditions/food/tree-nut/",
+    restrictionIds: ["tree-nut"],
   },
   // Vegetarian
   {
