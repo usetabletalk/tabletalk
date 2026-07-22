@@ -136,10 +136,10 @@ const ORGANIZATIONS: OrgResource[] = [
     restrictionIds: ["vegan"],
   },
   {
-    id: "pcrm",
-    name: "Physicians Committee for Responsible Medicine",
-    description: "Doctors and researchers promoting plant-based diets backed by clinical science.",
-    url: "https://www.pcrm.org",
+    id: "vegnews",
+    name: "VegNews",
+    description: "Recipes, product reviews, substitution guides, and a running list of foods you wouldn't expect to be (or not be) vegan.",
+    url: "https://vegnews.com",
     restrictionIds: ["vegan"],
   },
 ];
