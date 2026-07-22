@@ -249,10 +249,11 @@ export default function ChatbotChatScreen() {
     >
       <Stack.Screen
         options={{
+          headerTintColor: colors.primary,
           headerTitle: () => (
             <View style={styles.headerTitleContainer}>
               <Text style={[styles.headerTitleMain, { color: colors.foreground }]} numberOfLines={1}>
-                {displayTitle}
+                {isCustom ? "Custom Chat" : displayTitle}
               </Text>
               {mode?.label ? (
                 <Text style={[styles.headerTitleSub, { color: colors.mutedForeground }]} numberOfLines={1}>
