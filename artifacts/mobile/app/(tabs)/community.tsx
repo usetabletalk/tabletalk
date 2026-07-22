@@ -16,6 +16,12 @@ type OrgResource = {
 
 const ALL_9_ALLERGENS = ["dairy", "egg", "fish", "shellfish", "soy", "sesame", "wheat", "peanut", "tree-nut"];
 
+// Canonical display order: allergies A–Z, then vegetarian, then vegan
+const RESTRICTION_ORDER = [
+  "celiac", "dairy", "egg", "fish", "peanut", "sesame", "shellfish", "soy", "tree-nut", "wheat",
+  "vegetarian", "vegan",
+];
+
 const ORGANIZATIONS: OrgResource[] = [
   // Celiac
   {
@@ -426,7 +432,7 @@ export default function CommunityScreen() {
   const sortByFirstMatch = <T extends { restrictionIds: string[] }>(items: T[]): T[] =>
     [...items].sort((a, b) => {
       const idx = (item: T) =>
-        Math.min(...item.restrictionIds.map((r) => selectedRestrictions.indexOf(r)).filter((i) => i >= 0));
+        Math.min(...item.restrictionIds.map((r) => RESTRICTION_ORDER.indexOf(r)).filter((i) => i >= 0));
       return idx(a) - idx(b);
     });
 
