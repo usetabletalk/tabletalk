@@ -192,12 +192,13 @@ Formatting rules (always apply during roleplay):
 - All other responses should be plain spoken dialogue.`;
 
 chatRouter.post("/chat", chatLimiter, async (req, res) => {
-  const { messages, scenarioTitle, modeLabel, rolePrompt, userName, userPronouns, dietaryRestrictions } =
+  const { messages, scenarioTitle, modeLabel, rolePrompt, isCustomScenario, userName, userPronouns, dietaryRestrictions } =
     req.body as {
       messages: Array<{ role: "user" | "assistant"; content: string }>;
       scenarioTitle?: string;
       modeLabel?: string;
       rolePrompt?: string;
+      isCustomScenario?: boolean;
       userName?: string;
       userPronouns?: string;
       dietaryRestrictions?: string[];
@@ -229,13 +230,21 @@ chatRouter.post("/chat", chatLimiter, async (req, res) => {
   if (scenarioTitle) {
     systemPrompt += `\n\n---\nROLEPLAY INSTRUCTIONS\nScenario: ${scenarioTitle}`;
     if (rolePrompt) {
-      systemPrompt += `\n\n${rolePrompt}
+      systemPrompt += `\n\n${rolePrompt}`;
+
+      if (isCustomScenario) {
+        systemPrompt += `
 
 RELEVANCE CHECK — evaluate this before doing anything else: Does the scenario described above plausibly involve a person navigating a real-life social or food-related situation related to their dietary restrictions (${restrictionLabels})? This includes things like explaining a restriction, handling cross-contamination concerns, dealing with a skeptical or uninformed person, managing social pressure around food choices, or preparing for a difficult conversation about their needs or values.
 
 If the answer is NO — the scenario has nothing to do with dietary restrictions or food-related social situations (e.g. it is about something unrelated like sports, relationships unrelated to food, fictional worlds, or anything clearly off-topic) — do NOT begin the roleplay. Instead, wrap your entire response in [ADVICE]...[/ADVICE] tags and let the user know, warmly but directly, that you're only set up to help practice conversations related to managing dietary restrictions in real-life situations. Invite them to go back and describe a scenario that fits that context.
 
-If the answer is YES, proceed normally:
+If the answer is YES, proceed normally:`;
+      } else {
+        systemPrompt += `\n\nProceed directly:`;
+      }
+
+      systemPrompt += `
 Step into this role immediately — not as a narrator or coach, but as this character speaking in first person. When you receive "[begin]", open the scene with one or two lines of natural dialogue that immediately establish who you are and what's happening. No meta-commentary, no "I'll now play..." preamble.
 
 The user is playing themselves: a person with the dietary restrictions listed above, navigating this situation. Stay in character until the user asks to stop and debrief.`;

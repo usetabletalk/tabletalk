@@ -113,6 +113,7 @@ export default function ChatbotChatScreen() {
         scenarioTitle: displayTitle,
         modeLabel: mode?.label,
         rolePrompt: effectiveRolePrompt,
+        isCustomScenario: isCustom,
         userName: appState.userName || undefined,
         userPronouns: appState.userPronouns || undefined,
         dietaryRestrictions: appState.dietaryRestrictions ?? [],
