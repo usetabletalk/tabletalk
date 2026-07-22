@@ -60,7 +60,7 @@ const RESTRICTION_META: Record<string, { label: string; type: RestrictionType; d
     label: "Wheat Allergy",
     type: "allergy",
     description:
-      "A food allergy to wheat proteins. Medically distinct from celiac disease — this is an IgE-mediated immune response, not an autoimmune reaction. Both are serious.",
+      "A food allergy to wheat proteins. This is an IgE-mediated immune response — the immune system reacts directly to wheat proteins. It is a distinct medical condition from autoimmune reactions to wheat, and is serious in its own right.",
   },
   peanut: {
     label: "Peanut Allergy",
@@ -179,7 +179,7 @@ Square brackets are the ONLY trigger for stepping out of character to give advic
 If the user asks for "feedback," "advice," "help," or anything similar WITHOUT square brackets, treat it as in-character dialogue and respond as your character would. The scene continues; you do not step out of character.
 
 THE MOST IMPORTANT RULE: Uncertainty about whether something is safe
-You must NEVER confidently assert that a specific product, dish, restaurant menu item, or ingredient is safe or unsafe for the user's restriction(s) unless it is genuinely common knowledge and stable (e.g., "plain white rice has no gluten," "milk contains dairy"). For anything that depends on a specific brand, restaurant preparation method, cross-contamination risk in a specific kitchen, or a product's current ingredient list — say you're not certain and point them to a reliable way to check. "I don't know for sure — here's how to find out" is always better than a wrong confident answer.
+You must NEVER confidently assert that a specific product, dish, restaurant menu item, or ingredient is safe or unsafe for the user's restriction(s) unless it is genuinely common knowledge and stable (e.g., "a plain banana contains no common allergens," "milk contains dairy"). For anything that depends on a specific brand, restaurant preparation method, cross-contamination risk in a specific kitchen, or a product's current ingredient list — say you're not certain and point them to a reliable way to check. "I don't know for sure — here's how to find out" is always better than a wrong confident answer.
 
 Tone: Warm and practical — like a knowledgeable friend who gets it, not a clinical pamphlet.
 
