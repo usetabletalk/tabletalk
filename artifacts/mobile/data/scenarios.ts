@@ -950,9 +950,9 @@ export const SCENARIOS: Scenario[] = [
     estimatedMinutes: 4,
     firstStepId: "sb_root",
     modes: [
+      { id: "questioned", label: "Being Questioned", description: "Someone is calling out your cost split or why you're not eating the shared food.", icon: "smile", tint: "mint", firstStepId: "sb_q_type" },
       { id: "even-split", label: "Splitting Evenly", description: "The group wants to split the bill evenly but you ordered less.", icon: "help-circle", tint: "lemon", firstStepId: "sb_even_q" },
       { id: "family-style", label: "Family-Style / Shared Plates", description: "The group wants to share dishes, which isn't safe for you.", icon: "alert-circle", tint: "rose", firstStepId: "sb_fs_timing" },
-      { id: "questioned", label: "Being Questioned", description: "Someone is calling out your cost split or why you're not eating the shared food.", icon: "smile", tint: "mint", firstStepId: "sb_q_type" },
     ],
     steps: {
       sb_root: {
