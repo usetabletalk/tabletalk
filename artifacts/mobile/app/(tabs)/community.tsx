@@ -1,34 +1,144 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Linking, Platform, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 
 import { useColors } from "@/hooks/useColors";
+import { useAppState } from "@/contexts/AppStateContext";
 
-const RESOURCES = [
+type OrgResource = {
+  id: string;
+  name: string;
+  description: string;
+  url: string;
+  restrictionIds: string[];
+};
+
+const ORGANIZATIONS: OrgResource[] = [
+  // Celiac
   {
     id: "cdf",
     name: "Celiac Disease Foundation",
-    description: "Extensive resources, research updates, and a provider directory.",
+    description: "Research, advocacy, and a provider directory for people with celiac disease.",
     url: "https://celiac.org",
+    restrictionIds: ["celiac"],
   },
   {
-    id: "beyond",
+    id: "beyond-celiac",
     name: "Beyond Celiac",
-    description: "Advocacy organization focused on research and community support.",
+    description: "Patient advocacy organization focused on accelerating celiac disease research and finding a cure.",
     url: "https://www.beyondceliac.org",
+    restrictionIds: ["celiac"],
   },
+  // All major food allergies share FARE as a primary resource
+  {
+    id: "fare",
+    name: "Food Allergy Research & Education (FARE)",
+    description: "The leading national organization for food allergy research, education, and advocacy.",
+    url: "https://www.foodallergy.org",
+    restrictionIds: ["dairy", "egg", "fish", "shellfish", "soy", "sesame", "wheat", "peanut", "tree-nut"],
+  },
+  // Dairy — second org
+  {
+    id: "acaai-dairy",
+    name: "American College of Allergy, Asthma & Immunology",
+    description: "Board-certified allergists providing clinical guidelines and a specialist finder.",
+    url: "https://acaai.org/allergies/allergic-conditions/food/milk/",
+    restrictionIds: ["dairy"],
+  },
+  // Egg — second org
+  {
+    id: "aaaai-egg",
+    name: "American Academy of Allergy, Asthma & Immunology",
+    description: "Patient resources, clinical guidance, and an allergist directory for egg allergy management.",
+    url: "https://www.aaaai.org/conditions-treatments/allergies/food-allergies",
+    restrictionIds: ["egg"],
+  },
+  // Fish — second org
+  {
+    id: "acaai-fish",
+    name: "American College of Allergy, Asthma & Immunology",
+    description: "Clinical resources and a specialist finder for fish allergy diagnosis and management.",
+    url: "https://acaai.org/allergies/allergic-conditions/food/fish/",
+    restrictionIds: ["fish"],
+  },
+  // Shellfish — second org
+  {
+    id: "aaaai-shellfish",
+    name: "American Academy of Allergy, Asthma & Immunology",
+    description: "Evidence-based guidance on shellfish allergy, including diagnosis, treatment, and prevention.",
+    url: "https://www.aaaai.org/conditions-treatments/allergies/food-allergies",
+    restrictionIds: ["shellfish"],
+  },
+  // Soy — second org
+  {
+    id: "kfa",
+    name: "Kids With Food Allergies (KFA)",
+    description: "Practical guidance and community support for families managing soy and other food allergies.",
+    url: "https://www.kidswithfoodallergies.org",
+    restrictionIds: ["soy"],
+  },
+  // Sesame — second org
+  {
+    id: "acaai-sesame",
+    name: "American College of Allergy, Asthma & Immunology",
+    description: "Resources on sesame, the 9th major allergen — including labeling rules and management.",
+    url: "https://acaai.org/allergies/allergic-conditions/food/sesame/",
+    restrictionIds: ["sesame"],
+  },
+  // Wheat — second org
   {
     id: "gig",
     name: "Gluten Intolerance Group (GIG)",
-    description: "Support groups and the GFCO certification program.",
+    description: "Support groups and the GFCO certification program for gluten-free and wheat-free products.",
     url: "https://gluten.org",
+    restrictionIds: ["wheat"],
+  },
+  // Peanut — second org
+  {
+    id: "allergy-asthma-network",
+    name: "Allergy & Asthma Network",
+    description: "Patient-focused education and advocacy for people living with peanut and other allergies.",
+    url: "https://allergyasthmanetwork.org",
+    restrictionIds: ["peanut"],
+  },
+  // Tree Nut — second org
+  {
+    id: "acaai-treenut",
+    name: "American College of Allergy, Asthma & Immunology",
+    description: "Clinical guidance on tree nut allergy diagnosis, cross-reactivity, and emergency management.",
+    url: "https://acaai.org/allergies/allergic-conditions/food/tree-nut/",
+    restrictionIds: ["tree-nut"],
+  },
+  // Vegetarian
+  {
+    id: "vrg",
+    name: "The Vegetarian Resource Group",
+    description: "Nonprofit with recipes, nutrition guidance, and restaurant tips for vegetarians.",
+    url: "https://www.vrg.org",
+    restrictionIds: ["vegetarian"],
   },
   {
-    id: "findmegf",
-    name: "Find Me Gluten Free",
-    description: "Crowdsourced reviews of gluten-free friendly restaurants, rated by the celiac community.",
-    url: "https://www.findmeglutenfree.com",
+    id: "navs",
+    name: "North American Vegetarian Society",
+    description: "Advocacy and education for vegetarian living in North America since 1974.",
+    url: "https://navs-online.org",
+    restrictionIds: ["vegetarian"],
+  },
+  // Vegan
+  {
+    id: "vegan-society",
+    name: "The Vegan Society",
+    description: "The world's oldest vegan organization — nutrition guidance, recipes, and global advocacy.",
+    url: "https://www.vegansociety.com",
+    restrictionIds: ["vegan"],
+  },
+  {
+    id: "pcrm",
+    name: "Physicians Committee for Responsible Medicine",
+    description: "Doctors and researchers promoting plant-based diets backed by clinical science.",
+    url: "https://www.pcrm.org",
+    restrictionIds: ["vegan"],
   },
 ];
 
@@ -106,8 +216,22 @@ function SectionHeader({
 export default function CommunityScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
+  const { state } = useAppState();
   const [orgsExpanded, setOrgsExpanded] = useState(true);
   const [socialExpanded, setSocialExpanded] = useState(true);
+
+  const selectedRestrictions = state.dietaryRestrictions ?? [];
+
+  const visibleOrgs = useMemo(() => {
+    if (selectedRestrictions.length === 0) return [];
+    const seen = new Set<string>();
+    return ORGANIZATIONS.filter((org) => {
+      if (seen.has(org.id)) return false;
+      const matches = org.restrictionIds.some((r) => selectedRestrictions.includes(r));
+      if (matches) seen.add(org.id);
+      return matches;
+    });
+  }, [selectedRestrictions]);
 
   const handleOpenLink = (url: string) => {
     Linking.openURL(url);
@@ -124,17 +248,27 @@ export default function CommunityScreen() {
         {/* ── Trusted Organizations ─────────────────────────────────────────── */}
         <SectionHeader
           title="Trusted Organizations"
-          subtitle="Research, advocacy, and support from established celiac groups."
+          subtitle="Personalized to your dietary needs — update selections in your Profile."
           expanded={orgsExpanded}
           onToggle={() => setOrgsExpanded((v) => !v)}
         />
 
         {orgsExpanded && (
           <View style={styles.sectionContent}>
-            {RESOURCES.map((resource) => {
-              return (
+            {visibleOrgs.length === 0 ? (
+              <View style={[styles.emptyState, { backgroundColor: colors.card, borderColor: colors.border, borderRadius: colors.radius }]}>
+                <Feather name="user" size={22} color={colors.mutedForeground} />
+                <Text style={[styles.emptyTitle, { color: colors.foreground }]}>
+                  No restrictions selected
+                </Text>
+                <Text style={[styles.emptySubtitle, { color: colors.mutedForeground }]}>
+                  Go to your Profile and select your dietary restrictions to see relevant organizations here.
+                </Text>
+              </View>
+            ) : (
+              visibleOrgs.map((org) => (
                 <Pressable
-                  key={resource.id}
+                  key={org.id}
                   style={({ pressed }) => [
                     styles.resourceCard,
                     {
@@ -143,8 +277,9 @@ export default function CommunityScreen() {
                       opacity: pressed ? 0.9 : 1,
                     },
                   ]}
-                  onPress={() => handleOpenLink(resource.url)}
+                  onPress={() => handleOpenLink(org.url)}
                   accessibilityRole="link"
+                  accessibilityLabel={org.name}
                 >
                   <View style={styles.resourceHeader}>
                     <View style={[styles.resourceIconWrapper, { backgroundColor: colors.primary + "33" }]}>
@@ -153,14 +288,14 @@ export default function CommunityScreen() {
                     <Feather name="external-link" size={18} color={colors.foreground} style={{ opacity: 0.5 }} />
                   </View>
                   <Text style={[styles.resourceName, { color: colors.foreground }]}>
-                    {resource.name}
+                    {org.name}
                   </Text>
                   <Text style={[styles.resourceDescription, { color: colors.foreground, opacity: 0.8 }]}>
-                    {resource.description}
+                    {org.description}
                   </Text>
                 </Pressable>
-              );
-            })}
+              ))
+            )}
           </View>
         )}
 
@@ -225,19 +360,6 @@ const styles = StyleSheet.create({
     padding: 24,
     paddingTop: 0,
   },
-  header: {
-    marginBottom: 32,
-  },
-  title: {
-    fontFamily: "Inter_700Bold",
-    fontSize: 28,
-    marginBottom: 12,
-  },
-  subtitle: {
-    fontFamily: "Inter_400Regular",
-    fontSize: 16,
-    lineHeight: 24,
-  },
   // Section headers
   sectionHeader: {
     flexDirection: "row",
@@ -261,6 +383,25 @@ const styles = StyleSheet.create({
   },
   sectionContent: {
     marginBottom: 8,
+  },
+  // Empty state
+  emptyState: {
+    borderWidth: 1,
+    padding: 24,
+    alignItems: "center",
+    gap: 10,
+    marginBottom: 8,
+  },
+  emptyTitle: {
+    fontFamily: "Inter_600SemiBold",
+    fontSize: 16,
+    textAlign: "center",
+  },
+  emptySubtitle: {
+    fontFamily: "Inter_400Regular",
+    fontSize: 14,
+    lineHeight: 21,
+    textAlign: "center",
   },
   // Trusted organization cards
   resourceCard: {
