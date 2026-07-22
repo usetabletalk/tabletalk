@@ -14,8 +14,26 @@ import { Feather } from "@expo/vector-icons";
 import { useColors } from "@/hooks/useColors";
 import { useAppState } from "@/contexts/AppStateContext";
 import type { ThemeMode } from "@/contexts/AppStateContext";
+
 import { ACCENT_OPTIONS } from "@/constants/colors";
 import type { AccentKey } from "@/constants/colors";
+
+type DietaryOption = { id: string; label: string };
+
+const DIETARY_OPTIONS: DietaryOption[] = [
+  { id: "celiac", label: "Celiac" },
+  { id: "dairy", label: "Dairy Allergy" },
+  { id: "egg", label: "Egg Allergy" },
+  { id: "fish", label: "Fish Allergy" },
+  { id: "shellfish", label: "Shellfish Allergy" },
+  { id: "soy", label: "Soy Allergy" },
+  { id: "sesame", label: "Sesame Allergy" },
+  { id: "wheat", label: "Wheat Allergy" },
+  { id: "peanut", label: "Peanut Allergy" },
+  { id: "tree-nut", label: "Tree Nut Allergy" },
+  { id: "vegetarian", label: "Vegetarian" },
+  { id: "vegan", label: "Vegan" },
+];
 
 const THEME_OPTIONS: { value: ThemeMode; label: string; icon: "sun" | "moon" | "monitor" }[] = [
   { value: "light", label: "Light", icon: "sun" },
@@ -28,7 +46,7 @@ const ACCENT_KEYS = Object.keys(ACCENT_OPTIONS) as AccentKey[];
 export default function ProfileScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
-  const { state, updateProfile, updateThemeMode, updateAccentColor, isLoaded } = useAppState();
+  const { state, updateProfile, updateThemeMode, updateAccentColor, toggleDietaryRestriction, isLoaded } = useAppState();
 
   const [name, setName] = useState("");
   const [pronouns, setPronouns] = useState("");
@@ -145,6 +163,59 @@ export default function ProfileScreen() {
           <Text style={[styles.savedText, { color: colors.mutedForeground }]}>Saved</Text>
         </View>
       )}
+
+      {/* Dietary restrictions section */}
+      <View style={styles.section}>
+        <Text style={[styles.label, { color: colors.mutedForeground }]}>Dietary Restrictions</Text>
+        <View
+          style={[
+            styles.checkboxCard,
+            { backgroundColor: colors.card, borderColor: colors.border, borderRadius: colors.radius },
+          ]}
+        >
+          {DIETARY_OPTIONS.map((option, index) => {
+            const isChecked = (state.dietaryRestrictions ?? []).includes(option.id);
+            const isLast = index === DIETARY_OPTIONS.length - 1;
+            return (
+              <Pressable
+                key={option.id}
+                onPress={() => toggleDietaryRestriction(option.id)}
+                accessibilityRole="checkbox"
+                accessibilityState={{ checked: isChecked }}
+                accessibilityLabel={option.label}
+                style={[
+                  styles.checkboxRow,
+                  !isLast && { borderBottomWidth: 1, borderBottomColor: colors.border },
+                ]}
+              >
+                <View
+                  style={[
+                    styles.checkbox,
+                    {
+                      borderColor: isChecked ? colors.primary : colors.border,
+                      backgroundColor: isChecked ? colors.primary : "transparent",
+                      borderRadius: colors.radius - 4,
+                    },
+                  ]}
+                >
+                  {isChecked && <Feather name="check" size={13} color="#fff" />}
+                </View>
+                <Text
+                  style={[
+                    styles.checkboxLabel,
+                    {
+                      color: colors.foreground,
+                      fontFamily: isChecked ? "Inter_600SemiBold" : "Inter_400Regular",
+                    },
+                  ]}
+                >
+                  {option.label}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </View>
+      </View>
 
       {/* Appearance section */}
       <View style={styles.section}>
@@ -333,5 +404,28 @@ const styles = StyleSheet.create({
   },
   swatchLabel: {
     fontSize: 12,
+  },
+  checkboxCard: {
+    borderWidth: 1,
+    overflow: "hidden",
+  },
+  checkboxRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 13,
+  },
+  checkbox: {
+    width: 22,
+    height: 22,
+    borderWidth: 1.5,
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+  },
+  checkboxLabel: {
+    fontSize: 15,
+    flex: 1,
   },
 });

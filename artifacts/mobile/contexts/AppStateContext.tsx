@@ -12,6 +12,7 @@ type AppState = {
   userPronouns: string;
   themeMode: ThemeMode;
   accentColor: AccentKey;
+  dietaryRestrictions: string[];
 };
 
 type AppContextType = {
@@ -21,6 +22,7 @@ type AppContextType = {
   updateProfile: (fields: { userName?: string; userPronouns?: string }) => void;
   updateThemeMode: (mode: ThemeMode) => void;
   updateAccentColor: (accent: AccentKey) => void;
+  toggleDietaryRestriction: (id: string) => void;
   isLoaded: boolean;
 };
 
@@ -35,6 +37,7 @@ const DEFAULT_STATE: AppState = {
   userPronouns: "",
   themeMode: "system",
   accentColor: "coral",
+  dietaryRestrictions: [],
 };
 
 export function AppStateProvider({ children }: { children: React.ReactNode }) {
@@ -101,9 +104,20 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
     setState((prev) => ({ ...prev, accentColor: accent }));
   };
 
+  const toggleDietaryRestriction = (id: string) => {
+    setState((prev) => {
+      const current = prev.dietaryRestrictions ?? [];
+      const has = current.includes(id);
+      return {
+        ...prev,
+        dietaryRestrictions: has ? current.filter((r) => r !== id) : [...current, id],
+      };
+    });
+  };
+
   return (
     <AppContext.Provider
-      value={{ state, markScenarioCompleted, toggleSavedTip, updateProfile, updateThemeMode, updateAccentColor, isLoaded }}
+      value={{ state, markScenarioCompleted, toggleSavedTip, updateProfile, updateThemeMode, updateAccentColor, toggleDietaryRestriction, isLoaded }}
     >
       {children}
     </AppContext.Provider>
