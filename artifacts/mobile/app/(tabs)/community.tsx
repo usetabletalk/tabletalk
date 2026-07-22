@@ -51,7 +51,7 @@ const ORGANIZATIONS: OrgResource[] = [
   // Per-allergen specific third resources
   {
     id: "acaai-dairy",
-    name: "Dairy Allergy — ACAAI",
+    name: "Dairy Allergy | ACAAI",
     description: "Board-certified allergists providing clinical guidelines and a specialist finder for milk allergy.",
     url: "https://acaai.org/allergies/allergic-conditions/food/milk/",
     restrictionIds: ["dairy"],
@@ -65,7 +65,7 @@ const ORGANIZATIONS: OrgResource[] = [
   },
   {
     id: "acaai-fish",
-    name: "Fish Allergy — ACAAI",
+    name: "Fish Allergy | ACAAI",
     description: "Clinical resources and a specialist finder for fish allergy diagnosis and management.",
     url: "https://acaai.org/allergies/allergic-conditions/food/fish/",
     restrictionIds: ["fish"],
@@ -79,14 +79,14 @@ const ORGANIZATIONS: OrgResource[] = [
   },
   {
     id: "acaai-soy",
-    name: "Soy Allergy — ACAAI",
+    name: "Soy Allergy | ACAAI",
     description: "Board-certified allergists providing clinical guidelines, a soy allergy overview, and a specialist finder.",
     url: "https://acaai.org/allergies/allergic-conditions/food/soy/",
     restrictionIds: ["soy"],
   },
   {
     id: "acaai-sesame",
-    name: "Sesame Allergy — ACAAI",
+    name: "Sesame Allergy | ACAAI",
     description: "Resources on sesame, the 9th major allergen — including labeling rules and management.",
     url: "https://acaai.org/allergies/allergic-conditions/food/sesame/",
     restrictionIds: ["sesame"],
@@ -107,7 +107,7 @@ const ORGANIZATIONS: OrgResource[] = [
   },
   {
     id: "acaai-treenut",
-    name: "Tree Nut Allergy — ACAAI",
+    name: "Tree Nut Allergy | ACAAI",
     description: "Clinical guidance on tree nut allergy diagnosis, cross-reactivity, and emergency management.",
     url: "https://acaai.org/allergies/allergic-conditions/food/tree-nut/",
     restrictionIds: ["tree-nut"],
