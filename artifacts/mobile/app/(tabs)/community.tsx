@@ -121,15 +121,6 @@ export default function CommunityScreen() {
           { paddingBottom: insets.bottom + 100 },
         ]}
       >
-        <View style={[styles.header, { paddingTop: 24 }]}>
-          <Text style={[styles.title, { color: colors.foreground }]}>
-            You Are Not Alone
-          </Text>
-          <Text style={[styles.subtitle, { color: colors.mutedForeground }]}>
-            A diagnosis can feel isolating, but there is a massive, supportive community ready to help you navigate this.
-          </Text>
-        </View>
-
         {/* ── Trusted Organizations ─────────────────────────────────────────── */}
         <SectionHeader
           title="Trusted Organizations"
