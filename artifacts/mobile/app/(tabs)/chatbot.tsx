@@ -4,14 +4,13 @@ import React from "react";
 import { FlatList, Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "@/hooks/useColors";
+import { useAppState } from "@/contexts/AppStateContext";
 import { SCENARIOS } from "@/data/scenarios";
+
+const ALL_9_ALLERGENS = ["dairy", "egg", "fish", "shellfish", "soy", "sesame", "wheat", "peanut", "tree-nut"];
 
 const sortKey = (title: string) =>
   title.replace(/^(a|the)\s+/i, "").toLowerCase();
-
-const SORTED_SCENARIOS = [...SCENARIOS].sort((a, b) =>
-  sortKey(a.title).localeCompare(sortKey(b.title))
-);
 
 const MODE_TINT_MAP: Record<string, keyof ReturnType<typeof useColors>["tints"]> = {
   mint: "mint",
@@ -23,6 +22,16 @@ export default function ChatbotScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const { state } = useAppState();
+  const restrictions = state.dietaryRestrictions ?? [];
+
+  const visibleScenarios = [...SCENARIOS]
+    .filter((s) => {
+      if (s.id === "too-much-detail") return restrictions.includes("celiac");
+      if (s.id === "epipen-training") return ALL_9_ALLERGENS.some((a) => restrictions.includes(a));
+      return true;
+    })
+    .sort((a, b) => sortKey(a.title).localeCompare(sortKey(b.title)));
 
   const handleCardPress = (item: typeof SCENARIOS[0]) => {
     if (item.modes && item.modes.length > 0) {
@@ -96,7 +105,7 @@ export default function ChatbotScreen() {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <FlatList
-        data={SORTED_SCENARIOS}
+        data={visibleScenarios}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         contentContainerStyle={[

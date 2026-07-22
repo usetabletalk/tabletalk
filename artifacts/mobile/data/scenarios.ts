@@ -820,7 +820,7 @@ export const SCENARIOS: Scenario[] = [
   {
     id: "homemade-gift",
     title: "The Homemade Gift",
-    description: "A loved one baked something gluten-free just for you, but you're not sure their kitchen was safe.",
+    description: "A loved one made something homemade just for you, but you're not sure their kitchen was safe.",
     estimatedMinutes: 4,
     firstStepId: "start",
     steps: {
@@ -946,7 +946,7 @@ export const SCENARIOS: Scenario[] = [
   {
     id: "splitting-the-bill",
     title: "Splitting the Bill",
-    description: "Navigate group dining costs when celiac changes what you can order.",
+    description: "Navigate group dining costs when dietary restrictions change what you can order.",
     estimatedMinutes: 4,
     firstStepId: "sb_root",
     modes: [
