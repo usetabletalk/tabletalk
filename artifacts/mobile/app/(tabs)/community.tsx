@@ -14,6 +14,8 @@ type OrgResource = {
   restrictionIds: string[];
 };
 
+const ALL_9_ALLERGENS = ["dairy", "egg", "fish", "shellfish", "soy", "sesame", "wheat", "peanut", "tree-nut"];
+
 const ORGANIZATIONS: OrgResource[] = [
   // Celiac
   {
@@ -30,85 +32,29 @@ const ORGANIZATIONS: OrgResource[] = [
     url: "https://www.beyondceliac.org",
     restrictionIds: ["celiac"],
   },
-  // All major food allergies share FARE as a primary resource
+  // All 9 major allergens — FARE
   {
     id: "fare",
     name: "Food Allergy Research & Education (FARE)",
     description: "The leading national organization for food allergy research, education, and advocacy.",
     url: "https://www.foodallergy.org",
-    restrictionIds: ["dairy", "egg", "fish", "shellfish", "soy", "sesame", "wheat", "peanut", "tree-nut"],
+    restrictionIds: ALL_9_ALLERGENS,
   },
-  // Dairy — second org
-  {
-    id: "acaai-dairy",
-    name: "American College of Allergy, Asthma & Immunology",
-    description: "Board-certified allergists providing clinical guidelines and a specialist finder.",
-    url: "https://acaai.org/allergies/allergic-conditions/food/milk/",
-    restrictionIds: ["dairy"],
-  },
-  // Egg — second org
-  {
-    id: "aaaai-egg",
-    name: "American Academy of Allergy, Asthma & Immunology",
-    description: "Patient resources, clinical guidance, and an allergist directory for egg allergy management.",
-    url: "https://www.aaaai.org/conditions-treatments/allergies/food-allergies",
-    restrictionIds: ["egg"],
-  },
-  // Fish — second org
-  {
-    id: "acaai-fish",
-    name: "American College of Allergy, Asthma & Immunology",
-    description: "Clinical resources and a specialist finder for fish allergy diagnosis and management.",
-    url: "https://acaai.org/allergies/allergic-conditions/food/fish/",
-    restrictionIds: ["fish"],
-  },
-  // Shellfish — second org
-  {
-    id: "aaaai-shellfish",
-    name: "American Academy of Allergy, Asthma & Immunology",
-    description: "Evidence-based guidance on shellfish allergy, including diagnosis, treatment, and prevention.",
-    url: "https://www.aaaai.org/conditions-treatments/allergies/food-allergies",
-    restrictionIds: ["shellfish"],
-  },
-  // Soy — second org
+  // All 9 major allergens — KFA
   {
     id: "kfa",
     name: "Kids With Food Allergies (KFA)",
-    description: "Practical guidance and community support for families managing soy and other food allergies.",
+    description: "A division of FARE offering practical guidance, safe recipes, and community support for all food allergies.",
     url: "https://www.kidswithfoodallergies.org",
+    restrictionIds: ALL_9_ALLERGENS,
+  },
+  // Soy — additional adult-focused resource
+  {
+    id: "acaai-soy",
+    name: "American College of Allergy, Asthma & Immunology",
+    description: "Board-certified allergists providing clinical guidelines, a soy allergy overview, and a specialist finder.",
+    url: "https://acaai.org/allergies/allergic-conditions/food/soy/",
     restrictionIds: ["soy"],
-  },
-  // Sesame — second org
-  {
-    id: "acaai-sesame",
-    name: "American College of Allergy, Asthma & Immunology",
-    description: "Resources on sesame, the 9th major allergen — including labeling rules and management.",
-    url: "https://acaai.org/allergies/allergic-conditions/food/sesame/",
-    restrictionIds: ["sesame"],
-  },
-  // Wheat — second org
-  {
-    id: "gig",
-    name: "Gluten Intolerance Group (GIG)",
-    description: "Support groups and the GFCO certification program for gluten-free and wheat-free products.",
-    url: "https://gluten.org",
-    restrictionIds: ["wheat"],
-  },
-  // Peanut — second org
-  {
-    id: "allergy-asthma-network",
-    name: "Allergy & Asthma Network",
-    description: "Patient-focused education and advocacy for people living with peanut and other allergies.",
-    url: "https://allergyasthmanetwork.org",
-    restrictionIds: ["peanut"],
-  },
-  // Tree Nut — second org
-  {
-    id: "acaai-treenut",
-    name: "American College of Allergy, Asthma & Immunology",
-    description: "Clinical guidance on tree nut allergy diagnosis, cross-reactivity, and emergency management.",
-    url: "https://acaai.org/allergies/allergic-conditions/food/tree-nut/",
-    restrictionIds: ["tree-nut"],
   },
   // Vegetarian
   {
