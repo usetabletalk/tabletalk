@@ -34,14 +34,6 @@ function RootLayoutNav() {
     <Stack screenOptions={{ headerBackTitle: "Back", headerTintColor: "#E0603C" }}>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen
-        name="scenario/[id]"
-        options={{
-          presentation: "card",
-          headerTitle: "Practice",
-          ...(Platform.OS === "web" && { headerStatusBarHeight: 50 }),
-        } as object}
-      />
-      <Stack.Screen
         name="chatbot/[id]"
         options={{
           presentation: "card",

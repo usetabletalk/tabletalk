@@ -247,11 +247,6 @@ const styles = StyleSheet.create({
     fontFamily: "Inter_600SemiBold",
     fontSize: 20,
   },
-  sectionLabelSub: {
-    fontFamily: "Inter_400Regular",
-    fontSize: 13,
-    marginTop: 2,
-  },
   card: {
     padding: 20,
     marginBottom: 14,
