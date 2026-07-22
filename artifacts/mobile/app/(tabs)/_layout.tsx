@@ -12,17 +12,13 @@ import { useColors } from "@/hooks/useColors";
 function NativeTabLayout() {
   return (
     <NativeTabs defaultValue="chatbot">
-      <NativeTabs.Trigger name="tips">
-        <Icon sf={{ default: "lightbulb", selected: "lightbulb.fill" }} />
-        <Label>Tips</Label>
+      <NativeTabs.Trigger name="community">
+        <Icon sf={{ default: "person.3", selected: "person.3.fill" }} />
+        <Label>Community</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="chatbot">
         <Icon sf={{ default: "message", selected: "message.fill" }} />
         <Label>Chatbot</Label>
-      </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="community">
-        <Icon sf={{ default: "person.3", selected: "person.3.fill" }} />
-        <Label>Community</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="profile">
         <Icon sf={{ default: "face.smiling", selected: "face.smiling.inverse" }} />
@@ -86,12 +82,7 @@ function ClassicTabLayout() {
         name="tips"
         options={{
           title: "Tips & Tricks",
-          tabBarIcon: ({ color }) =>
-            isIOS ? (
-              <SymbolView name="lightbulb" tintColor={color} size={24} />
-            ) : (
-              <Feather name="info" size={22} color={color} />
-            ),
+          href: null,
         }}
       />
       <Tabs.Screen
@@ -99,18 +90,6 @@ function ClassicTabLayout() {
         options={{
           title: "Practice",
           href: null,
-        }}
-      />
-      <Tabs.Screen
-        name="chatbot"
-        options={{
-          title: "Chatbot",
-          tabBarIcon: ({ color }) =>
-            isIOS ? (
-              <SymbolView name="message" tintColor={color} size={24} />
-            ) : (
-              <Feather name="message-square" size={22} color={color} />
-            ),
         }}
       />
       <Tabs.Screen
@@ -122,6 +101,18 @@ function ClassicTabLayout() {
               <SymbolView name="person.3" tintColor={color} size={24} />
             ) : (
               <Feather name="users" size={22} color={color} />
+            ),
+        }}
+      />
+      <Tabs.Screen
+        name="chatbot"
+        options={{
+          title: "Chatbot",
+          tabBarIcon: ({ color }) =>
+            isIOS ? (
+              <SymbolView name="message" tintColor={color} size={24} />
+            ) : (
+              <Feather name="message-square" size={22} color={color} />
             ),
         }}
       />
