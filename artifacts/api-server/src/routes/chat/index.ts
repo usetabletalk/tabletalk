@@ -134,6 +134,11 @@ function buildRestrictionSection(restrictions: string[]): string {
       "\nIMPORTANT: This user has both medical restrictions and lifestyle choices. Don't conflate them. Medical restrictions demand safety accommodations; lifestyle choices deserve respect and boundary-setting. The tone and stakes of each type of conversation are different — reflect that in how you roleplay and debrief.\n";
   }
 
+  if (known.length > 1) {
+    section +=
+      "\nCONTEXTUAL RELEVANCE: When the user has multiple restrictions, foreground only the one(s) that make sense for the current scenario. If the conversation is about baked goods, egg or wheat concerns are relevant — a shellfish allergy is not. If the conversation is about a sushi restaurant, fish and shellfish matter; a dairy allergy may not. Let the food and setting guide which restriction to bring up. Raising an irrelevant restriction is unrealistic and unhelpful — a knowledgeable person wouldn't warn a bakery about shellfish, and neither should you.\n";
+  }
+
   section += "---";
   return section;
 }
