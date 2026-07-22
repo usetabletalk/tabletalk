@@ -93,12 +93,7 @@ export default function CustomScenarioScreen() {
       style={[styles.container, { backgroundColor: colors.background }]}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <Stack.Screen
-        options={{
-          headerTitle: "Custom Scenario",
-          headerTitleStyle: { fontFamily: "Inter_600SemiBold", fontSize: 16 },
-        }}
-      />
+      <Stack.Screen options={{ headerTitleStyle: { fontFamily: "Inter_600SemiBold", fontSize: 16 } }} />
       <ScrollView
         contentContainerStyle={[
           styles.scrollContent,

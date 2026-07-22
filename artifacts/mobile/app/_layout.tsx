@@ -51,6 +51,15 @@ function RootLayoutNav() {
           ...(Platform.OS === "web" && { headerStatusBarHeight: 50 }),
         } as object}
       />
+      <Stack.Screen
+        name="chatbot/custom-scenario"
+        options={{
+          presentation: "card",
+          headerTitle: "Custom Scenario",
+          headerBackTitle: "",
+          ...(Platform.OS === "web" && { headerStatusBarHeight: 50 }),
+        } as object}
+      />
     </Stack>
   );
 }
