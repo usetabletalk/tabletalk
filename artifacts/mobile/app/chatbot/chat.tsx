@@ -115,6 +115,7 @@ export default function ChatbotChatScreen() {
         rolePrompt: effectiveRolePrompt,
         userName: appState.userName || undefined,
         userPronouns: appState.userPronouns || undefined,
+        dietaryRestrictions: appState.dietaryRestrictions ?? [],
       }),
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
