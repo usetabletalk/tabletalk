@@ -144,14 +144,100 @@ const ORGANIZATIONS: OrgResource[] = [
   },
 ];
 
-const COMMUNITIES = [
+type CommunityResource = {
+  id: string;
+  name: string;
+  platform: string;
+  description: string;
+  url: string;
+  icon: "message-circle" | "play-circle" | "camera";
+  restrictionIds: string[];
+};
+
+const COMMUNITIES: CommunityResource[] = [
+  // Celiac
   {
     id: "r-celiac",
     name: "r/Celiac",
     platform: "Reddit",
     description: "The main celiac subreddit — diagnosis stories, questions, venting, and real talk from people who get it. Very active and welcoming to newly diagnosed people.",
     url: "https://www.reddit.com/r/Celiac/",
-    icon: "message-circle" as const,
+    icon: "message-circle",
+    restrictionIds: ["celiac"],
+  },
+  {
+    id: "tiktok-celiac",
+    name: "#CeliacDisease on TikTok",
+    platform: "TikTok",
+    description: "Creators sharing diagnosis journeys, product reviews, kitchen tips, and the very specific humor of accidentally getting glutened. Search #celiac or #glutenfree.",
+    url: "https://www.tiktok.com/tag/celiacdisease",
+    icon: "play-circle",
+    restrictionIds: ["celiac"],
+  },
+  // All 9 allergens — r/FoodAllergies
+  {
+    id: "r-foodallergies",
+    name: "r/FoodAllergies",
+    platform: "Reddit",
+    description: "A supportive community for all food allergies — diagnosis questions, label reading, navigating social situations, and product recommendations.",
+    url: "https://www.reddit.com/r/FoodAllergies/",
+    icon: "message-circle",
+    restrictionIds: ALL_9_ALLERGENS,
+  },
+  // Per-allergen second communities
+  {
+    id: "instagram-dairyfree",
+    name: "#DairyFree on Instagram",
+    platform: "Instagram",
+    description: "A large community sharing dairy-free recipes, product swaps, restaurant finds, and tips for avoiding hidden dairy in everyday foods.",
+    url: "https://www.instagram.com/explore/tags/dairyfree/",
+    icon: "camera",
+    restrictionIds: ["dairy"],
+  },
+  {
+    id: "instagram-eggfree",
+    name: "#EggFree on Instagram",
+    platform: "Instagram",
+    description: "Creators sharing egg-free baking hacks, substitution guides, and recipes that prove you don't need eggs to make great food.",
+    url: "https://www.instagram.com/explore/tags/eggfree/",
+    icon: "camera",
+    restrictionIds: ["egg"],
+  },
+  {
+    id: "instagram-fishallergy",
+    name: "#FishAllergy on Instagram",
+    platform: "Instagram",
+    description: "Community posts on navigating fish allergies — safe dining, label tips, and connecting with others managing the same restriction.",
+    url: "https://www.instagram.com/explore/tags/fishallergy/",
+    icon: "camera",
+    restrictionIds: ["fish"],
+  },
+  {
+    id: "instagram-shellfishallergy",
+    name: "#ShellfishAllergy on Instagram",
+    platform: "Instagram",
+    description: "Tips, product finds, and community support for people navigating shellfish allergies in restaurants and at home.",
+    url: "https://www.instagram.com/explore/tags/shellfishallergy/",
+    icon: "camera",
+    restrictionIds: ["shellfish"],
+  },
+  {
+    id: "instagram-soyfree",
+    name: "#SoyFree on Instagram",
+    platform: "Instagram",
+    description: "A community focused on soy-free living — recipes, product alternatives, and tips for spotting hidden soy on ingredient labels.",
+    url: "https://www.instagram.com/explore/tags/soyfree/",
+    icon: "camera",
+    restrictionIds: ["soy"],
+  },
+  {
+    id: "instagram-sesamefree",
+    name: "#SesameFree on Instagram",
+    platform: "Instagram",
+    description: "Content around sesame allergy awareness, safe products, and navigating the 9th major allergen in a world where labeling is still catching up.",
+    url: "https://www.instagram.com/explore/tags/sesamefree/",
+    icon: "camera",
+    restrictionIds: ["sesame"],
   },
   {
     id: "r-glutenfree",
@@ -159,23 +245,64 @@ const COMMUNITIES = [
     platform: "Reddit",
     description: "Broader gluten-free community focused on food — product finds, restaurant tips, recipes, and the occasional triumphant 'I found GF pasta that doesn't fall apart' post.",
     url: "https://www.reddit.com/r/glutenfree/",
-    icon: "message-circle" as const,
+    icon: "message-circle",
+    restrictionIds: ["wheat"],
   },
   {
-    id: "tiktok-celiac",
-    name: "#CeliacDisease on TikTok",
-    platform: "TikTok",
-    description: "A surprisingly vibrant corner of TikTok — creators share diagnosis journeys, product reviews, kitchen tips, and the very specific humor of accidentally getting glutened. Search #celiac or #glutenfree.",
-    url: "https://www.tiktok.com/tag/celiacdisease",
-    icon: "play-circle" as const,
+    id: "r-peanutallergy",
+    name: "r/PeanutAllergy",
+    platform: "Reddit",
+    description: "A dedicated subreddit for people with peanut allergies — sharing safe products, cross-contamination concerns, travel tips, and emotional support.",
+    url: "https://www.reddit.com/r/PeanutAllergy/",
+    icon: "message-circle",
+    restrictionIds: ["peanut"],
   },
   {
-    id: "instagram-gf",
-    name: "#GlutenFree on Instagram",
+    id: "instagram-treenutallergy",
+    name: "#TreeNutAllergy on Instagram",
     platform: "Instagram",
-    description: "A huge and active community of celiac creators sharing safe recipes, product recommendations, restaurant finds, and day-in-the-life content. Great for discovering new products and feeling less alone.",
-    url: "https://www.instagram.com/explore/tags/glutenfree/",
-    icon: "camera" as const,
+    description: "Community content around tree nut allergies — navigating cross-reactivity, finding safe products, and sharing allergen-friendly recipes.",
+    url: "https://www.instagram.com/explore/tags/treenutallergy/",
+    icon: "camera",
+    restrictionIds: ["tree-nut"],
+  },
+  // Vegetarian
+  {
+    id: "r-vegetarian",
+    name: "r/vegetarian",
+    platform: "Reddit",
+    description: "An active community for vegetarians of all kinds — recipes, restaurant recommendations, nutrition questions, and navigating social situations.",
+    url: "https://www.reddit.com/r/vegetarian/",
+    icon: "message-circle",
+    restrictionIds: ["vegetarian"],
+  },
+  {
+    id: "instagram-vegetarian",
+    name: "#Vegetarian on Instagram",
+    platform: "Instagram",
+    description: "Millions of posts from vegetarian creators worldwide — recipes, meal preps, restaurant finds, and everyday vegetarian living.",
+    url: "https://www.instagram.com/explore/tags/vegetarian/",
+    icon: "camera",
+    restrictionIds: ["vegetarian"],
+  },
+  // Vegan
+  {
+    id: "r-vegan",
+    name: "r/vegan",
+    platform: "Reddit",
+    description: "One of Reddit's largest diet communities — product finds, accidentally vegan discoveries, ethical discussions, recipes, and beginner support.",
+    url: "https://www.reddit.com/r/vegan/",
+    icon: "message-circle",
+    restrictionIds: ["vegan"],
+  },
+  {
+    id: "tiktok-vegan",
+    name: "#Vegan on TikTok",
+    platform: "TikTok",
+    description: "A massive and creative corner of TikTok — quick recipes, product taste tests, restaurant finds, and creators making vegan living look effortless.",
+    url: "https://www.tiktok.com/tag/vegan",
+    icon: "play-circle",
+    restrictionIds: ["vegan"],
   },
 ];
 
@@ -231,6 +358,17 @@ export default function CommunityScreen() {
       if (seen.has(org.id)) return false;
       const matches = org.restrictionIds.some((r) => selectedRestrictions.includes(r));
       if (matches) seen.add(org.id);
+      return matches;
+    });
+  }, [selectedRestrictions]);
+
+  const visibleCommunities = useMemo(() => {
+    if (selectedRestrictions.length === 0) return [];
+    const seen = new Set<string>();
+    return COMMUNITIES.filter((c) => {
+      if (seen.has(c.id)) return false;
+      const matches = c.restrictionIds.some((r) => selectedRestrictions.includes(r));
+      if (matches) seen.add(c.id);
       return matches;
     });
   }, [selectedRestrictions]);
@@ -304,48 +442,60 @@ export default function CommunityScreen() {
         {/* ── Community & Social ────────────────────────────────────────────── */}
         <SectionHeader
           title="Community & Social"
-          subtitle="From practical advice to commiserating about croutons."
+          subtitle="Personalized to your dietary needs — update selections in your Profile."
           expanded={socialExpanded}
           onToggle={() => setSocialExpanded((v) => !v)}
         />
 
         {socialExpanded && (
           <View style={styles.sectionContent}>
-            {COMMUNITIES.map((community) => (
-              <Pressable
-                key={community.id}
-                style={({ pressed }) => [
-                  styles.communityCard,
-                  {
-                    backgroundColor: colors.card,
-                    borderColor: colors.border,
-                    borderRadius: colors.radius,
-                    opacity: pressed ? 0.85 : 1,
-                  },
-                ]}
-                onPress={() => handleOpenLink(community.url)}
-                accessibilityRole="link"
-                accessibilityLabel={`${community.name} on ${community.platform}`}
-              >
-                <View style={styles.communityHeader}>
-                  <View style={styles.communityMeta}>
-                    <View style={[styles.communityIconWrapper, { backgroundColor: colors.primary + "22" }]}>
-                      <Feather name={community.icon} size={16} color={colors.primary} />
+            {visibleCommunities.length === 0 ? (
+              <View style={[styles.emptyState, { backgroundColor: colors.card, borderColor: colors.border, borderRadius: colors.radius }]}>
+                <Feather name="users" size={22} color={colors.mutedForeground} />
+                <Text style={[styles.emptyTitle, { color: colors.foreground }]}>
+                  No restrictions selected
+                </Text>
+                <Text style={[styles.emptySubtitle, { color: colors.mutedForeground }]}>
+                  Go to your Profile and select your dietary restrictions to see relevant communities here.
+                </Text>
+              </View>
+            ) : (
+              visibleCommunities.map((community) => (
+                <Pressable
+                  key={community.id}
+                  style={({ pressed }) => [
+                    styles.communityCard,
+                    {
+                      backgroundColor: colors.card,
+                      borderColor: colors.border,
+                      borderRadius: colors.radius,
+                      opacity: pressed ? 0.85 : 1,
+                    },
+                  ]}
+                  onPress={() => handleOpenLink(community.url)}
+                  accessibilityRole="link"
+                  accessibilityLabel={`${community.name} on ${community.platform}`}
+                >
+                  <View style={styles.communityHeader}>
+                    <View style={styles.communityMeta}>
+                      <View style={[styles.communityIconWrapper, { backgroundColor: colors.primary + "22" }]}>
+                        <Feather name={community.icon} size={16} color={colors.primary} />
+                      </View>
+                      <Text style={[styles.platformLabel, { color: colors.mutedForeground }]}>
+                        {community.platform}
+                      </Text>
                     </View>
-                    <Text style={[styles.platformLabel, { color: colors.mutedForeground }]}>
-                      {community.platform}
-                    </Text>
+                    <Feather name="external-link" size={16} color={colors.mutedForeground} />
                   </View>
-                  <Feather name="external-link" size={16} color={colors.mutedForeground} />
-                </View>
-                <Text style={[styles.communityName, { color: colors.foreground }]}>
-                  {community.name}
-                </Text>
-                <Text style={[styles.communityDescription, { color: colors.mutedForeground }]}>
-                  {community.description}
-                </Text>
-              </Pressable>
-            ))}
+                  <Text style={[styles.communityName, { color: colors.foreground }]}>
+                    {community.name}
+                  </Text>
+                  <Text style={[styles.communityDescription, { color: colors.mutedForeground }]}>
+                    {community.description}
+                  </Text>
+                </Pressable>
+              ))
+            )}
           </View>
         )}
 
