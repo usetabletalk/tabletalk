@@ -423,26 +423,35 @@ export default function CommunityScreen() {
 
   const selectedRestrictions = state.dietaryRestrictions ?? [];
 
+  const sortByFirstMatch = <T extends { restrictionIds: string[] }>(items: T[]): T[] =>
+    [...items].sort((a, b) => {
+      const idx = (item: T) =>
+        Math.min(...item.restrictionIds.map((r) => selectedRestrictions.indexOf(r)).filter((i) => i >= 0));
+      return idx(a) - idx(b);
+    });
+
   const visibleOrgs = useMemo(() => {
     if (selectedRestrictions.length === 0) return [];
     const seen = new Set<string>();
-    return ORGANIZATIONS.filter((org) => {
+    const filtered = ORGANIZATIONS.filter((org) => {
       if (seen.has(org.id)) return false;
       const matches = org.restrictionIds.some((r) => selectedRestrictions.includes(r));
       if (matches) seen.add(org.id);
       return matches;
     });
+    return sortByFirstMatch(filtered);
   }, [selectedRestrictions]);
 
   const visibleCommunities = useMemo(() => {
     if (selectedRestrictions.length === 0) return [];
     const seen = new Set<string>();
-    return COMMUNITIES.filter((c) => {
+    const filtered = COMMUNITIES.filter((c) => {
       if (seen.has(c.id)) return false;
       const matches = c.restrictionIds.some((r) => selectedRestrictions.includes(r));
       if (matches) seen.add(c.id);
       return matches;
     });
+    return sortByFirstMatch(filtered);
   }, [selectedRestrictions]);
 
   const handleOpenLink = (url: string) => {
