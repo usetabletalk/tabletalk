@@ -19,7 +19,7 @@ function NativeTabLayout() {
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="chatbot">
         <Icon sf={{ default: "message", selected: "message.fill" }} />
-        <Label>Chatbot</Label>
+        <Label>Practice</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="profile">
         <Icon sf={{ default: "face.smiling", selected: "face.smiling.inverse" }} />
@@ -116,7 +116,7 @@ function ClassicTabLayout() {
         <Tabs.Screen
           name="chatbot"
           options={{
-            title: "Chatbot",
+            title: "Practice",
             tabBarIcon: ({ color }) =>
               isIOS ? (
                 <SymbolView name="message" tintColor={color} size={24} />
