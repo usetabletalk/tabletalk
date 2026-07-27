@@ -31,12 +31,14 @@ export function useColors() {
 
   const accent = ACCENT_OPTIONS[state.accentColor] ?? ACCENT_OPTIONS.coral;
   const primaryColor = effectiveScheme === "dark" ? accent.dark : accent.light;
+  const backgroundColor = effectiveScheme === "dark" ? accent.darkBg : accent.lightBg;
 
   return {
     ...palette,
     primary: primaryColor,
     primaryForeground: accent.foreground,
     tint: primaryColor,
+    background: backgroundColor,
     radius: colors.radius,
   };
 }

@@ -8,13 +8,13 @@ export type AccentKey = "coral" | "teal" | "purple" | "sky" | "rose";
 /** Per-accent primary + primaryForeground pairs for light and dark mode. */
 export const ACCENT_OPTIONS: Record<
   AccentKey,
-  { label: string; light: string; dark: string; foreground: string }
+  { label: string; light: string; dark: string; foreground: string; lightBg: string; darkBg: string }
 > = {
-  coral:  { label: "Orange", light: "#E0603C", dark: "#F07B54", foreground: "#FFFFFF" },
-  teal:   { label: "Teal",   light: "#2E9B87", dark: "#43B49E", foreground: "#FFFFFF" },
-  purple: { label: "Purple", light: "#7C5CBF", dark: "#9B7FD4", foreground: "#FFFFFF" },
-  sky:    { label: "Blue",   light: "#3B82C4", dark: "#5B9FE0", foreground: "#FFFFFF" },
-  rose:   { label: "Pink",   light: "#C4517A", dark: "#E07A9C", foreground: "#FFFFFF" },
+  coral:  { label: "Orange", light: "#E0603C", dark: "#F07B54", foreground: "#FFFFFF", lightBg: "#FDF4EA", darkBg: "#2A211B" },
+  teal:   { label: "Teal",   light: "#2E9B87", dark: "#43B49E", foreground: "#FFFFFF", lightBg: "#EBF6F4", darkBg: "#1B2B29" },
+  purple: { label: "Purple", light: "#7C5CBF", dark: "#9B7FD4", foreground: "#FFFFFF", lightBg: "#EEE9F7", darkBg: "#221F2C" },
+  sky:    { label: "Blue",   light: "#3B82C4", dark: "#5B9FE0", foreground: "#FFFFFF", lightBg: "#EAF1F8", darkBg: "#1C2430" },
+  rose:   { label: "Pink",   light: "#C4517A", dark: "#E07A9C", foreground: "#FFFFFF", lightBg: "#F7EBEF", darkBg: "#2B1D22" },
 };
 
 const colors = {
