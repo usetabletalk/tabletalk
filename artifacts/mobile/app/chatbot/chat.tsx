@@ -18,6 +18,7 @@ import { useColors } from "@/hooks/useColors";
 import { SCENARIOS } from "@/data/scenarios";
 import { ROLE_PROMPTS } from "@/data/rolePrompts";
 import { useAppState } from "@/contexts/AppStateContext";
+import { WebContainer } from "@/components/WebContainer";
 
 type ChatMessage = {
   id: string;
@@ -266,8 +267,10 @@ export default function ChatbotChatScreen() {
           headerTitleAlign: "center",
         }}
       />
+      <WebContainer>
       <FlatList
         ref={flatListRef}
+        style={{ flex: 1 }}
         data={displayMessages}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
@@ -332,6 +335,7 @@ export default function ChatbotChatScreen() {
           <Feather name="send" size={18} color={input.trim() && !loading ? colors.primaryForeground : colors.mutedForeground} />
         </Pressable>
       </View>
+      </WebContainer>
     </KeyboardAvoidingView>
   );
 }

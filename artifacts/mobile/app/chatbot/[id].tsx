@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useColors } from "@/hooks/useColors";
 import { SCENARIOS } from "@/data/scenarios";
+import { WebContainer } from "@/components/WebContainer";
 
 export default function ChatbotModePickerScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -28,8 +29,10 @@ export default function ChatbotModePickerScreen() {
   };
 
   return (
+    <View style={{ flex: 1, backgroundColor: colors.background }}>
+    <WebContainer>
     <ScrollView
-      style={[styles.container, { backgroundColor: colors.background }]}
+      style={styles.container}
       contentContainerStyle={[
         styles.content,
         { paddingBottom: insets.bottom + 32, paddingTop: Platform.OS === "web" ? 24 : 16 },
@@ -77,6 +80,8 @@ export default function ChatbotModePickerScreen() {
         ))}
       </View>
     </ScrollView>
+    </WebContainer>
+    </View>
   );
 }
 

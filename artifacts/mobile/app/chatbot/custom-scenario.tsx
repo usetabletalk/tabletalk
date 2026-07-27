@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "@/hooks/useColors";
+import { WebContainer } from "@/components/WebContainer";
 
 type Difficulty = "easy" | "medium" | "hard";
 
@@ -94,7 +95,9 @@ export default function CustomScenarioScreen() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <Stack.Screen options={{ headerTitleStyle: { fontFamily: "Inter_600SemiBold", fontSize: 16 } }} />
+      <WebContainer>
       <ScrollView
+        style={{ flex: 1 }}
         contentContainerStyle={[
           styles.scrollContent,
           { paddingTop: Platform.OS === "web" ? topPad + 16 : 16, paddingBottom: insets.bottom + 32 },
@@ -259,6 +262,7 @@ export default function CustomScenarioScreen() {
           </Text>
         )}
       </ScrollView>
+      </WebContainer>
     </KeyboardAvoidingView>
   );
 }

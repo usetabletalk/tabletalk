@@ -14,6 +14,7 @@ import { Feather } from "@expo/vector-icons";
 import { useColors } from "@/hooks/useColors";
 import { useAppState } from "@/contexts/AppStateContext";
 import type { ThemeMode } from "@/contexts/AppStateContext";
+import { WebContainer } from "@/components/WebContainer";
 
 import { ACCENT_OPTIONS } from "@/constants/colors";
 import type { AccentKey } from "@/constants/colors";
@@ -90,13 +91,15 @@ export default function ProfileScreen() {
   };
 
   return (
+    <View style={{ flex: 1, backgroundColor: colors.background }}>
+    <WebContainer>
     <ScrollView
-      style={[styles.container, { backgroundColor: colors.background }]}
+      style={styles.container}
       contentContainerStyle={[
         styles.content,
         {
           paddingTop: (Platform.OS === "web" ? 50 : insets.top) + 24,
-          paddingBottom: insets.bottom + 32,
+          paddingBottom: insets.bottom + 100,
         },
       ]}
       showsVerticalScrollIndicator={false}
@@ -317,6 +320,8 @@ export default function ProfileScreen() {
         </View>
       </View>
     </ScrollView>
+    </WebContainer>
+    </View>
   );
 }
 

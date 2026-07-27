@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "@/hooks/useColors";
 import { useAppState } from "@/contexts/AppStateContext";
 import { SCENARIOS } from "@/data/scenarios";
+import { WebContainer } from "@/components/WebContainer";
 
 
 const sortKey = (title: string) =>
@@ -102,7 +103,9 @@ export default function ChatbotScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <WebContainer>
       <FlatList
+        style={{ flex: 1 }}
         data={visibleScenarios}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
@@ -166,6 +169,7 @@ export default function ChatbotScreen() {
           </>
         }
       />
+      </WebContainer>
     </View>
   );
 }

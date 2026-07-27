@@ -5,6 +5,7 @@ import { Feather } from "@expo/vector-icons";
 
 import { useColors } from "@/hooks/useColors";
 import { useAppState } from "@/contexts/AppStateContext";
+import { WebContainer } from "@/components/WebContainer";
 
 type OrgResource = {
   id: string;
@@ -466,7 +467,9 @@ export default function CommunityScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background, paddingTop: Platform.OS === "web" ? 50 : insets.top }]}>
+      <WebContainer>
       <ScrollView
+        style={{ flex: 1 }}
         contentContainerStyle={[
           styles.content,
           { paddingBottom: insets.bottom + 100 },
@@ -587,6 +590,7 @@ export default function CommunityScreen() {
         )}
 
       </ScrollView>
+      </WebContainer>
     </View>
   );
 }
