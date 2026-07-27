@@ -227,7 +227,7 @@ export default function ProfileScreen() {
           style={[
             styles.segmentedControl,
             {
-              backgroundColor: colors.muted,
+              backgroundColor: colors.secondary,
               borderRadius: colors.radius,
               borderColor: colors.border,
             },
@@ -243,7 +243,9 @@ export default function ProfileScreen() {
                   styles.segment,
                   {
                     borderRadius: colors.radius - 2,
-                    backgroundColor: isActive ? colors.card : "transparent",
+                    backgroundColor: isActive ? colors.primary + "28" : "transparent",
+                    borderWidth: isActive ? 1 : 0,
+                    borderColor: isActive ? colors.primary + "60" : "transparent",
                   },
                   isActive && styles.segmentActive,
                 ]}
