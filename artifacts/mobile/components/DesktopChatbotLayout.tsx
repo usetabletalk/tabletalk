@@ -25,6 +25,50 @@ import { ROLE_PROMPTS } from "@/data/rolePrompts";
 import { SCENARIOS, type Scenario, type ScenarioMode } from "@/data/scenarios";
 import { useColors } from "@/hooks/useColors";
 
+// ─── custom-scenario helpers (mirrors custom-scenario.tsx) ──────────────────
+
+type Difficulty = "easy" | "medium" | "hard";
+
+const DIFFICULTIES: {
+  id: Difficulty;
+  label: string;
+  icon: string;
+  tagline: string;
+  description: string;
+}[] = [
+  { id: "easy",   label: "Easy",   icon: "sun",   tagline: "Low pressure", description: "They trust what you're saying and understand your concerns." },
+  { id: "medium", label: "Medium", icon: "cloud",  tagline: "Some friction", description: "They're asking follow-up questions and seem a bit confused." },
+  { id: "hard",   label: "Hard",   icon: "zap",    tagline: "Push back",    description: "They're skeptical and trying to argue with you about it." },
+];
+
+function buildRolePrompt(setting: string, person: string, skill: string, difficulty: Difficulty, additionalInfo: string): string {
+  const diff = DIFFICULTIES.find((d) => d.id === difficulty)!;
+  let p = `You are playing the role of ${person} in the following setting: ${setting}.\n\n`;
+  p += `The user is practicing: ${skill}\n\n`;
+  p += `Difficulty — ${diff.label} (${diff.tagline}): ${diff.description}\n`;
+  p += `Stay consistent with this difficulty level throughout the scene.`;
+  if (additionalInfo.trim()) p += `\n\nAdditional context:\n${additionalInfo.trim()}`;
+  return p;
+}
+
+function QuestionBlock({ number, label, optional, children, colors }: {
+  number: number; label: string; optional?: boolean;
+  children: React.ReactNode; colors: ReturnType<typeof useColors>;
+}) {
+  return (
+    <View style={cs.questionBlock}>
+      <View style={cs.questionLabelRow}>
+        <View style={[cs.questionBadge, { backgroundColor: colors.primary }]}>
+          <Text style={[cs.questionNumber, { color: colors.primaryForeground }]}>{number}</Text>
+        </View>
+        <Text style={[cs.questionLabel, { color: colors.foreground }]}>{label}</Text>
+        {optional && <Text style={[cs.optionalTag, { color: colors.mutedForeground }]}>optional</Text>}
+      </View>
+      {children}
+    </View>
+  );
+}
+
 // ─── chat helpers (mirrors chat.tsx) ────────────────────────────────────────
 
 const DEBRIEF_MARKER = "[DEBRIEF]";
@@ -77,7 +121,9 @@ function parseResponse(raw: string): ParsedPart[] {
 type RightPanel =
   | { kind: "empty" }
   | { kind: "modes"; scenario: Scenario }
-  | { kind: "chat"; scenario: Scenario; mode?: ScenarioMode };
+  | { kind: "chat"; scenario: Scenario; mode?: ScenarioMode }
+  | { kind: "custom-form" }
+  | { kind: "custom-chat"; title: string; rolePrompt: string };
 
 // ─── Empty placeholder ───────────────────────────────────────────────────────
 
@@ -173,10 +219,14 @@ function ModePicker({
 function ChatPanel({
   scenario,
   mode,
+  customTitle,
+  customRolePrompt,
   onBack,
 }: {
-  scenario: Scenario;
+  scenario?: Scenario;
   mode?: ScenarioMode;
+  customTitle?: string;
+  customRolePrompt?: string;
   onBack: () => void;
 }) {
   const colors = useColors();
@@ -184,10 +234,10 @@ function ChatPanel({
   const flatListRef = useRef<FlatList>(null);
   const openingFired = useRef(false);
 
-  const rolePromptKey = mode
-    ? `${scenario.id}:${mode.id}`
-    : scenario.id;
-  const effectiveRolePrompt = ROLE_PROMPTS[rolePromptKey];
+  const isCustom = !!customTitle;
+  const displayTitle = isCustom ? customTitle! : scenario!.title;
+  const rolePromptKey = mode ? `${scenario!.id}:${mode.id}` : scenario?.id ?? "";
+  const effectiveRolePrompt = isCustom ? customRolePrompt : ROLE_PROMPTS[rolePromptKey];
 
   const [messages, setMessages] = useState<ChatMessage[]>([
     { id: "disclaimer", role: "disclaimer", content: DISCLAIMER },
@@ -206,10 +256,10 @@ function ChatPanel({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         messages: history,
-        scenarioTitle: scenario.title,
+        scenarioTitle: displayTitle,
         modeLabel: mode?.label,
         rolePrompt: effectiveRolePrompt,
-        isCustomScenario: false,
+        isCustomScenario: isCustom,
         userName: appState.userName || undefined,
         userPronouns: appState.userPronouns || undefined,
         dietaryRestrictions: appState.dietaryRestrictions ?? [],
@@ -400,7 +450,7 @@ function ChatPanel({
           onPress={onBack}
           style={ch.back}
           accessibilityRole="button"
-          accessibilityLabel="Back to mode picker"
+          accessibilityLabel="Back"
         >
           <Feather name="arrow-left" size={18} color={colors.primary} />
         </Pressable>
@@ -409,7 +459,7 @@ function ChatPanel({
             style={[ch.headerTitle, { color: colors.foreground }]}
             numberOfLines={1}
           >
-            {scenario.title}
+            {displayTitle}
           </Text>
           {mode?.label ? (
             <Text
@@ -509,6 +559,144 @@ function ChatPanel({
           />
         </Pressable>
       </View>
+    </View>
+  );
+}
+
+// ─── Custom scenario form panel ──────────────────────────────────────────────
+
+function CustomScenarioPanel({ onStart, onBack }: {
+  onStart: (title: string, rolePrompt: string) => void;
+  onBack: () => void;
+}) {
+  const colors = useColors();
+  const [setting, setSetting] = useState("");
+  const [person, setPerson] = useState("");
+  const [skill, setSkill] = useState("");
+  const [difficulty, setDifficulty] = useState<Difficulty | null>(null);
+  const [additionalInfo, setAdditionalInfo] = useState("");
+  const canSubmit = setting.trim() && person.trim() && skill.trim() && difficulty;
+
+  const handleSubmit = () => {
+    if (!canSubmit) return;
+    const rolePrompt = buildRolePrompt(setting, person, skill, difficulty!, additionalInfo);
+    onStart(setting, rolePrompt);
+  };
+
+  return (
+    <View style={{ flex: 1 }}>
+      {/* Header */}
+      <View style={[ch.header, { borderBottomColor: colors.border, backgroundColor: colors.background }]}>
+        <Pressable onPress={onBack} style={ch.back} accessibilityRole="button" accessibilityLabel="Back">
+          <Feather name="arrow-left" size={18} color={colors.primary} />
+        </Pressable>
+        <View style={ch.headerText}>
+          <Text style={[ch.headerTitle, { color: colors.foreground }]}>Custom scenario</Text>
+          <Text style={[ch.headerSub, { color: colors.mutedForeground }]}>Build a session around your own situation</Text>
+        </View>
+      </View>
+
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={cs.scrollContent}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={[cs.introCard, { backgroundColor: colors.primary + "18", borderRadius: colors.radius }]}>
+          <Feather name="edit-3" size={16} color={colors.primary} style={{ marginRight: 10, marginTop: 1 }} />
+          <Text style={[cs.introText, { color: colors.foreground }]}>
+            Answer a few quick questions and we'll set up a personalised practice session for you.
+          </Text>
+        </View>
+
+        <QuestionBlock number={1} label="What is the setting?" colors={colors}>
+          <TextInput
+            style={[cs.textInput, { backgroundColor: colors.card, borderColor: colors.border, borderRadius: colors.radius, color: colors.foreground }]}
+            value={setting} onChangeText={setSetting}
+            placeholder="e.g. a friend's catered wedding, an office celebration, Grandma's holiday table"
+            placeholderTextColor={colors.mutedForeground} multiline maxLength={300}
+          />
+        </QuestionBlock>
+
+        <QuestionBlock number={2} label="Who should the chatbot play?" colors={colors}>
+          <TextInput
+            style={[cs.textInput, { backgroundColor: colors.card, borderColor: colors.border, borderRadius: colors.radius, color: colors.foreground }]}
+            value={person} onChangeText={setPerson}
+            placeholder="e.g. a caterer, a relative, a well-meaning partner, a skeptical coworker"
+            placeholderTextColor={colors.mutedForeground} multiline maxLength={200}
+          />
+        </QuestionBlock>
+
+        <QuestionBlock number={3} label="What skill are you practicing?" colors={colors}>
+          <TextInput
+            style={[cs.textInput, { backgroundColor: colors.card, borderColor: colors.border, borderRadius: colors.radius, color: colors.foreground }]}
+            value={skill} onChangeText={setSkill}
+            placeholder="e.g. explaining cross-contact to a stranger, holding my ground when people are doubtful"
+            placeholderTextColor={colors.mutedForeground} multiline maxLength={300}
+          />
+        </QuestionBlock>
+
+        <QuestionBlock number={4} label="Select a difficulty level." colors={colors}>
+          <View style={cs.difficultyGrid}>
+            {DIFFICULTIES.map((d) => {
+              const selected = difficulty === d.id;
+              return (
+                <Pressable
+                  key={d.id}
+                  onPress={() => setDifficulty(d.id)}
+                  style={({ pressed }) => [
+                    cs.difficultyCard,
+                    { backgroundColor: selected ? colors.primary + "18" : colors.card, borderColor: selected ? colors.primary : colors.border, borderRadius: colors.radius, opacity: pressed ? 0.85 : 1 },
+                  ]}
+                  accessibilityRole="radio"
+                  accessibilityState={{ checked: selected }}
+                >
+                  <View style={cs.difficultyIconRow}>
+                    <View style={cs.difficultyIconLabel}>
+                      <Feather name={d.icon as any} size={15} color={selected ? colors.primary : colors.mutedForeground} />
+                      <Text style={[cs.difficultyLabel, { color: selected ? colors.primary : colors.foreground }]}>{d.label}</Text>
+                    </View>
+                    {selected && <View style={[cs.selectedDot, { backgroundColor: colors.primary }]} />}
+                  </View>
+                  <Text style={[cs.difficultyTagline, { color: colors.mutedForeground }]}>{d.tagline}</Text>
+                  <Text style={[cs.difficultyDesc, { color: colors.mutedForeground }]}>{d.description}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+        </QuestionBlock>
+
+        <QuestionBlock number={5} label="Any additional details?" optional colors={colors}>
+          <TextInput
+            style={[cs.textInput, cs.textInputTall, { backgroundColor: colors.card, borderColor: colors.border, borderRadius: colors.radius, color: colors.foreground }]}
+            value={additionalInfo} onChangeText={setAdditionalInfo}
+            placeholder="e.g. I'm preparing for an upcoming event, I'd like the bot to start with a specific line"
+            placeholderTextColor={colors.mutedForeground} multiline maxLength={600} textAlignVertical="top"
+          />
+          <Text style={[cs.charCount, { color: colors.mutedForeground }]}>{additionalInfo.length}/600</Text>
+        </QuestionBlock>
+
+        <Pressable
+          onPress={handleSubmit}
+          disabled={!canSubmit}
+          style={({ pressed }) => [
+            cs.submitButton,
+            { backgroundColor: canSubmit ? colors.primary : colors.card, borderRadius: colors.radius, borderWidth: canSubmit ? 0 : 1, borderColor: colors.border, opacity: pressed ? 0.85 : 1 },
+          ]}
+          accessibilityRole="button"
+          accessibilityLabel="Start custom scenario"
+          accessibilityState={{ disabled: !canSubmit }}
+        >
+          <Feather name="play" size={16} color={canSubmit ? colors.primaryForeground : colors.mutedForeground} style={{ marginRight: 8 }} />
+          <Text style={[cs.submitText, { color: canSubmit ? colors.primaryForeground : colors.mutedForeground }]}>
+            Start scenario
+          </Text>
+        </Pressable>
+
+        {!canSubmit && (
+          <Text style={[cs.requiredNote, { color: colors.mutedForeground }]}>Questions 1–4 are required to start.</Text>
+        )}
+      </ScrollView>
     </View>
   );
 }
@@ -690,7 +878,7 @@ export function DesktopChatbotLayout({
 
               {/* Custom scenario card */}
               <Pressable
-                onPress={() => router.push("/chatbot/custom-scenario")}
+                onPress={() => { setPanel({ kind: "custom-form" }); setSelectedId(null); }}
                 style={({ pressed }) => [
                   lc.customCard,
                   {
@@ -767,10 +955,64 @@ export function DesktopChatbotLayout({
             />
           </View>
         )}
+
+        {panel.kind === "custom-form" && (
+          <View style={[layout.rightInner, { paddingTop: RIGHT_TOP }]}>
+            <CustomScenarioPanel
+              onBack={() => setPanel({ kind: "empty" })}
+              onStart={(title, rolePrompt) =>
+                setPanel({ kind: "custom-chat", title, rolePrompt })
+              }
+            />
+          </View>
+        )}
+
+        {panel.kind === "custom-chat" && (
+          <View style={[layout.rightInner, { paddingTop: RIGHT_TOP }]}>
+            <ChatPanel
+              key={`custom-${panel.title}`}
+              customTitle={panel.title}
+              customRolePrompt={panel.rolePrompt}
+              onBack={() => setPanel({ kind: "custom-form" })}
+            />
+          </View>
+        )}
       </View>
     </View>
   );
 }
+
+// ─── Custom-scenario form styles ─────────────────────────────────────────────
+
+const cs = StyleSheet.create({
+  scrollContent: { paddingHorizontal: 24, paddingTop: 20, paddingBottom: 40, gap: 28 },
+  introCard: { flexDirection: "row", alignItems: "flex-start", padding: 14 },
+  introText: { fontFamily: "Inter_400Regular", fontSize: 14, lineHeight: 21, flex: 1 },
+  questionBlock: { gap: 12 },
+  questionLabelRow: { flexDirection: "row", alignItems: "center", gap: 10 },
+  questionBadge: { width: 24, height: 24, borderRadius: 12, alignItems: "center", justifyContent: "center", flexShrink: 0 },
+  questionNumber: { fontFamily: "Inter_700Bold", fontSize: 12 },
+  questionLabel: { fontFamily: "Inter_600SemiBold", fontSize: 15, flex: 1 },
+  optionalTag: { fontFamily: "Inter_400Regular", fontSize: 12, fontStyle: "italic" },
+  textInput: {
+    borderWidth: 1,
+    paddingHorizontal: 14, paddingVertical: 12,
+    fontSize: 15, fontFamily: "Inter_400Regular", lineHeight: 22, minHeight: 80,
+  },
+  textInputTall: { minHeight: 100 },
+  charCount: { fontFamily: "Inter_400Regular", fontSize: 12, textAlign: "right", marginTop: -4 },
+  difficultyGrid: { flexDirection: "column", gap: 10 },
+  difficultyCard: { borderWidth: 1.5, padding: 12, gap: 4 },
+  difficultyIconRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 4 },
+  difficultyIconLabel: { flexDirection: "row", alignItems: "center", gap: 7 },
+  selectedDot: { width: 7, height: 7, borderRadius: 4 },
+  difficultyLabel: { fontFamily: "Inter_700Bold", fontSize: 14 },
+  difficultyTagline: { fontFamily: "Inter_600SemiBold", fontSize: 11, letterSpacing: 0.2 },
+  difficultyDesc: { fontFamily: "Inter_400Regular", fontSize: 12, lineHeight: 17, marginTop: 4 },
+  submitButton: { flexDirection: "row", alignItems: "center", justifyContent: "center", paddingVertical: 16, marginTop: 4 },
+  submitText: { fontFamily: "Inter_700Bold", fontSize: 16 },
+  requiredNote: { fontFamily: "Inter_400Regular", fontSize: 13, textAlign: "center", marginTop: -16 },
+});
 
 // ─── Styles ──────────────────────────────────────────────────────────────────
 
