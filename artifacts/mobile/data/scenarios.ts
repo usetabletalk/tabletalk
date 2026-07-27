@@ -1403,26 +1403,4 @@ export const SCENARIOS: Scenario[] = [
       },
     },
   },
-  {
-    id: "epipen-training",
-    title: "Teaching Someone to Use Your EpiPen",
-    description: "Walk a trusted person through what to do if you have a severe allergic reaction. Practice giving clear, calm instructions they'll actually remember.",
-    estimatedMinutes: 6,
-    modes: [
-      {
-        id: "willing",
-        label: "Willing to Help",
-        description: "They're calm, attentive, and take it seriously — but they're not medical professionals.",
-        icon: "smile",
-        tint: "mint",
-      },
-      {
-        id: "anxious",
-        label: "Anxious About Helping",
-        description: "They care deeply but are scared of doing it wrong. They need extra reassurance.",
-        icon: "help-circle",
-        tint: "rose",
-      },
-    ],
-  },
 ];

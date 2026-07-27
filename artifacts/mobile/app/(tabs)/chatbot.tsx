@@ -7,7 +7,6 @@ import { useColors } from "@/hooks/useColors";
 import { useAppState } from "@/contexts/AppStateContext";
 import { SCENARIOS } from "@/data/scenarios";
 
-const ALL_9_ALLERGENS = ["dairy", "egg", "fish", "shellfish", "soy", "sesame", "wheat", "peanut", "tree-nut"];
 
 const sortKey = (title: string) =>
   title.replace(/^(a|the)\s+/i, "").toLowerCase();
@@ -28,7 +27,6 @@ export default function ChatbotScreen() {
   const visibleScenarios = [...SCENARIOS]
     .filter((s) => {
       if (s.id === "too-much-detail") return restrictions.includes("celiac");
-      if (s.id === "epipen-training") return ALL_9_ALLERGENS.some((a) => restrictions.includes(a));
       return true;
     })
     .sort((a, b) => sortKey(a.title).localeCompare(sortKey(b.title)));
