@@ -1,7 +1,7 @@
 import { Feather } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
-import { FlatList, Platform, Pressable, StyleSheet, Text, View } from "react-native";
+import { FlatList, Platform, Pressable, StyleSheet, Text, View, useColorScheme } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "@/hooks/useColors";
 import { useAppState } from "@/contexts/AppStateContext";
@@ -20,6 +20,7 @@ const MODE_TINT_MAP: Record<string, keyof ReturnType<typeof useColors>["tints"]>
 
 export default function ChatbotScreen() {
   const colors = useColors();
+  const colorScheme = useColorScheme();
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const { state } = useAppState();
@@ -78,16 +79,18 @@ export default function ChatbotScreen() {
                     {
                       backgroundColor: colors.tints[tintKey],
                       borderRadius: 20,
+                      borderWidth: colorScheme === "dark" ? 0.5 : 0,
+                      borderColor: "rgba(255,255,255,0.35)",
                     },
                   ]}
                 >
                   <Feather
                     name={mode.icon as any}
                     size={11}
-                    color={colors.mutedForeground}
+                    color={colors.foreground}
                     style={{ marginRight: 4 }}
                   />
-                  <Text style={[styles.modeLabel, { color: colors.mutedForeground }]}>
+                  <Text style={[styles.modeLabel, { color: colors.foreground }]}>
                     {mode.label}
                   </Text>
                 </View>

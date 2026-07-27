@@ -243,9 +243,9 @@ export default function ProfileScreen() {
                   styles.segment,
                   {
                     borderRadius: colors.radius - 2,
-                    backgroundColor: isActive ? colors.primary + "28" : "transparent",
+                    backgroundColor: isActive ? colors.primary + "50" : "transparent",
                     borderWidth: isActive ? 1 : 0,
-                    borderColor: isActive ? colors.primary + "60" : "transparent",
+                    borderColor: isActive ? colors.primary + "99" : "transparent",
                   },
                   isActive && styles.segmentActive,
                 ]}

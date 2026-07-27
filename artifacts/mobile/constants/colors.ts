@@ -140,14 +140,14 @@ const colors = {
     border: "#4A3B31",
     input: "#4A3B31",
 
-    // Soft categorical tints for dark mode (subdued, low contrast)
+    // Categorical tints for dark mode — saturated enough to stand out on any dark background
     tints: {
-      lavender: "#3B3347",
-      mint: "#30423A",
-      peach: "#4D3B2E",
-      sky: "#304047",
-      rose: "#4A3137",
-      lemon: "#4A462B",
+      lavender: "#4A3F6E",
+      mint: "#1E5C48",
+      peach: "#6B4228",
+      sky: "#1C4A66",
+      rose: "#6B2040",
+      lemon: "#5C5018",
     },
   },
 
