@@ -1,12 +1,13 @@
 import { Feather } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
-import { FlatList, Platform, Pressable, StyleSheet, Text, View, useColorScheme } from "react-native";
+import { FlatList, Platform, Pressable, StyleSheet, Text, View, useColorScheme, useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "@/hooks/useColors";
 import { useAppState } from "@/contexts/AppStateContext";
 import { SCENARIOS } from "@/data/scenarios";
 import { WebContainer } from "@/components/WebContainer";
+import { DesktopChatbotLayout } from "@/components/DesktopChatbotLayout";
 
 
 const sortKey = (title: string) =>
@@ -24,7 +25,10 @@ export default function ChatbotScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const { state } = useAppState();
+  const { width } = useWindowDimensions();
   const restrictions = state.dietaryRestrictions ?? [];
+
+  const isDesktop = Platform.OS === "web" && width >= 768;
 
   const visibleScenarios = [...SCENARIOS]
     .filter((s) => {
@@ -32,6 +36,17 @@ export default function ChatbotScreen() {
       return true;
     })
     .sort((a, b) => sortKey(a.title).localeCompare(sortKey(b.title)));
+
+  const topPad = Platform.OS === "web" ? 50 : insets.top;
+
+  if (isDesktop) {
+    return (
+      <DesktopChatbotLayout
+        visibleScenarios={visibleScenarios}
+        topPad={topPad}
+      />
+    );
+  }
 
   const handleCardPress = (item: typeof SCENARIOS[0]) => {
     if (item.modes && item.modes.length > 0) {
