@@ -22,7 +22,7 @@ const NAV_ITEMS = [
 
 export function WebSidebar() {
   const [open, setOpen] = useState(false);
-  const slideAnim = useRef(new Animated.Value(-SIDEBAR_WIDTH)).current;
+  const slideAnim = useRef(new Animated.Value(SIDEBAR_WIDTH)).current;
   const colors = useColors();
   const router = useRouter();
   const pathname = usePathname();
@@ -39,7 +39,7 @@ export function WebSidebar() {
 
   const closeDrawer = () => {
     Animated.timing(slideAnim, {
-      toValue: -SIDEBAR_WIDTH,
+      toValue: SIDEBAR_WIDTH,
       duration: 180,
       useNativeDriver: false,
     }).start(() => setOpen(false));
@@ -153,7 +153,7 @@ export function WebSidebar() {
 const styles = StyleSheet.create({
   hamburger: {
     position: "absolute",
-    left: 16,
+    right: 16,
     zIndex: 300,
     width: 40,
     height: 40,
@@ -180,15 +180,15 @@ const styles = StyleSheet.create({
   drawer: {
     position: "absolute",
     top: 0,
-    left: 0,
+    right: 0,
     bottom: 0,
     width: SIDEBAR_WIDTH,
     zIndex: 250,
-    borderRightWidth: 1,
+    borderLeftWidth: 1,
     paddingHorizontal: 16,
     paddingBottom: 32,
     shadowColor: "#000",
-    shadowOffset: { width: 4, height: 0 },
+    shadowOffset: { width: -4, height: 0 },
     shadowOpacity: 0.12,
     shadowRadius: 12,
     elevation: 10,
