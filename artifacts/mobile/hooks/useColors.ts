@@ -30,15 +30,20 @@ export function useColors() {
     effectiveScheme === "dark" && colors.dark ? colors.dark : colors.light;
 
   const accent = ACCENT_OPTIONS[state.accentColor] ?? ACCENT_OPTIONS.coral;
-  const primaryColor = effectiveScheme === "dark" ? accent.dark : accent.light;
-  const backgroundColor = effectiveScheme === "dark" ? accent.darkBg : accent.lightBg;
+  const isDark = effectiveScheme === "dark";
+  const primaryColor = isDark ? accent.dark : accent.light;
 
   return {
     ...palette,
     primary: primaryColor,
     primaryForeground: accent.foreground,
     tint: primaryColor,
-    background: backgroundColor,
+    background:  isDark ? accent.darkBg        : accent.lightBg,
+    secondary:   isDark ? accent.darkSecondary  : accent.lightSecondary,
+    muted:       isDark ? accent.darkMuted      : accent.lightMuted,
+    border:      isDark ? accent.darkBorder     : accent.lightBorder,
+    input:       isDark ? accent.darkBorder     : accent.lightBorder,
+    card:        isDark ? accent.darkCard       : palette.card,
     radius: colors.radius,
   };
 }
