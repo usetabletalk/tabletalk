@@ -117,8 +117,6 @@ export default function ChatbotScreen() {
     );
   };
 
-  const topPad = Platform.OS === "web" ? 50 : insets.top;
-
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <WebContainer>
